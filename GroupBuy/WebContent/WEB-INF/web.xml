@@ -33,8 +33,80 @@
 		<res-auth>Container</res-auth>
 	</resource-ref>
 <!-- 連線池 --> 
-  
-  
-  
+
+<!-- 團購 -->
+
+	<servlet>
+		<servlet-name>GroupbuyServlert</servlet-name>
+		<servlet-class>com.groupbuy.controller.GroupbuyServlert</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GroupbuyServlert</servlet-name>
+		<url-pattern>/groupbuy/groupbuy.do</url-pattern>
+	</servlet-mapping>
+
+<!-- 團購 -->
+
+<!-- 商城 -->
+
+	<servlet>
+		<servlet-name>ProServlet</servlet-name>
+		<servlet-class>com.product.controller.ProServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ProServlet</servlet-name>
+		<url-pattern>/product/pro.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ProPic</servlet-name>
+		<servlet-class>com.product.controller.ProPic</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ProPic</servlet-name>
+		<url-pattern>/product/proPic.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShopCartPic</servlet-name>
+		<servlet-class>com.shopCart.controller.ShopCartPic</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ShopCartPic</servlet-name>
+		<url-pattern>/shopCart/ShopCartPic.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>FavpServlet</servlet-name>
+		<servlet-class>com.favouriteProduct.controller.FavpServlet</servlet-class>
+	</servlet>        
+	
+	<servlet-mapping>
+		<servlet-name>FavpServlet</servlet-name>
+		<url-pattern>/favouriteProduct/favp.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		    <servlet-name>ShopCartServlet</servlet-name>
+		    <servlet-class>com.shopCart.controller.ShopCartServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+		    <servlet-name>ShopCartServlet</servlet-name>
+		    <url-pattern>/shopCart/Shopping.do</url-pattern>
+	  </servlet-mapping>
+	  
+	  <servlet>
+		    <servlet-name>PoServlet</servlet-name>
+		    <servlet-class>com.productOrder.controller.PoServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+		    <servlet-name>PoServlet</servlet-name>
+		    <url-pattern>/productOrder/Po.do</url-pattern>
+	  </servlet-mapping>
+
+<!-- 商城 -->	
   
 </web-app>

@@ -5,6 +5,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
+import com.groupbuy.model.*;
 
 @WebServlet("/GroupbuyServlert")
 public class GroupbuyServlert extends HttpServlet {
@@ -23,8 +24,8 @@ public class GroupbuyServlert extends HttpServlet {
 		String front = 				"/front-end";
 		String back = 				"/back-end";
 		String select_page = 		"/groupbuy/select_page.jsp";
-		String listOneGroupbuy = 	"/groupbuy/listOneGroupbuy";
-		String listAllGroupbuy = 	"/groupbuy/listAllgroupbuy";
+		String listOneGroupbuy = 	"/groupbuy/listOneGroupbuy.jsp";
+		String listAllGroupbuy = 	"/groupbuy/listAllgroupbuy.jsp";
 		
 		if ("getOne_For_Display".equals(action)) {
 			
@@ -51,18 +52,21 @@ public class GroupbuyServlert extends HttpServlet {
 				
 				String gro_id = str;
 				/***************************2.開始查詢資料*****************************************/
-
-				
-				
-				
-				
-				
+				GroupbuyService groupbuySvc = new GroupbuyService();
+				GroupbuyVO groupbuyVO = groupbuySvc.getOneGroupbuy(gro_id);
 				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher(select_page);
 					failureView.forward(req, res);
 					return;
 				}
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("groupbuyVO", groupbuyVO);
+				RequestDispatcher successView = req.getRequestDispatcher(listOneGroupbuy);
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理*************************************/
 				
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料： " + e.getMessage());

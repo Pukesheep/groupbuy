@@ -167,6 +167,7 @@ public class GroupbuyDAO implements GroupbuyDAO_interface {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
+			pstmt.setString(1, gro_id);
 			rs = pstmt.executeQuery();
 			groupbuyVO = new GroupbuyVO();
 			

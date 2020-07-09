@@ -1,0 +1,101 @@
+/*========================  header  =====================r*/
+header.navbar {
+    padding: 0.3125rem 2rem;
+    background: linear-gradient(#303542, #13203bf5);
+}
+header a.nav-link{
+    color:lightgrey !important;
+    font-size: 1.1rem;
+}
+header a.nav-link:hover{
+    color:white !important;
+}
+header .navbar-brand {
+    padding: 0;
+}
+header .navbar-brand span.logo{
+    font-size: 2.2rem;
+}
+header .navbar-brand span.logo2{
+    font-size: 2.2rem;
+    font-family: 'Lakki Reddy', cursive;
+    margin-left: 0.5rem;
+}
+header .navbar-brand span.logo3{
+    font-family: 'Lakki Reddy', cursive;
+    margin-left:  0.3125rem;
+}
+/*========================  .content ��� aside main  =====================r*/
+.content{
+    margin-top: 73px;
+}
+    /*========================  aside  =====================r*/
+    aside {
+        position: sticky;
+        top: 73px;
+        z-index: 1000;
+        height: calc(100vh - 73px);
+    }
+    aside.navbar-collapse {
+        background: linear-gradient(to bottom right, #101a2ef5, #13203bf5);
+    }
+    aside.navbar-collapse > ul{
+        width: 100%;
+    }
+    aside.navbar-collapse .nav-link{
+        color: lightgrey;
+        font-size: 1.1rem;
+    }
+    aside.navbar-collapse .nav-link:hover{
+        cursor: pointer;
+    }
+    aside.navbar-collapse a{
+        /* color: white; */
+        width: 100%;
+    }
+    aside.navbar-collapse a:hover{
+        color: white;
+        background-color: lightslategrey;
+    }
+    /*========================  main  =====================r*/
+    main{
+       min-height: calc(100vh - 73px);
+       width: 100%;
+    }
+/*========================   Media Query 768px =====================r*/
+@media (max-width: 767px){
+    aside {
+        position: static;
+        height: auto;
+        top: 0;
+        }       
+    main {
+         width: 100%;
+    }
+    header .navbar-brand span.logo{
+        font-size: 2rem;
+    }
+    header .navbar-brand span.logo2{
+        font-size: 2rem;
+        margin-left: 0.7rem;
+    }
+    header .navbar-brand span.logo3{
+       display: none;
+    }
+    .content{
+        margin-top: 69px;
+    }
+}
+@media (min-width: 768px){
+    aside.navbar-collapse {
+        display:flex !important;
+        flex-direction: row;
+        align-items: flex-start;
+        min-height: calc(100vh - 73px);
+        min-width: 230px;
+        max-width: 230px;
+    } 
+}
+
+
+
