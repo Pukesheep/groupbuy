@@ -50,13 +50,12 @@
     	img.product_image {
     		width: 40%;
     		height: 40%;
-    		border: 3px dashed red;
+    		border: 3px dashed yellow;
     		padding: 5px;
     	}
     	img#burning {
     		width: 40px;
     		height: 40px;
-    		
     	}
     </style>
 </head>
@@ -79,24 +78,57 @@
 				<div class="row justify-content-center">
 					<div class="col-11">
 						<div class="card mt-5">
-							<div class="card-body bg-info">
+							<div class="card-body bg-secondary">
 								<c:forEach var="productVO" items="${productSvc.all}">
 									<c:if test="${groupbuyVO.p_id eq productVO.p_id}">
 										<div class="media">
-											<img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}" class="align-self-start mr-3 product_image rounded" alt="">
-											<div class="media-body">
-												<h3 class="mt-0 mb-3">${productVO.p_name}</h3>
-												<pre class="text-white">${productVO.p_info}</pre>
-													<span class="badge badge-pill badge-success">
-														<img alt="" src="<%=request.getContextPath()%>/images/groupbuy/fire.png" id="burning">
-														<h6>
-															<fmt:formatDate value="${groupbuyVO.start_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
-														</h6>
-													</span>
-												
-												<span class="badge badge-pill badge-success">
-													<fmt:formatDate value="${groupbuyVO.start_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
-												</span>
+											<img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}" class="align-self-center mr-3 product_image rounded" alt="">
+											<div class="media-body w-10">
+												<h3 class="mt-0 mb-3 alert alert-primary">${productVO.p_name}</h3>
+												<pre class="alert alert-primary">${productVO.p_info}</pre>
+												<div class="row justify-content-around alert alert alert-primary ml-0 mr-0">
+													<div class="col-3 text-center">
+														<button type="button" class="btn btn-outline-danger btn-sm" data-container="body" data-toggle="popover" data-placement="top" data-content="目前團購案人數 ： ${groupbuyVO.people} 人">
+															參與人數
+														</button>
+													</div>
+													<div class="col-6 text-center">
+														<button type="button" class="btn btn-outline-warning btn-sm" id="reveal" data-container="body" data-toggle="popover" data-placement="top" data-content="剩餘時間">
+															0 天 00 小時 00 分鐘 00 秒
+														</button>
+													</div>	
+													<div class="col-3 text-center">
+														<button type="button" class="btn btn-outline-success btn-sm">
+															立即參加
+														</button>
+													</div>
+												</div>	
+											</div>
+										</div>
+										<div class="row justify-content-center">
+											<div class="col-11 alert alert-primary">
+<!-- 												<div class="progress"> -->
+<%-- 													<h4><span class="badge badge-pill badge-secondary">${productVO.p_price}</span></h4> --%>
+<%-- 													<div class="progress-bar bg-danger" role="progressbar" style="width: 33.3%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">${groupbuyVO.reb1_no}</div> --%>
+													
+<%-- 													<div class="progress-bar bg-warning" role="progressbar" style="width: 33.3%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">${groupbuyVO.reb2_no}</div> --%>
+													
+<%-- 													<div class="progress-bar bg-success" role="progressbar" style="width: 33.3%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">${groupbuyVO.reb3_no}</div> --%>
+<!-- 												</div> -->
+												<h6><span class="badge badge-pill badge-secondary">${productVO.p_price}</span></h6>
+												<div class="progress" style="height: 25px">
+													<div class="progress-bar bg-danger" id="1stlevel" role="progressbar" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> 5 人</div>
+													<h5><span class="badge badge-secondary">$${productVO.p_price * 0.9}</span></h5>
+												</div>
+												<h5><span class="badge badge-pill badge-secondary">${productVO.p_price * 0.9}</span></h5>
+												<div class="progress">
+													<div class="progress-bar bg-warning" id="2ndlevel" role="progressbar" style="width: 33.3%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> 10 人</div>
+												</div>												
+												<h3><span class="badge badge-pill badge-secondary">${productVO.p_price * 0.85}</span></h3>
+												<div class="progress">
+													<div class="progress-bar bg-success" id="3rdlevel" role="progressbar" style="width: 33.3%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> 15 人</div>
+												</div>														
+												<h1><span class="badge badge-pill badge-secondary">${productVO.p_price * 0.8}</span></h1>
 												
 											</div>
 										</div>
@@ -118,17 +150,39 @@
 	function init(){
 		var end_date = <%=end_date%>;
 		var timer = setInterval(function(){
-			console.log(end_date);
 			var now = new Date().getTime();
-			var remain = end_date - now;
-			console.log(remain);
-			var ok = new Date(remain);
-			console.log(ok);
+			var remain = Math.ceil((end_date - now) / 1000);
+			var day = Math.floor(remain / 86400);
+			var hour = Math.floor(remain % 86400 / 3600);
+			var minute = Math.floor((remain % 86400 % 3600) / 60);
+			var second = (((remain % 86400) % 3600) % 60);
+			
+			$('#reveal').text(day + ' 天 ' + hour + ' 小時 ' + minute + ' 分鐘 ' + second + ' 秒 ');
 			
 		}, 1000);
 	}
 	
 	window.onload = init;
+	
+	function progressbar(){
+		var timer1 = setInterval(function(){
+			var current = 	5;
+			var first = 	(current / 5 * 100) + '%';
+			var second = 	(current / 10 * 100) + '%';
+			var third = 	(current / 15 * 100) + '%';
+			
+			$('#1stlevel').attr('style', 'width:' + first);
+			$('#2ndlevel').attr('style', 'width:' + second);
+			$('#3rdlevel').attr('style', 'width:' + third);			
+		}, 1000);
+		
+	}
+	
+	window.onload = progressbar;
+	
+	$(function () {
+		$('[data-toggle="popover"]').popover()
+	})
 </script>
 
 

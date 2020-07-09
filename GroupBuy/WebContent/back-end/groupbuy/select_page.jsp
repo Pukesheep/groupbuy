@@ -16,7 +16,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/bootstrap.min.css">
     <!-- Include Favicon ico-->
-    <link rel="shortcut icon" href="./img/ICON.ico">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/back-end/img/ICON.ico">
     <!-- Font-awesome CSS -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
     <!--GoogleFont-->
