@@ -117,16 +117,16 @@
 <!-- 												</div> -->
 												<h6><span class="badge badge-pill badge-secondary">${productVO.p_price}</span></h6>
 												<div class="progress" style="height: 25px">
-													<div class="progress-bar bg-danger" id="1stlevel" role="progressbar" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> 5 人</div>
+													<div class="progress-bar bg-danger" id="1stlevel" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> 5 人</div>
 													<h5><span class="badge badge-secondary">$${productVO.p_price * 0.9}</span></h5>
 												</div>
 												<h5><span class="badge badge-pill badge-secondary">${productVO.p_price * 0.9}</span></h5>
 												<div class="progress">
-													<div class="progress-bar bg-warning" id="2ndlevel" role="progressbar" style="width: 33.3%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> 10 人</div>
+													<div class="progress-bar bg-warning" id="2ndlevel" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> 10 人</div>
 												</div>												
 												<h3><span class="badge badge-pill badge-secondary">${productVO.p_price * 0.85}</span></h3>
 												<div class="progress">
-													<div class="progress-bar bg-success" id="3rdlevel" role="progressbar" style="width: 33.3%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> 15 人</div>
+													<div class="progress-bar bg-success" id="3rdlevel" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> 15 人</div>
 												</div>														
 												<h1><span class="badge badge-pill badge-secondary">${productVO.p_price * 0.8}</span></h1>
 												

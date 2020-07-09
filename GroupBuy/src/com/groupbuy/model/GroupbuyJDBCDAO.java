@@ -284,23 +284,23 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 //		Timestamp grotime = new Timestamp(days * 24 * 60 * 60 * 1000L);
 //		Timestamp end = new Timestamp(now.getTime() + grotime.getTime());
 		
-		GroupbuyVO groupbuyVO1 = new GroupbuyVO();
-		groupbuyVO1.setP_id("P001");
-		Timestamp now = new Timestamp(System.currentTimeMillis());
-		int days = 7;
-		Timestamp grotime = new Timestamp(days * 24 * 60 * 60 * 1000L);
-		Timestamp end = new Timestamp(now.getTime() + grotime.getTime());
-		groupbuyVO1.setStart_date(now);
-		groupbuyVO1.setGrotime_date(7);
-		groupbuyVO1.setEnd_date(end);
-		groupbuyVO1.setReb1_no("R000001");
-		groupbuyVO1.setReb2_no("R000002");
-		groupbuyVO1.setReb3_no("R000003");
-		groupbuyVO1.setStatus(0);
-		groupbuyVO1.setPeople(5);
-		groupbuyVO1.setMoney(588.584949d);
-		String gro_id = dao.insert(groupbuyVO1);
-		System.out.println(gro_id);
+//		GroupbuyVO groupbuyVO1 = new GroupbuyVO();
+//		groupbuyVO1.setP_id("P001");
+//		Timestamp now = new Timestamp(System.currentTimeMillis());
+//		int days = 7;
+//		Timestamp grotime = new Timestamp(days * 24 * 60 * 60 * 1000L);
+//		Timestamp end = new Timestamp(now.getTime() + grotime.getTime());
+//		groupbuyVO1.setStart_date(now);
+//		groupbuyVO1.setGrotime_date(7);
+//		groupbuyVO1.setEnd_date(end);
+//		groupbuyVO1.setReb1_no("R000001");
+//		groupbuyVO1.setReb2_no("R000002");
+//		groupbuyVO1.setReb3_no("R000003");
+//		groupbuyVO1.setStatus(0);
+//		groupbuyVO1.setPeople(5);
+//		groupbuyVO1.setMoney(588.584949d);
+//		String gro_id = dao.insert(groupbuyVO1);
+//		System.out.println(gro_id);
 		
 		// 修改
 //		GroupbuyVO groupbuyVO2 = new GroupbuyVO();
