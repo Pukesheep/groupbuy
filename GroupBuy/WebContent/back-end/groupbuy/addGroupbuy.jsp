@@ -1,4 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.groupbuy.model.*" %>
+<%@ page import="com.product.model.*" %>
+
+<jsp:useBean id="groupbuySvc" scope="page" class="com.groupbuy.model.GroupbuyService" />
+<jsp:useBean id="productSvc" scope="page" class="com.product.model.ProService" />
+<jsp:useBean id="rebateSvc" scope="page" class="com.rebate.model.RebateService" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +17,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/bootstrap.min.css">
     <!-- Include Favicon ico-->
-    <link rel="shortcut icon" href="./img/ICON.ico">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/back-end/img/ICON.ico">
     <!-- Font-awesome CSS -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
     <!--GoogleFont-->
@@ -20,7 +27,7 @@
     <!-- Include style.css-->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/style.css">
     
-     <!-- Optional JavaScript -->
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -31,10 +38,29 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>   
+        
+     <!-- SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>   
+    
+    
     
     
 
-    <title>新增團購案</title>
+    <title>新增團購</title>
+    
+    <style>
+    	img.card-header {
+    		height: 300px;
+    	}
+    	body{
+	 		background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); 
+	/* 		background-image: url('http://getwallpapers.com/wallpaper/full/6/e/8/90110.jpg'); */
+	/*  		background-image: url('http://getwallpapers.com/wallpaper/full/a/e/e/7532.jpg');  */
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+		
+    </style>
 </head>
 
 <body>
@@ -50,12 +76,133 @@
 <!-- aside -->
 
         <main>
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs }">
+<%
+	java.util.List<String> errorMsgs = (java.util.List<String>) request.getAttribute("errorMsgs");
+	String message = "";
+	for (String msg : errorMsgs) {
+		message += msg;
+		message += "\\n";
+	}
+%>
+<script>
+	Swal.fire({
+		  icon: 'error',
+		  title: '<%=message%>'
+		});
+
+</script>
+</c:if>
+<%-- 錯誤表列 --%> 		
+		
 			
-			
-			            
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-10">
+						<div class="card mt-5">
+							<div class="card-body bg-info">
+								<div class="media">
+									<img src="<%=request.getContextPath()%>/images/groupbuy/addGroupbuy.png" class="mr-3" alt="">
+									<div class="media-body">
+										<h2 class="mt-0">新增團購案</h2>
+										<div class="media mt-3">
+											<div class="media-body">
+												<h5 class="mt-0">請輸入團購案詳情</h5>
+												
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-plus"></i></span>
+														</div>
+														<input type="text" class="form-control" id="f_date1" name="start_date" placeholder="請輸入團購案開始時間" autocomplete="off">
+													</div>
+												
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-minus"></i></span>
+														</div>
+														<input type="text" class="form-control" name="grotime" placeholder="請輸入團購案活動期間 (天數)" autocomplete="off">
+													</div>
+													
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-times"></i></span>
+														</div>
+														<input type="text" class="form-control" name="end_date" placeholder="團購案截止時間" autocomplete="off">
+													</div>													
+													
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-times"></i></span>
+														</div>
+														<select name="reb1_no">
+															<c:forEach var="rebateVO" items="${rebateSvc.all}">
+																<option value="${rebateVO.reb_no}">${rebateVO.people} 人 / ${rebateVO.discount}</option>
+															</c:forEach>
+														</select>
+														
+														
+													</div>		
+													
+													
+													
+												
+												<form action="<%=request.getContextPath()%>/groupbuy/groupbuy.do" method="post">
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-times"></i></span>
+														</div>
+														<select class="custom-select" name="gro_id">
+															<c:forEach var="productVO" items="${productSvc.all}">
+																<c:forEach var="groupbuyVO" items="${groupbuySvc.all}">
+																	<c:if test="${productVO.p_id eq groupbuyVO.p_id}">
+																		<option value="${groupbuyVO.gro_id}">${productVO.p_name}</option>
+																	</c:if>
+																</c:forEach>
+															</c:forEach>
+														</select>
+														<div class="input-group-append">
+															<input type="hidden" name="from" value="back">
+															<input type="hidden" name="action" value="getOne_For_Display">
+															<button class="btn btn-danger" type="submit">查詢</button>
+														</div>
+													</div>
+												</form>
+												
+												
+												
+												
+												<div class="row">
+													<div class="col-4">
+														<h2 class="mt-0">團購商品</h2>
+<%-- 														<img alt="" src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}"> --%>
+															<img src="<%=request.getContextPath()%>/images/groupbuy/addGroupbuy.png" class="mr-3" alt="">													</div>
+													<div class="col-4">
+														<h2 class="mt-0">123</h2>
+														2131231
+													</div>
+													<div class="col-4">
+														<h2 class="mt-0">456</h2>
+														loiuil;pi;
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+            
         </main>
     </div>
-
+<script>
+	
+	
+	
+</script>
 
 </body>
 
