@@ -97,7 +97,7 @@
 								<div class="media">
 									<img src="<%=request.getContextPath()%>/images/groupbuy/search.png" class="mr-3" alt="">
 									<div class="media-body">
-										<h5 class="mt-0">團購查詢</h5>
+										<h2 class="mt-0">團購查詢</h2>
 										<div class="media mt-3">
 											<div class="media-body">
 												<h5 class="mt-0">請輸入查詢條件</h5>

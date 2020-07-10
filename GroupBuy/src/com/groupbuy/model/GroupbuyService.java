@@ -11,7 +11,7 @@ public class GroupbuyService {
 		dao = new GroupbuyDAO();
 	}
 	
-	public GroupbuyVO addGroupbuy(String p_id, Timestamp start_date, Timestamp end_date, Integer grotime_date,
+	public GroupbuyVO addGroupbuy(String p_id, Timestamp start_date, Timestamp end_date, Integer grotime,
 			String reb1_no, String reb2_no, String reb3_no, Integer people, double money) {
 		
 		GroupbuyVO groupbuyVO = new GroupbuyVO();
@@ -19,7 +19,7 @@ public class GroupbuyService {
 		groupbuyVO.setP_id(p_id);
 		groupbuyVO.setStart_date(start_date);
 		groupbuyVO.setEnd_date(end_date);
-		groupbuyVO.setGrotime_date(grotime_date);
+		groupbuyVO.setGrotime(grotime);
 		groupbuyVO.setReb1_no(reb1_no);
 		groupbuyVO.setReb2_no(reb2_no);
 		groupbuyVO.setReb3_no(reb3_no);
@@ -31,15 +31,16 @@ public class GroupbuyService {
 		return groupbuyVO;
 	}
 	
-	public GroupbuyVO updateGroupbuy(String p_id, Timestamp start_date, Timestamp end_date, Integer grotime_date,
+	public GroupbuyVO updateGroupbuy(String gro_id, String p_id, Timestamp start_date, Timestamp end_date, Integer grotime,
 			String reb1_no, String reb2_no, String reb3_no, Integer people, double money) {
 		
 		GroupbuyVO groupbuyVO = new GroupbuyVO();
 		
+		groupbuyVO.setGro_id(gro_id);
 		groupbuyVO.setP_id(p_id);
 		groupbuyVO.setStart_date(start_date);
 		groupbuyVO.setEnd_date(end_date);
-		groupbuyVO.setGrotime_date(grotime_date);
+		groupbuyVO.setGrotime(grotime);
 		groupbuyVO.setReb1_no(reb1_no);
 		groupbuyVO.setReb2_no(reb2_no);
 		groupbuyVO.setReb3_no(reb3_no);

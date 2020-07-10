@@ -10,7 +10,7 @@ public class GroupbuyVO implements java.io.Serializable {
 	private String p_id;
 	private Timestamp start_date;
 	private Timestamp end_date;
-	private Integer grotime_date;
+	private Integer grotime;
 	private String reb1_no;
 	private String reb2_no;
 	private String reb3_no;
@@ -42,11 +42,11 @@ public class GroupbuyVO implements java.io.Serializable {
 	public void setEnd_date(Timestamp end_date) {
 		this.end_date = end_date;
 	}
-	public Integer getGrotime_date() {
-		return grotime_date;
+	public Integer getGrotime() {
+		return grotime;
 	}
-	public void setGrotime_date(Integer grotime_date) {
-		this.grotime_date = grotime_date;
+	public void setGrotime(Integer grotime) {
+		this.grotime = grotime;
 	}
 	public String getReb1_no() {
 		return reb1_no;

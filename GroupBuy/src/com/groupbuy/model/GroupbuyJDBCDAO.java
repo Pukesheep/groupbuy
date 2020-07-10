@@ -10,11 +10,11 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 	String userid = "TEST1";
 	String passwd = "TEST1";
 	
-	private static final String INSERT_STMT = "INSERT INTO groupbuy (gro_id, p_id, start_date, end_date, grotime_date, reb1_no, reb2_no, reb3_no, status, people, money) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime_date, reb1_no, reb2_no, reb3_no, status, people, money FROM groupbuy ORDER BY gro_id";
-	private static final String GET_ONE_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime_date, reb1_no, reb2_no, reb3_no, status, people, money FROM groupbuy WHERE gro_id = ?";
+	private static final String INSERT_STMT = "INSERT INTO groupbuy (gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money FROM groupbuy ORDER BY gro_id";
+	private static final String GET_ONE_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money FROM groupbuy WHERE gro_id = ?";
 	private static final String DELETE = "DELETE FROM groupbuy WHERE gro_id = ?";
-	private static final String UPDATE = "UPDATE groupbuy SET p_id = ?, start_date = ?, end_date = ?, grotime_date = ?, reb1_no = ?, reb2_no = ?, reb3_no = ?, status = ?, people = ?, money = ? WHERE gro_id = ?";
+	private static final String UPDATE = "UPDATE groupbuy SET p_id = ?, start_date = ?, end_date = ?, grotime = ?, reb1_no = ?, reb2_no = ?, reb3_no = ?, status = ?, people = ?, money = ? WHERE gro_id = ?";
 	
 	@Override
 	public String insert(GroupbuyVO groupbuyVO) {
@@ -34,7 +34,7 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 			pstmt.setString(1, groupbuyVO.getP_id());
 			pstmt.setTimestamp(2, groupbuyVO.getStart_date());
 			pstmt.setTimestamp(3, groupbuyVO.getEnd_date());
-			pstmt.setInt(4, groupbuyVO.getGrotime_date());
+			pstmt.setInt(4, groupbuyVO.getGrotime());
 			pstmt.setString(5, groupbuyVO.getReb1_no());
 			pstmt.setString(6, groupbuyVO.getReb2_no());
 			pstmt.setString(7, groupbuyVO.getReb3_no());
@@ -88,7 +88,7 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 			pstmt.setString(1, groupbuyVO.getP_id());;
 			pstmt.setTimestamp(2, groupbuyVO.getStart_date());
 			pstmt.setTimestamp(3, groupbuyVO.getEnd_date());
-			pstmt.setInt(4, groupbuyVO.getGrotime_date());
+			pstmt.setInt(4, groupbuyVO.getGrotime());
 			pstmt.setString(5, groupbuyVO.getReb1_no());
 			pstmt.setString(6, groupbuyVO.getReb2_no());
 			pstmt.setString(7, groupbuyVO.getReb3_no());
@@ -183,7 +183,7 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 				groupbuyVO.setP_id(rs.getString("p_id"));
 				groupbuyVO.setStart_date(rs.getTimestamp("start_date"));
 				groupbuyVO.setEnd_date(rs.getTimestamp("end_date"));
-				groupbuyVO.setGrotime_date(rs.getInt("grotime_date"));
+				groupbuyVO.setGrotime(rs.getInt("grotime"));
 				groupbuyVO.setReb1_no(rs.getString("reb1_no"));
 				groupbuyVO.setReb2_no(rs.getString("reb2_no"));
 				groupbuyVO.setReb3_no(rs.getString("reb3_no"));
@@ -239,7 +239,7 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 				groupbuyVO.setP_id(rs.getString("p_id"));
 				groupbuyVO.setStart_date(rs.getTimestamp("start_date"));
 				groupbuyVO.setEnd_date(rs.getTimestamp("end_date"));
-				groupbuyVO.setGrotime_date(rs.getInt("grotime_date"));
+				groupbuyVO.setGrotime(rs.getInt("grotime"));
 				groupbuyVO.setReb1_no(rs.getString("reb1_no"));
 				groupbuyVO.setReb2_no(rs.getString("reb2_no"));
 				groupbuyVO.setReb3_no(rs.getString("reb3_no"));
@@ -284,23 +284,23 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 //		Timestamp grotime = new Timestamp(days * 24 * 60 * 60 * 1000L);
 //		Timestamp end = new Timestamp(now.getTime() + grotime.getTime());
 		
-//		GroupbuyVO groupbuyVO1 = new GroupbuyVO();
-//		groupbuyVO1.setP_id("P001");
-//		Timestamp now = new Timestamp(System.currentTimeMillis());
-//		int days = 7;
-//		Timestamp grotime = new Timestamp(days * 24 * 60 * 60 * 1000L);
-//		Timestamp end = new Timestamp(now.getTime() + grotime.getTime());
-//		groupbuyVO1.setStart_date(now);
-//		groupbuyVO1.setGrotime_date(7);
-//		groupbuyVO1.setEnd_date(end);
-//		groupbuyVO1.setReb1_no("R000001");
-//		groupbuyVO1.setReb2_no("R000002");
-//		groupbuyVO1.setReb3_no("R000003");
-//		groupbuyVO1.setStatus(0);
-//		groupbuyVO1.setPeople(5);
-//		groupbuyVO1.setMoney(588.584949d);
-//		String gro_id = dao.insert(groupbuyVO1);
-//		System.out.println(gro_id);
+		GroupbuyVO groupbuyVO1 = new GroupbuyVO();
+		groupbuyVO1.setP_id("P007");
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+		int days = 7;
+		Timestamp grotime = new Timestamp(days * 24 * 60 * 60 * 1000L);
+		Timestamp end = new Timestamp(now.getTime() + grotime.getTime());
+		groupbuyVO1.setStart_date(now);
+		groupbuyVO1.setGrotime(7);
+		groupbuyVO1.setEnd_date(end);
+		groupbuyVO1.setReb1_no("R000001");
+		groupbuyVO1.setReb2_no("R000002");
+		groupbuyVO1.setReb3_no("R000003");
+		groupbuyVO1.setStatus(0);
+		groupbuyVO1.setPeople(5);
+		groupbuyVO1.setMoney(588.584949d);
+		String gro_id = dao.insert(groupbuyVO1);
+		System.out.println(gro_id);
 		
 		// 修改
 //		GroupbuyVO groupbuyVO2 = new GroupbuyVO();
@@ -345,7 +345,7 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 			System.out.println("GRO_ID = " + aGroupbuy.getGro_id());
 			System.out.println("P_ID = " + aGroupbuy.getP_id());
 			System.out.println("START_DATE = " + aGroupbuy.getStart_date());
-			System.out.println("GROTIME_DATE = " + aGroupbuy.getGrotime_date());
+			System.out.println("GROTIME_DATE = " + aGroupbuy.getGrotime());
 			System.out.println("END_DATE = " + aGroupbuy.getEnd_date());
 			System.out.println("REB1_NO = " + aGroupbuy.getReb1_no());
 			System.out.println("REB2_NO = " + aGroupbuy.getReb2_no());

@@ -18,11 +18,11 @@ public class GroupbuyDAO implements GroupbuyDAO_interface {
 		}
 	}
 	
-	private static final String INSERT_STMT = "INSERT INTO groupbuy (gro_id, p_id, start_date, end_date, grotime_date, reb1_no, reb2_no, reb3_no, status, people, money) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime_date, reb1_no, reb2_no, reb3_no, status, people, money FROM groupbuy ORDER BY gro_id";
-	private static final String GET_ONE_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime_date, reb1_no, reb2_no, reb3_no, status, people, money FROM groupbuy WHERE gro_id = ?";
+	private static final String INSERT_STMT = "INSERT INTO groupbuy (gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money FROM groupbuy ORDER BY gro_id";
+	private static final String GET_ONE_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money FROM groupbuy WHERE gro_id = ?";
 	private static final String DELETE = "DELETE FROM groupbuy WHERE gro_id = ?";
-	private static final String UPDATE = "UPDATE groupbuy SET p_id = ?, start_date = ?, end_date = ?, grotime_date = ?, reb1_no = ?, reb2_no = ?, reb3_no = ?, status = ?, people = ?, money = ? WHERE gro_id = ?";	
+	private static final String UPDATE = "UPDATE groupbuy SET p_id = ?, start_date = ?, end_date = ?, grotime = ?, reb1_no = ?, reb2_no = ?, reb3_no = ?, status = ?, people = ?, money = ? WHERE gro_id = ?";
 	
 	@Override
 	public String insert(GroupbuyVO groupbuyVO) {
@@ -40,7 +40,7 @@ public class GroupbuyDAO implements GroupbuyDAO_interface {
 			pstmt.setString(1, groupbuyVO.getP_id());
 			pstmt.setTimestamp(2, groupbuyVO.getStart_date());
 			pstmt.setTimestamp(3, groupbuyVO.getEnd_date());
-			pstmt.setInt(4, groupbuyVO.getGrotime_date());
+			pstmt.setInt(4, groupbuyVO.getGrotime());
 			pstmt.setString(5, groupbuyVO.getReb1_no());
 			pstmt.setString(6, groupbuyVO.getReb2_no());
 			pstmt.setString(7, groupbuyVO.getReb3_no());
@@ -89,7 +89,7 @@ public class GroupbuyDAO implements GroupbuyDAO_interface {
 			pstmt.setString(1, groupbuyVO.getP_id());;
 			pstmt.setTimestamp(2, groupbuyVO.getStart_date());
 			pstmt.setTimestamp(3, groupbuyVO.getEnd_date());
-			pstmt.setInt(4, groupbuyVO.getGrotime_date());
+			pstmt.setInt(4, groupbuyVO.getGrotime());
 			pstmt.setString(5, groupbuyVO.getReb1_no());
 			pstmt.setString(6, groupbuyVO.getReb2_no());
 			pstmt.setString(7, groupbuyVO.getReb3_no());
@@ -176,7 +176,7 @@ public class GroupbuyDAO implements GroupbuyDAO_interface {
 				groupbuyVO.setP_id(rs.getString("p_id"));
 				groupbuyVO.setStart_date(rs.getTimestamp("start_date"));
 				groupbuyVO.setEnd_date(rs.getTimestamp("end_date"));
-				groupbuyVO.setGrotime_date(rs.getInt("grotime_date"));
+				groupbuyVO.setGrotime(rs.getInt("grotime"));
 				groupbuyVO.setReb1_no(rs.getString("reb1_no"));
 				groupbuyVO.setReb2_no(rs.getString("reb2_no"));
 				groupbuyVO.setReb3_no(rs.getString("reb3_no"));
@@ -187,6 +187,23 @@ public class GroupbuyDAO implements GroupbuyDAO_interface {
 			
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
 		}
 		return groupbuyVO;
 	}
@@ -212,7 +229,7 @@ public class GroupbuyDAO implements GroupbuyDAO_interface {
 				groupbuyVO.setP_id(rs.getString("p_id"));
 				groupbuyVO.setStart_date(rs.getTimestamp("start_date"));
 				groupbuyVO.setEnd_date(rs.getTimestamp("end_date"));
-				groupbuyVO.setGrotime_date(rs.getInt("grotime_date"));
+				groupbuyVO.setGrotime(rs.getInt("grotime"));
 				groupbuyVO.setReb1_no(rs.getString("reb1_no"));
 				groupbuyVO.setReb2_no(rs.getString("reb2_no"));
 				groupbuyVO.setReb3_no(rs.getString("reb3_no"));
