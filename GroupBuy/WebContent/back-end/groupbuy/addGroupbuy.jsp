@@ -154,8 +154,9 @@
 																<span class="input-group-text" id="basic-addon1"><i class="fas fa-gift"></i></span>
 															</div>	
 															<select class="custom-select" name="p_id">
-																<c:forEach var="productVO" items="${productSvc.all}">
+																<c:forEach var="productVO" items="${productSvc.all}" varStatus="q">
 																	<option value="${productVO.p_id}">品名 ： ${productVO.p_name} － 原價 $<fmt:formatNumber pattern="#" value="${productVO.p_price}" /> 元</option>
+																	<c:set var="p_id" value="${q.index}" />
 																</c:forEach>
 															</select>
 														</div>
@@ -220,8 +221,9 @@
 		var reb2_no = 	$("select[name='reb2_no']").val();
 		var reb3_no = 	$("select[name='reb3_no']").val();
 		
-		var price = ${productSvc.getOnePro("P001").p_price};
+		var price = ${p_id};
 		console.log(price);
+		
 		
 		
 	}
