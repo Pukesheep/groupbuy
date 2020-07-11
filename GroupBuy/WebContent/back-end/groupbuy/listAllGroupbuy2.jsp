@@ -62,6 +62,12 @@
 		img#groupbuyHeader {
 			height: 250px;
 		}
+		img.card-display {
+			height: 350px;
+		}
+		img.card-display:hover {
+			cursor: pointer;
+		}
 		a.groupbuydetail {
 			color:white; text-decoration:none;
 		}
@@ -73,10 +79,6 @@
 		}
 		a.groupbuydetail:active {
 			color:white;
-		}
-		img.img-listAll {
- 			width: 200px; 
- 			height: 200px; 
 		}
 		
     </style>
@@ -119,65 +121,33 @@
                 <div class="row justify-content-center mt-5">
                 	<div class="col-10">
                 		<div class="card bg-info">
-							<img alt="" src="<%=request.getContextPath()%>/images/groupbuy/meme.png" id="groupbuyHeader">	
+							<img alt="" src="<%=request.getContextPath()%>/images/groupbuy/watermelon.jpg" id="groupbuyHeader">	
 								<div class="card-body">
 									<h1 class="card-text">團購案列表</h1>
-									<%@ include file="../../files/page1B.file" %>
 									<div class="row">
-										<div class="col">
-											<div class="media m-3">
-												<img src="<%=request.getContextPath()%>/images/groupbuy/groupbuy.png" class="mr-3" alt="">
-												<div class="media-body">
-													<c:forEach var="groupbuyVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-														<div class="media mt-3 alert alert-danger">
-															<a class="mr-3" href="<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=back-end&gro_id=${groupbuyVO.gro_id}">
-																<img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}" class="align-self-end mr-3 img-listAll" alt="">
+										<c:forEach var="groupbuyVO" items="${list}">
+											<c:if test="${groupbuyVO.status eq 0}">
+												<div class="col-6">
+													<div class="card border border-warning mt-2">
+														<img class="card-display" alt="" src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}" onclick="location.href='<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=back-end&gro_id=${groupbuyVO.gro_id}';">
+														<div class="card-body text-white bg-secondary">
+															<c:forEach var="productVO" items="${productSvc.all}">
+																<c:if test="${productVO.p_id == groupbuyVO.p_id}">
+																	<a href="<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=back-end&gro_id=${groupbuyVO.gro_id}" class="groupbuydetail">
+																		<h2>${productVO.p_name}</h2>
+																	</a>
+																	<h4>原價 $<fmt:formatNumber pattern="#" value="${productVO.p_price}" /></h4>
+																	<h6>結束時間： <fmt:formatDate value="${groupbuyVO.end_date}" pattern="yyyy-MM-dd HH:mm:ss" /></h6>
+																</c:if>
+															</c:forEach>
+															<a href="<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=back-end&gro_id=${groupbuyVO.gro_id}">
+																<button type="button" class="btn btn-success btn-lg btn-block mt-3">查看團購案詳情</button>
 															</a>
-															<div class="media-body bg-secondary p-4">
-																<div class="row">
-																	<div class="col-6">
-																		<h3 class="mt-0 text-white mb-3">${productSvc.getOnePro(groupbuyVO.p_id).p_name}</h3>
-																		<c:choose>
-																		
-																			<c:when test="${groupbuyVO.status eq 0}">
-																				<h4 class="mt-5">狀態： 下架</h4>
-																			</c:when>
-																			
-																			<c:when test="${groupbuyVO.status eq 1}">
-																				<h4 class="mt-5">狀態： 上架</h4>
-																			</c:when>
-																			
-																			<c:when test="${groupbuyVO.status eq 2}">
-																				<h4 class="mt-5">狀態： 已達標</h4>
-																			</c:when>
-																			
-																			<c:when test="${groupbuyVO.status eq 3}">
-																				<h4 class="mt-5">狀態： 未達標</h4>
-																			</c:when>
-																		</c:choose>
-																		<h4>原價： $<fmt:formatNumber pattern="#" value="${productSvc.getOnePro(groupbuyVO.p_id).p_price}" /></h4>
-																		<h4>折扣1： ${rebateSvc.getOneRebate(groupbuyVO.reb1_no).people} 人 / $<fmt:formatNumber pattern="#" value="${rebateSvc.getOneRebate(groupbuyVO.reb1_no).discount * productSvc.getOnePro(groupbuyVO.p_id).p_price}" /> 元</h4>
-																		<h4>折扣2： ${rebateSvc.getOneRebate(groupbuyVO.reb2_no).people} 人 / $<fmt:formatNumber pattern="#" value="${rebateSvc.getOneRebate(groupbuyVO.reb2_no).discount * productSvc.getOnePro(groupbuyVO.p_id).p_price}" /> 元</h4>
-																		<h4>折扣3： ${rebateSvc.getOneRebate(groupbuyVO.reb3_no).people} 人 / $<fmt:formatNumber pattern="#" value="${rebateSvc.getOneRebate(groupbuyVO.reb3_no).discount * productSvc.getOnePro(groupbuyVO.p_id).p_price}" /> 元</h4>
-																		<h5>截止時間： <fmt:formatDate value="${groupbuyVO.end_date}" pattern="yyyy-MM-dd hh:mm:ss" /></h5>
-																	</div>
-																	<div class="col-6">
-																		<div class="row mt-5">
-																			<div class="col-6 align-self-end">
-																				<button type="button" class="btn btn-danger btn-lg btn-block text-dark" style="height: 250px">修改</button>
-																			</div>
-																			<div class="col-6 align-self-end">
-																				<button type="button" class="btn btn-danger btn-lg btn-block text-dark" style="height: 250px">上/下 架</button>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
 														</div>
-													</c:forEach>
+													</div>
 												</div>
-											</div>
-										</div>
+											</c:if>
+										</c:forEach>
 									</div>
 								</div>
 							</div>
@@ -188,22 +158,6 @@
             
         </main>
     </div>
-
-<script>
-	
-	function init(){
-		
-		var grostatus = new Map();
-		var count = 0;
-		
-		
-	}
-	
-	window.onload = init;
-	
-</script>
-
-
 
 </body>
 

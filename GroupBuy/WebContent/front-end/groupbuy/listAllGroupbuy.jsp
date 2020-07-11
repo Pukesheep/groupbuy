@@ -124,7 +124,7 @@
 						<h1 class="card-text">團購案列表</h1>
 						<div class="row">
 							<c:forEach var="groupbuyVO" items="${list}">
-								<c:if test="${groupbuyVO.status eq 0}">
+								<c:if test="${groupbuyVO.status eq 1}">
 									<div class="col-6">
 										<div class="card border border-warning mt-2">
 											<img class="card-display" alt="" src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}" onclick="location.href='<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=front-end&gro_id=${groupbuyVO.gro_id}';">
@@ -135,7 +135,7 @@
 															<h2>${productVO.p_name}</h2>
 														</a>
 														<h4>原價 $<fmt:formatNumber pattern="#" value="${productVO.p_price}" /></h4>
-														<h6>結束時間： <fmt:formatDate value="${groupbuyVO.end_date}" pattern="yyyy-MM-dd HH:mm:ss" /></h6>
+														<h6>截止時間： <fmt:formatDate value="${groupbuyVO.end_date}" pattern="yyyy-MM-dd HH:mm:ss" /></h6>
 													</c:if>
 												</c:forEach>
 												<a href="<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=front-end&gro_id=${groupbuyVO.gro_id}">

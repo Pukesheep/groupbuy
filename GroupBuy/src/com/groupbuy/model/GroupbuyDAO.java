@@ -19,7 +19,7 @@ public class GroupbuyDAO implements GroupbuyDAO_interface {
 	}
 	
 	private static final String INSERT_STMT = "INSERT INTO groupbuy (gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money, amount) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money, amount FROM groupbuy ORDER BY gro_id";
+	private static final String GET_ALL_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money, amount FROM groupbuy ORDER BY gro_id DESC";
 	private static final String GET_ONE_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money, amount FROM groupbuy WHERE gro_id = ?";
 	private static final String DELETE = "DELETE FROM groupbuy WHERE gro_id = ?";
 	private static final String UPDATE = "UPDATE groupbuy SET p_id = ?, start_date = ?, end_date = ?, grotime = ?, reb1_no = ?, reb2_no = ?, reb3_no = ?, status = ?, people = ?, money = ?, amount = ? WHERE gro_id = ?";
