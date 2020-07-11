@@ -69,13 +69,13 @@
 <body>
 <!-- header -->
 	
-	<%@ include file="../css/header.jsp" %>
+	<%@ include file="../../css/header.jsp" %>
 <!-- header -->
 
     <div class="content d-md-flex">
 
 <!-- aside -->
-	<%@ include file="../css/aside.jsp" %>
+	<%@ include file="../../css/aside.jsp" %>
 <!-- aside -->
 
         <main>
@@ -121,7 +121,7 @@
 														<input type="text" class="form-control" name="gro_id" placeholder="請輸入團購案編號 ex: G000001" autocomplete="off">
 														
 														<div class="input-group-append">
-															<input type="hidden" name="from" value="back">
+															<input type="hidden" name="from" value="back-end">
 															<input type="hidden" name="action" value="getOne_For_Display">
 															
 															<button class="btn btn-danger" type="submit">查詢</button>
@@ -136,12 +136,12 @@
 															<span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
 														</div>
 														<select class="custom-select" name="gro_id">
-															<c:forEach var="groupbuyVO" items="${groupbuySvc.all}">
+															<c:forEach var="groupbuyVO" items="${groupbuySvc.all}" varStatus="s">
 																<option value="${groupbuyVO.gro_id}">${groupbuyVO.gro_id}</option>
 															</c:forEach>
 														</select>
 														<div class="input-group-append">
-															<input type="hidden" name="from" value="back">
+															<input type="hidden" name="from" value="back-end">
 															<input type="hidden" name="action" value="getOne_For_Display">
 															<button class="btn btn-danger" type="submit">查詢</button>
 														</div>
@@ -163,7 +163,7 @@
 															</c:forEach>
 														</select>
 														<div class="input-group-append">
-															<input type="hidden" name="from" value="back">
+															<input type="hidden" name="from" value="back-end">
 															<input type="hidden" name="action" value="getOne_For_Display">
 															<button class="btn btn-danger" type="submit">查詢</button>
 														</div>
@@ -172,19 +172,19 @@
 												<div class="row justify-content-center">
 													<div class="col-4 text-center mb-3">
 														<h2 class="mt-0 mb-3">新增團購</h2>
-														<a href="<%=request.getContextPath()%>/back-end/groupbuy/addGroupbuy.jsp">
+														<a href="<%=request.getContextPath()%>/back-end/protected/groupbuy/addGroupbuy.jsp">
 															<img alt="" class="select_icon" src="<%=request.getContextPath()%>/images/groupbuy/addGroupbuy.png">
 														</a>
 													</div>
 													<div class="col-4 text-center mb-3">
 														<h2 class="mt-0 mb-3">所有團購案</h2>
-														<a href="<%=request.getContextPath()%>/back-end/groupbuy/listAllGroupbuy.jsp">
+														<a href="<%=request.getContextPath()%>/back-end/protected/groupbuy/listAllGroupbuy.jsp">
 															<img alt="" class="select_icon" src="<%=request.getContextPath()%>/images/groupbuy/groupbuy.png" >
 														</a>
 													</div>
 													<div class="col-4 text-center mb-3">
 														<h2 class="mt-0 mb-3">訂單管理</h2>
-<%-- 														<a href="<%=request.getContextPath()%>/back-end/gorder/listAllGorder.jsp"> --%>
+<%-- 														<a href="<%=request.getContextPath()%>/back-end/protected/gorder/listAllGorder.jsp"> --%>
 															<img alt="" class="select_icon" src="<%=request.getContextPath()%>/images/groupbuy/list.png">
 <!-- 														</a> -->
 													</div>

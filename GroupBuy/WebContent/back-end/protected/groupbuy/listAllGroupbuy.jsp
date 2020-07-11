@@ -25,7 +25,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/bootstrap.min.css">
     <!-- Include Favicon ico-->
-    <link rel="shortcut icon" href="./img/ICON.ico">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/back-end/img/ICON.ico">
     <!-- Font-awesome CSS -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
     <!--GoogleFont-->
@@ -86,13 +86,13 @@
 <body>
 <!-- header -->
 	
-	<%@ include file="../css/header.jsp" %>
+	<%@ include file="../../css/header.jsp" %>
 <!-- header -->
 
     <div class="content d-md-flex">
 
 <!-- aside -->
-	<%@ include file="../css/aside.jsp" %>
+	<%@ include file="../../css/aside.jsp" %>
 <!-- aside -->
 
         <main>
@@ -122,7 +122,7 @@
 							<img alt="" src="<%=request.getContextPath()%>/images/groupbuy/meme.png" id="groupbuyHeader">	
 								<div class="card-body">
 									<h1 class="card-text">團購案列表</h1>
-									<%@ include file="../../files/page1B.file" %>
+									<%@ include file="../../../files/page1B.file" %>
 									<div class="row">
 										<div class="col">
 											<div class="media m-3">
@@ -188,21 +188,6 @@
             
         </main>
     </div>
-
-<script>
-	
-	function init(){
-		
-		var grostatus = new Map();
-		var count = 0;
-		
-		
-	}
-	
-	window.onload = init;
-	
-</script>
-
 
 
 </body>

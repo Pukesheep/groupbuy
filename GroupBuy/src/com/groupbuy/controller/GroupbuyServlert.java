@@ -23,7 +23,7 @@ public class GroupbuyServlert extends HttpServlet {
 		String from = req.getParameter("from");
 		
 		String front = 				"/front-end";
-		String back = 				"/back-end";
+		String back = 				"/back-end/protected";
 		
 		String select_page = 			"/groupbuy/select_page.jsp";
 		String listOneGroupbuy = 		"/groupbuy/listOneGroupbuy.jsp";

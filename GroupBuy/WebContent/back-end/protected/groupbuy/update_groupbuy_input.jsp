@@ -80,14 +80,13 @@
 
 <body>
 <!-- header -->
-	
-	<%@ include file="../css/header.jsp" %>
+	<%@ include file="../../css/header.jsp" %>
 <!-- header -->
 
     <div class="content d-md-flex">
 
 <!-- aside -->
-	<%@ include file="../css/aside.jsp" %>
+	<%@ include file="../../css/aside.jsp" %>
 <!-- aside -->
 
         <main>
@@ -179,7 +178,7 @@
 																<div class="input-group-prepend">
 																	<span class="input-group-text" id="basic-addon1"><i class="fas fa-sort-numeric-up-alt"></i></span>
 																</div>
-																<input type="text" class="form-control text-center" name="amount" id="amount">
+																<input type="text" class="form-control text-center" name="amount" id="amount" autocomplete="off">
 															</div>
 														</div>														
 														
@@ -348,10 +347,12 @@
 		
 		if (!amountResult){
 			inputAlert();
+			$("input[name='amount']").val('');
 		} else {
 			
 			if (amount > id_stock.get(p_id)){
 				amountAlert();
+				$("input[name='amount']").val('');
 			}
 		}
 	}
@@ -394,7 +395,7 @@
 		
 		$('#start_date').datetimepicker({
 		    theme: '',              //theme: 'dark',
-		     timepicker:true,       //timepicker:true,
+		     timepicker:false,       //timepicker:true,
 		     step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 		     format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
 			   value: new Date(), // value:   new Date(),
@@ -406,7 +407,7 @@
 		
 		$('#end_date').datetimepicker({
 		    theme: '',              //theme: 'dark',
-		     timepicker:true,       //timepicker:true,
+		     timepicker:false,       //timepicker:true,
 		     step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 		     format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
 			   value: new Date(endLong), // value:   new Date(),
