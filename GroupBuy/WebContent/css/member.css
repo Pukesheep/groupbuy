@@ -1,0 +1,159 @@
+
+	html,body{
+/* 		background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); */
+/* 		background-image: url('http://getwallpapers.com/wallpaper/full/9/1/e/168436.jpg'); */
+		background-image: url('http://getwallpapers.com/wallpaper/full/a/e/e/7532.jpg');
+		background-size: cover;
+		background-repeat: no-repeat;
+		
+	}
+	
+	.container{
+		height: 100%;
+		align-content: center;
+	}
+	
+	div.login{
+		height: 370px;
+		margin-top: auto;
+		margin-bottom: auto;
+		width: 400px;
+		background-color: rgba(0,0,0,0.5) !important;
+	}
+	
+	.social_icon span{
+		font-size: 60px;
+		margin-left: 10px;
+		color: #FFC312;
+	}
+	
+	.social_icon span:hover{
+		color: white;
+		cursor: pointer;
+	}
+	
+	.card-header h3{
+		color: white;
+	}
+	
+	.social_icon{
+		position: absolute;
+		right: 20px;
+		top: -45px;
+	}
+	
+	.forlogin span{
+		width: 50px;
+		background-color: #FFC312;
+		color: black;
+		border:0 !important;
+	}
+	
+	input:focus{
+		outline: 0 0 0 0  !important;
+		box-shadow: 0 0 0 0 !important;
+	}
+	
+	.remember{
+		color: white;
+	}
+	
+	.remember input{
+		width: 20px;
+		height: 20px;
+		margin-left: 15px;
+		margin-right: 5px;
+	}
+	
+	.login_btn{
+		color: black;
+		background-color: #FFC312;
+		width: 120px;
+	}
+	
+	.login_btn:hover{
+		color: black;
+		background-color: white;
+	}
+	
+	.links{
+		color: white;
+	}
+	
+	.links a{
+		margin-left: 4px;
+	}
+	img#check {
+		width: 40px;
+		height: 40px;
+		visibility: hidden;
+	}
+	font.hint {
+		color: white;
+	}
+
+	img.profile{
+		position: relative;
+		margin-top: 100px;
+		width: 250px;
+		height: 250px;
+		border: 5px solid black;
+		z-index: 998;
+	}
+	img.profile:hover {
+		cursor: pointer;
+	}
+	img.showprofile:hover {
+		cursor: default;
+	}
+	div.profile {
+		margin-top: -100px;
+		background-color: rgba(0,0,0,0.5) !important;
+	}
+	div.profile-header {
+		margin-top: 50px;
+	}
+	img.img-icon {
+		width: 25px;
+		height: 25px;
+	}
+	img.img-icon:hover {
+		cursor: pointer;
+	}
+	button.submit {
+		margin-top: 30px;
+		margin-bottom: 50px;
+	}
+	.xdsoft_datetimepicker .xdsoft_datepicker {
+	  	width:  300px;   /* width:  300px; */
+  	}
+  	.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+		height: 151px;   /* height:  151px; */
+  	}
+  	div.back-end-form {
+  		margin-top: 25px;
+  		background-color: rgba(0,0,0,0.5) !important;
+  	}
+  	img.listAllMember {
+  		width: 64px;
+  		height: 64px;
+  		border: 2px solid #FFC312;
+  	}
+  	li.media {
+  		margin: 10px auto;
+  	}
+  	div.btn-toolbar {
+  		margin-bottom: 10px 0;
+  	}
+  	img#chat_bubble {
+  		position: relative;
+  		margin-left: -100px;
+  		width: 150px;
+  		height: 150px;
+  		z-index: 999;
+  		top: -90px;
+  		right: -30px;
+  	}
+  	img#chat_bubble:hover {
+  		cursor: pointer;
+  	}

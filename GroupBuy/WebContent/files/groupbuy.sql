@@ -390,10 +390,11 @@ CREATE TABLE GROUPBUY(
 GRO_ID VARCHAR2(10) constraint groupbuy_grono_pk primary key,
 START_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 END_DATE TIMESTAMP,
-GROTIME NUMBER,
+GROTIME NUMBER(3),
 STATUS NUMBER(20),
 PEOPLE NUMBER(10),
 MONEY NUMBER(20, 2),
+AMOUNT NUMBER(20) NOT NULL,
 P_ID VARCHAR2(10) unique NOT NULL constraint product_p_id_fk references product(P_ID),
 REB1_NO VARCHAR2(10)constraint rebate_reb1_no_fk references rebate(REB_NO),
 REB2_NO VARCHAR2(10)constraint rebate_reb2_no_fk references rebate(REB_NO),
@@ -797,7 +798,7 @@ VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT001','Nintendo Switch',9780
 ▉ Joy-Con內置「HD震動」體驗逼真細膩臨場感
 
 ▉ 台灣公司貨，提供1年保固'
-,2,10,1);
+,2,500,1);
 
 INSERT INTO PRODUCT(P_ID,PT_ID,P_NAME,P_PRICE, P_IMAGE,P_INFO,P_SALES,P_STOCK,P_STAT)
 VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT002','集合啦！動物森友會',1790, load_blob('Product/product2.jpg'),'
@@ -818,7 +819,7 @@ VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT002','集合啦！動物森
 代理廠商：香港任天堂
 
 官方網站：https://www.nintendo.tw/switch/animal_crossing_new_horizons/'
-,3,10,1);
+,3,500,1);
 INSERT INTO PRODUCT(P_ID,PT_ID,P_NAME,P_PRICE, P_IMAGE,P_INFO,P_SALES,P_STOCK,P_STAT)
 VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT003','動物之森 支架 for Nintendo Switch ',550, load_blob('Product/product3.jpg'),'
 ■ Nintendo Switch 專用桌上型支架
@@ -826,7 +827,7 @@ VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT003','動物之森 支架 f
 ■ 18mm超輕巧NS螢幕立架可折疊、輕巧好攜帶、三段式角度調整
 
 ■ 貼心充電孔、可一邊充電一邊遊玩'
-,1,10,1);
+,1,500,1);
 INSERT INTO PRODUCT(P_ID,PT_ID,P_NAME,P_PRICE, P_IMAGE,P_INFO,P_SALES,P_STOCK,P_STAT)
 VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT004','PS4 Pro 專業版 主機 極致黑 1TB',12980, load_blob('Product/product4.jpg'),'
 ■全新CUH-7200系列
@@ -838,7 +839,7 @@ VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT004','PS4 Pro 專業版 主
 ■PS4 遊戲均以1080p 解像度呈現
 
 ■支援已發售及將會發售的所有PS4遊戲'
-,5,10,1);
+,5,500,1);
 INSERT INTO PRODUCT(P_ID,PT_ID,P_NAME,P_PRICE, P_IMAGE,P_INFO,P_SALES,P_STOCK,P_STAT)
 VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT005','湯姆克蘭西：全境封鎖 2',590, load_blob('Product/product5.jpg'),'
 主機平台：PS4
@@ -856,14 +857,14 @@ VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT005','湯姆克蘭西：全
 發行廠商：Ubisoft
 
 官方網站：https://tomclancy-thedivision.ubisoft.com/game/en-gb/home'
-,2,10,1);
+,2,500,1);
 INSERT INTO PRODUCT(P_ID,PT_ID,P_NAME,P_PRICE, P_IMAGE,P_INFO,P_SALES,P_STOCK,P_STAT)
 VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT006','原廠無線手把',1780, load_blob('Product/product6.jpg'),'
 適用於電腦和Xbox One
 
 有線控制器
 
-舒適度及操作度提升',3,10,1);
+舒適度及操作度提升',3,500,1);
 INSERT INTO PRODUCT(P_ID,PT_ID,P_NAME,P_PRICE, P_IMAGE,P_INFO,P_SALES,P_STOCK,P_STAT)
 VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT007','Xbox One S',7980, load_blob('Product/product7.jpg'),'
 ▉ 全面數位化，個人遊戲庫
@@ -875,7 +876,7 @@ VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT007','Xbox One S',7980, loa
 ▉ 內含3款遊戲
 
 ▉ 本主機無藍光光碟機'
-,4,10,1);
+,4,500,1);
 INSERT INTO PRODUCT(P_ID,PT_ID,P_NAME,P_PRICE,P_INFO,P_SALES,P_STOCK,P_STAT)
 VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT008','絕地求生',839,'
 遊戲類型：射擊
@@ -893,7 +894,7 @@ VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT008','絕地求生',839,'
 代理廠商：台灣微軟
 
 官方網站：https://playbattlegrounds.com/'
-,1,10,1);
+,1,500,1);
 
 INSERT INTO PRODUCT(P_ID,PT_ID,P_NAME,P_PRICE,P_INFO,P_SALES,P_STOCK,P_STAT)
 VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT009','Xbox One 無線控制器(黑色)',1549,'
@@ -901,7 +902,7 @@ VALUES('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'),'PT009','Xbox One 無線控制
 
 有線控制器
 
-舒適度及操作度提升',0,10,1);
+舒適度及操作度提升',0,500,1);
 
 ---商城商品 PRODUCT---
 
@@ -1940,12 +1941,12 @@ INSERT INTO REBATE(REB_NO, DISCOUNT, PEOPLE) VALUES ('R'||LPAD(REBATE_seq.NEXTVA
 
 -----------------------------新增團購案-----------------------------
 
-INSERT INTO GROUPBUY(GRO_ID,P_ID,REB1_NO,REB2_NO,REB3_NO,START_DATE,END_DATE,GROTIME,PEOPLE,STATUS, MONEY) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'),'P001','R000001','R000002','R000003',to_date('2019-05-03 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),to_date('2019-05-10 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),7,9,0, 599.4);
-INSERT INTO GROUPBUY(GRO_ID,P_ID,REB1_NO,REB2_NO,REB3_NO,START_DATE,END_DATE,GROTIME,PEOPLE,STATUS, MONEY) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'),'P002','R000004','R000005','R000006',to_date('2019-06-03 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),to_date('2019-06-07 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),7,6,0, 313);
-INSERT INTO GROUPBUY(GRO_ID,P_ID,REB1_NO,REB2_NO,REB3_NO,START_DATE,END_DATE,GROTIME,PEOPLE,STATUS, MONEY) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'),'P003','R000007','R000008','R000009',to_date('2019-09-11 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),to_date('2019-09-18 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),7,20,1, 2528);
-INSERT INTO GROUPBUY(GRO_ID,P_ID,REB1_NO,REB2_NO,REB3_NO,START_DATE,END_DATE,GROTIME,PEOPLE,STATUS, MONEY) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'),'P004','R000001','R000003','R000005',to_date('2020-02-06 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),to_date('2020-02-13 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),7,15,1, 3316);
-INSERT INTO GROUPBUY(GRO_ID,P_ID,REB1_NO,REB2_NO,REB3_NO,START_DATE,END_DATE,GROTIME,PEOPLE,STATUS, MONEY) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'),'P005','R000002','R000004','R000006',to_date('2020-03-28 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),to_date('2020-04-04 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),7,3,2, 2729);
-INSERT INTO GROUPBUY(GRO_ID,P_ID,REB1_NO,REB2_NO,REB3_NO,START_DATE,END_DATE,GROTIME,PEOPLE,STATUS, MONEY) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'),'P006','R000003','R000006','R000009',to_date('2020-04-17 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),to_date('2020-04-24 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),7,2,2, 1811);
+INSERT INTO GROUPBUY(GRO_ID,P_ID,REB1_NO,REB2_NO,REB3_NO,START_DATE,END_DATE,GROTIME,PEOPLE,STATUS, MONEY, AMOUNT) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'),'P001','R000001','R000002','R000003',to_date('2019-05-03 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),to_date('2019-05-10 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),7,9,0, 599.4, 50);
+INSERT INTO GROUPBUY(GRO_ID,P_ID,REB1_NO,REB2_NO,REB3_NO,START_DATE,END_DATE,GROTIME,PEOPLE,STATUS, MONEY, AMOUNT) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'),'P002','R000004','R000005','R000006',to_date('2019-06-03 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),to_date('2019-06-07 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),7,6,0, 313, 50);
+INSERT INTO GROUPBUY(GRO_ID,P_ID,REB1_NO,REB2_NO,REB3_NO,START_DATE,END_DATE,GROTIME,PEOPLE,STATUS, MONEY, AMOUNT) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'),'P003','R000007','R000008','R000009',to_date('2019-09-11 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),to_date('2019-09-18 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),7,20,1, 2528, 50);
+INSERT INTO GROUPBUY(GRO_ID,P_ID,REB1_NO,REB2_NO,REB3_NO,START_DATE,END_DATE,GROTIME,PEOPLE,STATUS, MONEY, AMOUNT) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'),'P004','R000001','R000003','R000005',to_date('2020-02-06 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),to_date('2020-02-13 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),7,15,1, 3316, 50);
+INSERT INTO GROUPBUY(GRO_ID,P_ID,REB1_NO,REB2_NO,REB3_NO,START_DATE,END_DATE,GROTIME,PEOPLE,STATUS, MONEY, AMOUNT) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'),'P005','R000002','R000004','R000006',to_date('2020-03-28 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),to_date('2020-04-04 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),7,3,2, 2729, 50);
+INSERT INTO GROUPBUY(GRO_ID,P_ID,REB1_NO,REB2_NO,REB3_NO,START_DATE,END_DATE,GROTIME,PEOPLE,STATUS, MONEY, AMOUNT) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'),'P006','R000003','R000006','R000009',to_date('2020-04-17 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),to_date('2020-04-24 01:03:20', 'yyyy-mm-dd hh24:mi:ss'),7,2,2, 1811, 50);
 
 -----------------------------新增團購案-----------------------------
 

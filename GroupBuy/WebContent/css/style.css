@@ -1,0 +1,163 @@
+/*=============================================
+=                  Logo                    =
+=============================================*/
+@import url('https://fonts.googleapis.com/css2?family=Meddon&display=swap');
+.logo{
+     font-family: 'Sedgwick Ave Display', cursive;
+     font-size: 35px;
+     color:#16e8f7f8 ;
+}
+.logo2{
+    font-family: 'Lakki Reddy', cursive;
+    font-size: 35px;
+    color:#f1edd2f8 ;
+}
+.logo3{
+    font-family: 'Sedgwick Ave Display', cursive;
+    font-size: 15px;
+    color:#f3efd5f8 ;
+}
+
+/*=============================================
+=                  General                    =
+=============================================*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+    /* background-image: url('../img/2.jpg'); */
+    background-color: #216583;
+    background-size: cover;
+    /*filter: brightness(1.5); /*明亮度*/
+}
+
+button:focus {
+    outline: none;
+}
+.blank0{
+    height: 100px;
+}
+
+/*=============================================
+=                  Navbar                     =
+=============================================*/
+.navbar{
+    background-color: #033f5f;
+    /* opacity: 0.8; */
+    box-shadow: 0 3px 18px #042231;
+    padding:10px 30px;
+    /* position: relative; */
+}
+.nav-link{
+    color:white;
+    font-weight: bolder;
+}
+.nav-link:hover{
+    text-shadow: 0 5px 30px white;
+    transition: all 0.4s ease;
+}
+/* LOGO樣式 */
+.navbar-brand{
+    color: white;
+    font-weight: bold;
+    font-size: 26px;
+}
+.navbar2 {
+    width: 40%;
+    /* box-shadow: 0px 3px 18px #1d6f97;  */
+    position: relative;
+    top:2px;  
+    left:25px 
+}
+.item{
+    min-width: 100px;
+    height: 35px;
+    color:white;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing:2px;
+    margin: 0;
+    padding-top: 5px;
+    background:linear-gradient(#4475b6, #00334e) ;
+}
+.item:hover {
+    font-weight: bolder;
+    color: #003344;
+    background:linear-gradient(rgb(138, 170, 197), #fefefe);
+    padding-bottom: 20px;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    /* opacity: 1; */
+}
+
+@media screen and (max-width:790px){
+   .navbar2 {
+    display: none; 
+    }
+}
+@media screen and (max-width:776px){
+   .nav-link{
+    text-align: center;
+    }
+}
+
+
+/*=============================================
+=                   Section                   =
+=============================================*/
+.blank1{
+    height: 600px;
+}
+
+/*=============================================
+=                   Footer                    =
+=============================================*/
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-end p {
+    font-size: 8px;
+    margin: 0;
+}
+
+h5{
+    font-family:"STFangsong";
+    font-weight: bolder;
+    font-size: 15px;
+    color: whitesmoke;
+}
+.footer-link{
+    color: whitesmoke;
+    font-size: 10px;
+    font-family:"FangSong";
+}
+footer{
+    background:linear-gradient(rgba(51, 92, 126, 0.13), #eebebe);
+}
+
+/*=============================================
+=                     chat                    =
+=============================================*/
+
+#chatBtn {
+    width: 70px;
+    height: 70px;
+    border:none;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1000;
+    border-radius: 50%;
+    font-size: 40px;
+    color:whitesmoke;
+    background:linear-gradient(#216683fb, #6ed3bdaf);
+}
+

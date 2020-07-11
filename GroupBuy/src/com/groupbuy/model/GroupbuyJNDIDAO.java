@@ -18,11 +18,11 @@ public class GroupbuyJNDIDAO implements GroupbuyDAO_interface {
 		}
 	}
 	
-	private static final String INSERT_STMT = "INSERT INTO groupbuy (gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money FROM groupbuy ORDER BY gro_id";
-	private static final String GET_ONE_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money FROM groupbuy WHERE gro_id = ?";
+	private static final String INSERT_STMT = "INSERT INTO groupbuy (gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money, amount) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money, amount FROM groupbuy ORDER BY gro_id";
+	private static final String GET_ONE_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money, amount FROM groupbuy WHERE gro_id = ?";
 	private static final String DELETE = "DELETE FROM groupbuy WHERE gro_id = ?";
-	private static final String UPDATE = "UPDATE groupbuy SET p_id = ?, start_date = ?, end_date = ?, grotime = ?, reb1_no = ?, reb2_no = ?, reb3_no = ?, status = ?, people = ?, money = ? WHERE gro_id = ?";
+	private static final String UPDATE = "UPDATE groupbuy SET p_id = ?, start_date = ?, end_date = ?, grotime = ?, reb1_no = ?, reb2_no = ?, reb3_no = ?, status = ?, people = ?, money = ?, amount = ? WHERE gro_id = ?";
 	
 	@Override
 	public String insert(GroupbuyVO groupbuyVO) {
@@ -47,6 +47,7 @@ public class GroupbuyJNDIDAO implements GroupbuyDAO_interface {
 			pstmt.setInt(8, groupbuyVO.getStatus());
 			pstmt.setInt(9, groupbuyVO.getPeople());
 			pstmt.setDouble(10, groupbuyVO.getMoney());
+			pstmt.setInt(11, groupbuyVO.getAmount());
 			
 			pstmt.executeUpdate();
 			rs = pstmt.getGeneratedKeys();
@@ -96,7 +97,8 @@ public class GroupbuyJNDIDAO implements GroupbuyDAO_interface {
 			pstmt.setInt(8, groupbuyVO.getStatus());
 			pstmt.setInt(9, groupbuyVO.getPeople());
 			pstmt.setDouble(10, groupbuyVO.getMoney());
-			pstmt.setString(11, groupbuyVO.getGro_id());
+			pstmt.setInt(11, groupbuyVO.getAmount());
+			pstmt.setString(12, groupbuyVO.getGro_id());
 			
 			pstmt.executeUpdate();
 			
@@ -182,7 +184,8 @@ public class GroupbuyJNDIDAO implements GroupbuyDAO_interface {
 				groupbuyVO.setReb3_no(rs.getString("reb3_no"));
 				groupbuyVO.setStatus(rs.getInt("status"));
 				groupbuyVO.setPeople(rs.getInt("people"));
-				groupbuyVO.setMoney(rs.getDouble("money"));				
+				groupbuyVO.setMoney(rs.getDouble("money"));
+				groupbuyVO.setAmount(rs.getInt("amount"));
 			}
 			
 		} catch (SQLException se) {
@@ -235,7 +238,8 @@ public class GroupbuyJNDIDAO implements GroupbuyDAO_interface {
 				groupbuyVO.setReb3_no(rs.getString("reb3_no"));
 				groupbuyVO.setStatus(rs.getInt("status"));
 				groupbuyVO.setPeople(rs.getInt("people"));
-				groupbuyVO.setMoney(rs.getDouble("money"));				
+				groupbuyVO.setMoney(rs.getDouble("money"));
+				groupbuyVO.setAmount(rs.getInt("amount"));
 				list.add(groupbuyVO);				
 			}
 			

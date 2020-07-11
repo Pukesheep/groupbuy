@@ -59,6 +59,13 @@
     		width: 40px;
     		height: 40px;
     	}
+    	body{
+	 		background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); 
+	/* 		background-image: url('http://getwallpapers.com/wallpaper/full/6/e/8/90110.jpg'); */
+	/*  		background-image: url('http://getwallpapers.com/wallpaper/full/a/e/e/7532.jpg');  */
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
     </style>
 </head>
 
@@ -75,7 +82,24 @@
 <!-- aside -->
 
         <main>
-			
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs }">
+<%
+	java.util.List<String> errorMsgs = (java.util.List<String>) request.getAttribute("errorMsgs");
+	String message = "";
+	for (String msg : errorMsgs) {
+		message += msg;
+		message += "\\n";
+	}
+%>
+<script>
+	Swal.fire({
+		icon: 'error',
+		title: '<%=message%>'
+	});
+</script>
+</c:if>
+<%-- 錯誤表列 --%>
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-11">
@@ -109,10 +133,10 @@
 										</div>
 										<div class="row justify-content-center">
 											<div class="col-11 alert alert-primary text-center">
-												<button id="currentPrice" type="button" class="btn mb-2 btn-dark text-white btn-lg" data-container="body" data-toggle="popover" data-placement="top" data-content="原價 $<fmt:formatNumber pattern="#" value="${productVO.p_price}" />">
+												<button id="currentPrice" type="button" class="btn mb-2 btn-outline-dark btn-lg" data-container="body" data-toggle="popover" data-placement="top" data-content="原價 $<fmt:formatNumber pattern="#" value="${productVO.p_price}" />">
 														
 												</button>
-												<div class="progress" style="height: 30px">
+												<div class="progress border border-dark mb-1" style="height: 30px">
 													<div class="progress-bar bg-danger" id="1stlevel" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> <h6>${groupbuyVO.people} / ${rebateSvc.getOneRebate(groupbuyVO.reb1_no).people} 人</h6></div>
 													<div class="progress-bar progress-bar-striped text-white" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
 														<h6>
@@ -120,10 +144,7 @@
 														</h6>
 													</div>
 												</div>
-												<div class="progress" style="height: 5px">
-													<div class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">${groupbuyVO.people} / ${rebateSvc.getOneRebate(groupbuyVO.reb1_no).people} 人</div>
-												</div>
-												<div class="progress" style="height: 40px">
+												<div class="progress border border-dark mb-1" style="height: 40px">
 													<div class="progress-bar bg-warning" id="2ndlevel" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> <h5>${groupbuyVO.people} / ${rebateSvc.getOneRebate(groupbuyVO.reb2_no).people} 人</h5></div>
 													<div class="progress-bar progress-bar-striped text-white" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
 														<h5>
@@ -131,10 +152,7 @@
 														</h5>
 													</div>
 												</div>
-												<div class="progress" style="height: 5px">
-													<div class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> ${groupbuyVO.people} / ${rebateSvc.getOneRebate(groupbuyVO.reb1_no).people} 人</div>
-												</div>												
-												<div class="progress" style="height: 50px">
+												<div class="progress border border-dark mb-2" style="height: 50px">
 													<div class="progress-bar bg-success" id="3rdlevel" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> <h4>${groupbuyVO.people} / ${rebateSvc.getOneRebate(groupbuyVO.reb3_no).people} 人</h4></div>
 													<div class="progress-bar progress-bar-striped text-white" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
 														<h4>
@@ -142,6 +160,10 @@
 														</h4>
 													</div>
 												</div>	
+												
+												<button id="amount" type="button" class="btn mb-2 btn-outline-danger btn-lg" data-container="body" data-toggle="popover" data-placement="bottom" data-content="總數：<fmt:formatNumber pattern="#" value="${groupbuyVO.amount}" /> 份">
+													
+												</button>
 											</div>
 										</div>
 									</c:if>
@@ -160,22 +182,24 @@
 		Long end_date = groupbuyVO.getEnd_date().getTime();
 	%>
 	function init(){
-		var end_date = <%=end_date%>;
-		var now = new Date().getTime();
-		var remain = Math.ceil((end_date - now) / 1000);
-		var day = Math.floor(remain / 86400);
-		var hour = Math.floor(remain % 86400 / 3600);
-		var minute = Math.floor((remain % 86400 % 3600) / 60);
-		var second = (((remain % 86400) % 3600) % 60);
 		
-		if (remain <= 0){
-			$('#reveal').text('團購已截止, 下次請早');
-		} else {
-			var timer = setInterval(function(){
+		var timer = setInterval(function(){
+			var end_date = <%=end_date%>;
+			var now = new Date().getTime();
+			var remain = Math.ceil((end_date - now) / 1000);
+			var day = Math.floor(remain / 86400);
+			var hour = Math.floor(remain % 86400 / 3600);
+			var minute = Math.floor((remain % 86400 % 3600) / 60);
+			var second = (((remain % 86400) % 3600) % 60);
+			
+			if (remain <= 0) {
+				$('#reveal').text('團購已截止, 下次請早');
+			} else {
 				$('#reveal').text(day + ' 天 ' + hour + ' 小時 ' + minute + ' 分鐘 ' + second + ' 秒 ');
-			}, 1000);
-		}
-
+			}
+			
+		}, 1000);
+		
 		var level1 = ${rebateSvc.getOneRebate(groupbuyVO.reb1_no).people};
 		var level2 = ${rebateSvc.getOneRebate(groupbuyVO.reb2_no).people};
 		var level3 = ${rebateSvc.getOneRebate(groupbuyVO.reb3_no).people};
@@ -188,16 +212,16 @@
 		var second = 	(currentGroup / level2 * 100) >= 100 ? 90 : (currentGroup / level2 * 100) - 10;
 		var third = 	(currentGroup / level3 * 100) >= 100 ? 90 : (currentGroup / level3 * 100) - 10;
 		
-		var currenValue = ${productSvc.getOnePro(groupbuyVO.p_id).p_price};
+		var currentValue = ${productSvc.getOnePro(groupbuyVO.p_id).p_price};
 		var showNow = '';
 		if (currentGroup >= level1) {
-			currentValue = (currenValue * discount1).toFixed(0);
+			currentValue = (currentValue * discount1).toFixed(0);
 			showNow = '目前達標金額： $ ';
 		} else if (currentGroup >= level2) {
-			currentValue = (currenValue * discount2).toFixed(0);
+			currentValue = (currentValue * discount2).toFixed(0);
 			showNow = '目前達標金額： $ ';
 		} else if (currentGroup >= level3) {
-			currentValue = (currenValue * discount13).toFixed(0);
+			currentValue = (currentValue * discount13).toFixed(0);
 			showNow = '目前達標金額： $ ';
 		} else {
 			currentValue = ${productSvc.getOnePro(groupbuyVO.p_id).p_price}.toFixed(0);
@@ -209,6 +233,13 @@
 		$('#3rdlevel').attr('style', 'width:' + third + '%');	
 		
 		$('#currentPrice').text(showNow + currentValue);
+		
+		var currentAmount = ${groupbuyVO.amount - groupbuyVO.people};
+		if (currentAmount > 0){
+			$('#amount').text('團購案容許人數： ' + currentAmount);
+		} else {
+			$('#amount').text('團購商品已售罄');
+		}
 		
 	}
 	

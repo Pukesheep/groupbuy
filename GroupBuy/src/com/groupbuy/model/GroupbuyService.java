@@ -12,7 +12,7 @@ public class GroupbuyService {
 	}
 	
 	public GroupbuyVO addGroupbuy(String p_id, Timestamp start_date, Timestamp end_date, Integer grotime,
-			String reb1_no, String reb2_no, String reb3_no, Integer people, double money) {
+			Integer status, String reb1_no, String reb2_no, String reb3_no, Integer people, double money, Integer amount) {
 		
 		GroupbuyVO groupbuyVO = new GroupbuyVO();
 		
@@ -20,11 +20,13 @@ public class GroupbuyService {
 		groupbuyVO.setStart_date(start_date);
 		groupbuyVO.setEnd_date(end_date);
 		groupbuyVO.setGrotime(grotime);
+		groupbuyVO.setStatus(status);
 		groupbuyVO.setReb1_no(reb1_no);
 		groupbuyVO.setReb2_no(reb2_no);
 		groupbuyVO.setReb3_no(reb3_no);
 		groupbuyVO.setPeople(people);
 		groupbuyVO.setMoney(money);
+		groupbuyVO.setAmount(amount);
 		String generatedKey = dao.insert(groupbuyVO);
 		groupbuyVO.setGro_id(generatedKey);
 		
@@ -32,7 +34,7 @@ public class GroupbuyService {
 	}
 	
 	public GroupbuyVO updateGroupbuy(String gro_id, String p_id, Timestamp start_date, Timestamp end_date, Integer grotime,
-			String reb1_no, String reb2_no, String reb3_no, Integer people, double money) {
+			Integer status, String reb1_no, String reb2_no, String reb3_no, Integer people, double money, Integer amount) {
 		
 		GroupbuyVO groupbuyVO = new GroupbuyVO();
 		
@@ -41,11 +43,13 @@ public class GroupbuyService {
 		groupbuyVO.setStart_date(start_date);
 		groupbuyVO.setEnd_date(end_date);
 		groupbuyVO.setGrotime(grotime);
+		groupbuyVO.setStatus(status);
 		groupbuyVO.setReb1_no(reb1_no);
 		groupbuyVO.setReb2_no(reb2_no);
 		groupbuyVO.setReb3_no(reb3_no);
 		groupbuyVO.setPeople(people);
 		groupbuyVO.setMoney(money);
+		groupbuyVO.setAmount(amount);
 		dao.update(groupbuyVO);
 		
 		return groupbuyVO;

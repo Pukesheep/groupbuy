@@ -1,0 +1,60 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%  int rowsPerPage = 5;  //每頁的筆數    
+    int rowNumber=0;      //總筆數
+    int pageNumber=0;     //總頁數      
+    int whichPage=1;      //第幾頁
+    int pageIndexArray[]=null;
+    int pageIndex=0; 
+%>
+
+<%  
+    rowNumber=listMembers_ByCompositeQuery.size();
+    if (rowNumber%rowsPerPage !=0)
+         pageNumber=rowNumber/rowsPerPage + 1;
+    else pageNumber=rowNumber/rowsPerPage;    
+
+    pageIndexArray=new int[pageNumber];
+    for (int i=1 ; i<=pageIndexArray.length ; i++)
+         pageIndexArray[i-1]=i*rowsPerPage-rowsPerPage;
+%>
+
+<%  try {
+       whichPage = Integer.parseInt(request.getParameter("whichPage"));
+       pageIndex=pageIndexArray[whichPage-1];
+    } catch (NumberFormatException e) { //第一次執行的時候
+       whichPage=1;
+       pageIndex=0;
+    } catch (ArrayIndexOutOfBoundsException e) { //總頁數之外的錯誤頁數
+         if (pageNumber>0){
+              whichPage=pageNumber;
+              pageIndex=pageIndexArray[pageNumber-1];
+         }
+    } 
+%>
+
+ 	<%if ( pageNumber > 1) {%>
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do">
+	    <div class="row justify-content-between">	
+	    	<div class="col">
+		    	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+		    		<div class="btn-group mr-2" role="group" aria-label="First group">
+		    			<% if (whichPage != 1) { %>
+		    				<a class="btn btn-outline-warning" href="<%=request.getContextPath()%>/member/member.do?action=listMembers_ByCompositeQuery&whichPage=1" role="button">首頁</a>
+		    			<%}%>
+			    			<%for (int i=1; i<=pageNumber; i++){%>
+			    				<a class="btn btn-outline-warning" href="<%=request.getContextPath()%>/member/member.do?action=listMembers_ByCompositeQuery&whichPage=<%=i%>" role="button"><%=i%></a>
+			    			<%}%>
+			    		<% if (whichPage != pageNumber){ %>
+		    				<a class="btn btn-outline-warning" href="<%=request.getContextPath()%>/member/member.do?action=listMembers_ByCompositeQuery&whichPage=<%=pageNumber%>" role="button">末頁</a>
+		    			<%}%>
+		    		</div>
+		    		<div class="col">
+			    		<button type="button" class="btn btn-outline-success d-inline-block float-right">
+							<%=whichPage%> / <%=pageNumber%>
+						</button>
+					</div>
+		    	</div>
+		    </div>	
+		  </div>  
+    </FORM>
+  <%}%>

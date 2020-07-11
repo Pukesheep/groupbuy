@@ -10,11 +10,11 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 	String userid = "TEST1";
 	String passwd = "TEST1";
 	
-	private static final String INSERT_STMT = "INSERT INTO groupbuy (gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money FROM groupbuy ORDER BY gro_id";
-	private static final String GET_ONE_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money FROM groupbuy WHERE gro_id = ?";
+	private static final String INSERT_STMT = "INSERT INTO groupbuy (gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money, amount) VALUES ('G'||LPAD(GROUPBUY_seq.NEXTVAL,6,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money, amount FROM groupbuy ORDER BY gro_id";
+	private static final String GET_ONE_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money, amount FROM groupbuy WHERE gro_id = ?";
 	private static final String DELETE = "DELETE FROM groupbuy WHERE gro_id = ?";
-	private static final String UPDATE = "UPDATE groupbuy SET p_id = ?, start_date = ?, end_date = ?, grotime = ?, reb1_no = ?, reb2_no = ?, reb3_no = ?, status = ?, people = ?, money = ? WHERE gro_id = ?";
+	private static final String UPDATE = "UPDATE groupbuy SET p_id = ?, start_date = ?, end_date = ?, grotime = ?, reb1_no = ?, reb2_no = ?, reb3_no = ?, status = ?, people = ?, money = ?, amount = ? WHERE gro_id = ?";	
 	
 	@Override
 	public String insert(GroupbuyVO groupbuyVO) {
@@ -41,6 +41,7 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 			pstmt.setInt(8, groupbuyVO.getStatus());
 			pstmt.setInt(9, groupbuyVO.getPeople());
 			pstmt.setDouble(10, groupbuyVO.getMoney());
+			pstmt.setInt(11, groupbuyVO.getAmount());
 			
 			pstmt.executeUpdate();
 			
@@ -95,7 +96,8 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 			pstmt.setInt(8, groupbuyVO.getStatus());
 			pstmt.setInt(9, groupbuyVO.getPeople());
 			pstmt.setDouble(10, groupbuyVO.getMoney());
-			pstmt.setString(11, groupbuyVO.getGro_id());
+			pstmt.setInt(11, groupbuyVO.getAmount());
+			pstmt.setString(12, groupbuyVO.getGro_id());
 			
 			pstmt.executeUpdate();
 			
@@ -190,6 +192,7 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 				groupbuyVO.setStatus(rs.getInt("status"));
 				groupbuyVO.setPeople(rs.getInt("people"));
 				groupbuyVO.setMoney(rs.getDouble("money"));
+				groupbuyVO.setAmount(rs.getInt("amount"));
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -245,7 +248,8 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 				groupbuyVO.setReb3_no(rs.getString("reb3_no"));
 				groupbuyVO.setStatus(rs.getInt("status"));
 				groupbuyVO.setPeople(rs.getInt("people"));
-				groupbuyVO.setMoney(rs.getDouble("money"));				
+				groupbuyVO.setMoney(rs.getDouble("money"));
+				groupbuyVO.setAmount(rs.getInt("amount"));
 				list.add(groupbuyVO);
 			}
 			
@@ -279,13 +283,9 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 		GroupbuyJDBCDAO dao = new GroupbuyJDBCDAO();
 		
 		// 新增
-//		Timestamp now = new Timestamp(System.currentTimeMillis());
-//		int days = 7;
-//		Timestamp grotime = new Timestamp(days * 24 * 60 * 60 * 1000L);
-//		Timestamp end = new Timestamp(now.getTime() + grotime.getTime());
 		
 		GroupbuyVO groupbuyVO1 = new GroupbuyVO();
-		groupbuyVO1.setP_id("P007");
+		groupbuyVO1.setP_id("P008");
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		int days = 7;
 		Timestamp grotime = new Timestamp(days * 24 * 60 * 60 * 1000L);
@@ -295,10 +295,11 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 		groupbuyVO1.setEnd_date(end);
 		groupbuyVO1.setReb1_no("R000001");
 		groupbuyVO1.setReb2_no("R000002");
-		groupbuyVO1.setReb3_no("R000003");
+		groupbuyVO1.setReb3_no("R000004");
 		groupbuyVO1.setStatus(0);
 		groupbuyVO1.setPeople(5);
 		groupbuyVO1.setMoney(588.584949d);
+		groupbuyVO1.setAmount(133);
 		String gro_id = dao.insert(groupbuyVO1);
 		System.out.println(gro_id);
 		
@@ -308,9 +309,9 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 //		int days = 1;
 //		Timestamp grotime = new Timestamp(days * 24 * 60 * 60 * 1000L);
 //		Timestamp end = new Timestamp(now.getTime() + grotime.getTime());
-//		groupbuyVO2.setP_id("P004");
+//		groupbuyVO2.setP_id("P003");
 //		groupbuyVO2.setStart_date(now);
-//		groupbuyVO2.setGrotime_date(days);
+//		groupbuyVO2.setGrotime(days);
 //		groupbuyVO2.setEnd_date(end);
 //		groupbuyVO2.setReb1_no("R000003");
 //		groupbuyVO2.setReb2_no("R000004");
@@ -318,6 +319,7 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 //		groupbuyVO2.setStatus(2);
 //		groupbuyVO2.setPeople(1);
 //		groupbuyVO2.setMoney(10.5d);
+//		groupbuyVO2.setAmount(99);
 //		groupbuyVO2.setGro_id("G000003");
 //		dao.update(groupbuyVO2);
 		
@@ -329,7 +331,7 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 //		System.out.println("GRO_ID = " + groupbuyVO3.getGro_id());
 //		System.out.println("P_ID = " + groupbuyVO3.getP_id());
 //		System.out.println("START_DATE = " + groupbuyVO3.getStart_date());
-//		System.out.println("GROTIME_DATE = " + groupbuyVO3.getGrotime_date());
+//		System.out.println("GROTIME_DATE = " + groupbuyVO3.getGrotime());
 //		System.out.println("END_DATE = " + groupbuyVO3.getEnd_date());
 //		System.out.println("REB1_NO = " + groupbuyVO3.getReb1_no());
 //		System.out.println("REB2_NO = " + groupbuyVO3.getReb2_no());
@@ -337,6 +339,7 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 //		System.out.println("STATUS = " + groupbuyVO3.getStatus());
 //		System.out.println("PEOPLE = " + groupbuyVO3.getPeople());
 //		System.out.println("MONEY = " + groupbuyVO3.getMoney());
+//		System.out.println("AMOUNT = " + groupbuyVO3.getAmount());
 //		System.out.println("============================");
 		
 		// 查詢全部
@@ -353,6 +356,7 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 			System.out.println("STATUS = " + aGroupbuy.getStatus());
 			System.out.println("PEOPLE = " + aGroupbuy.getPeople());
 			System.out.println("MONEY = " + aGroupbuy.getMoney());
+			System.out.println("AMOUNT = " + aGroupbuy.getAmount());
 			System.out.println("============================");
 		}
 		

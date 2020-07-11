@@ -17,6 +17,7 @@ public class GroupbuyVO implements java.io.Serializable {
 	private Integer status;
 	private Integer people;
 	private double money;
+	private Integer amount;
 	
 	public String getGro_id() {
 		return gro_id;
@@ -83,6 +84,12 @@ public class GroupbuyVO implements java.io.Serializable {
 	}
 	public void setMoney(double money) {
 		this.money = money;
+	}
+	public Integer getAmount() {
+		return amount;
+	}
+	public void setAmount(Integer amount) {
+		this.amount = amount;
 	}
 	
 }

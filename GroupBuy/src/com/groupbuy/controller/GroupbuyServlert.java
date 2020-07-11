@@ -24,23 +24,31 @@ public class GroupbuyServlert extends HttpServlet {
 		
 		String front = 				"/front-end";
 		String back = 				"/back-end";
-		String select_page = 		"/groupbuy/select_page.jsp";
-		String listOneGroupbuy = 	"/groupbuy/listOneGroupbuy.jsp";
-		String listAllGroupbuy = 	"/groupbuy/listAllgroupbuy.jsp";
+		
+		String select_page = 			"/groupbuy/select_page.jsp";
+		String listOneGroupbuy = 		"/groupbuy/listOneGroupbuy.jsp";
+		String listAllGroupbuy = 		"/groupbuy/listAllGroupbuy.jsp";
 		String update_groupbuy_input = 	"/groupbuy/update_groupbuy_input.jsp";
+		String addGroupbuy = 			"/groupbuy/addGroupbuy.jsp";
+		
+		if (from.contains("front")) {
+			select_page = 			front + select_page;
+			listOneGroupbuy = 		front + listOneGroupbuy;
+			listAllGroupbuy = 		front + listAllGroupbuy;
+			update_groupbuy_input = front + update_groupbuy_input;
+			addGroupbuy = 			front + addGroupbuy;
+		} else {
+			select_page = 			back + select_page;
+			listOneGroupbuy = 		back + listOneGroupbuy;
+			listAllGroupbuy = 		back + listAllGroupbuy;
+			update_groupbuy_input = back + update_groupbuy_input;
+			addGroupbuy = 			back + addGroupbuy;
+		}
 		
 		if ("getOne_For_Display".equals(action)) {
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			
-			if (from.contains("front")) {
-				select_page = 		front + select_page;
-				listOneGroupbuy = 	front + listOneGroupbuy;
-			} else {
-				select_page = 		back + select_page;
-				listOneGroupbuy = 	back + listOneGroupbuy;
-			}
 			
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
@@ -133,6 +141,13 @@ public class GroupbuyServlert extends HttpServlet {
 					errorMsgs.add("結束時間： 請輸入正確的時間格式");
 				}
 				
+				Integer amount = null;
+				try {
+					amount = new Integer(req.getParameter("amount"));
+				} catch (NumberFormatException e) {
+					errorMsgs.add("團購商品數量： 請輸入正確的格式");
+				}
+				
 				GroupbuyVO groupbuyVO = new GroupbuyVO();
 				groupbuyVO.setGro_id(gro_id);
 				groupbuyVO.setP_id(p_id);
@@ -156,7 +171,7 @@ public class GroupbuyServlert extends HttpServlet {
 				/***************************2.開始修改資料***************************************/
 				GroupbuyService groupbuySvc = new GroupbuyService();
 				groupbuyVO = groupbuySvc.updateGroupbuy(gro_id, p_id, start_date, end_date, grotime,
-						reb1_no, reb2_no, reb3_no, people, money);
+						status, reb1_no, reb2_no, reb3_no, people, money, amount);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("groupbuyVO", groupbuyVO);
@@ -206,35 +221,38 @@ public class GroupbuyServlert extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			try {
+//			try {
 				/***************************1.接收請求參數****************************************/
 				
 				String p_id = req.getParameter("p_id");
 				String reb1_no = req.getParameter("reb1_no");
 				String reb2_no = req.getParameter("reb2_no");
 				String reb3_no = req.getParameter("reb3_no");
+				Integer status = new Integer(0);
+				Integer people = new Integer(0);
+				Double money = new Double(0.0d);
 				
 				
-				Integer status = null;
-				try {
-					status = new Integer(req.getParameter("status"));
-				} catch (NumberFormatException e) {
-					errorMsgs.add("團購案狀態： 請輸入正確的數字格式");
-				}
-				
-				Integer people = null;
-				try {
-					people = new Integer(req.getParameter("people"));
-				} catch (NumberFormatException e) {
-					errorMsgs.add("參加人數： 請輸入正確的格式");
-				}
-				
-				Double money = null;
-				try {
-					money = new Double(req.getParameter("money"));
-				} catch (NumberFormatException e) {
-					errorMsgs.add("商品金額： 請輸入正確的格式");
-				}
+//				Integer status = null;
+//				try {
+//					status = new Integer(req.getParameter("status"));
+//				} catch (NumberFormatException e) {
+//					errorMsgs.add("團購案狀態： 請輸入正確的數字格式");
+//				}
+//				
+//				Integer people = null;
+//				try {
+//					people = new Integer(req.getParameter("people"));
+//				} catch (NumberFormatException e) {
+//					errorMsgs.add("參加人數： 請輸入正確的格式");
+//				}
+//				
+//				Double money = null;
+//				try {
+//					money = new Double(req.getParameter("money"));
+//				} catch (NumberFormatException e) {
+//					errorMsgs.add("商品金額： 請輸入正確的格式");
+//				}
 				
 				Timestamp start_date = null;
 				try {
@@ -255,7 +273,14 @@ public class GroupbuyServlert extends HttpServlet {
 					end_date = Timestamp.valueOf(req.getParameter("end_date"));
 				} catch (IllegalArgumentException e) {
 					errorMsgs.add("結束時間： 請輸入正確的時間格式");
-				}				
+				}
+				
+				Integer amount = null;
+				try {
+					amount = new Integer(req.getParameter("amount"));
+				} catch (NumberFormatException e) {
+					errorMsgs.add("團購商品數量： 請輸入正確的格式");
+				}
 				
 				GroupbuyVO groupbuyVO = new GroupbuyVO();
 				groupbuyVO.setP_id(p_id);
@@ -268,10 +293,11 @@ public class GroupbuyServlert extends HttpServlet {
 				groupbuyVO.setReb1_no(reb1_no);
 				groupbuyVO.setReb2_no(reb2_no);
 				groupbuyVO.setReb3_no(reb3_no);
+				groupbuyVO.setAmount(amount);
 				
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("groupbuyVO", groupbuyVO);
-					RequestDispatcher failureView = req.getRequestDispatcher(listAllGroupbuy);
+					RequestDispatcher failureView = req.getRequestDispatcher(addGroupbuy);
 					failureView.forward(req, res);
 					return;
 				}
@@ -279,7 +305,7 @@ public class GroupbuyServlert extends HttpServlet {
 				/***************************2.開始新增資料***************************************/
 				GroupbuyService groupbuySvc = new GroupbuyService();
 				groupbuyVO = groupbuySvc.addGroupbuy(p_id, start_date, end_date, grotime, 
-						reb1_no, reb2_no, reb3_no, people, money);
+						status, reb1_no, reb2_no, reb3_no, people, money, amount);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				
@@ -288,11 +314,11 @@ public class GroupbuyServlert extends HttpServlet {
 				
 				/***************************其他可能的錯誤處理**********************************/
 
-			} catch (Exception e) {
-				errorMsgs.add("新增資料失敗： " + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(listAllGroupbuy);
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add("新增資料失敗： " + e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher(addGroupbuy);
+//				failureView.forward(req, res);
+//			}
 		}
 		
 		if ("delete".equals(action)) {

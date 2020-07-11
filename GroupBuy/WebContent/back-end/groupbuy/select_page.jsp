@@ -48,15 +48,19 @@
     <title>團購查詢</title>
     
     <style>
-    	img.card-header {
-    		height: 300px;
-    	}
     	body{
 	 		background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); 
 	/* 		background-image: url('http://getwallpapers.com/wallpaper/full/6/e/8/90110.jpg'); */
 	/*  		background-image: url('http://getwallpapers.com/wallpaper/full/a/e/e/7532.jpg');  */
 			background-size: cover;
 			background-repeat: no-repeat;
+		}
+		img.select_icon {
+			width: 150px;
+			height: 150px;
+		}
+		img.select_icon:hover {
+			cursor: pointer;
 		}
 		
     </style>
@@ -100,7 +104,6 @@
 				<div class="row justify-content-center">
 					<div class="col-10">
 						<div class="card mt-5">
-<%-- 							<img src="<%=request.getContextPath()%>/images/groupbuy/select_page_header.jpg" class="card-img-top card-header" alt=""> --%>
 							<div class="card-body bg-info">
 								<div class="media">
 									<img src="<%=request.getContextPath()%>/images/groupbuy/search.png" class="mr-3" alt="">
@@ -166,18 +169,24 @@
 														</div>
 													</div>
 												</form>
-												<div class="row">
-													<div class="col-4">
-														<h2 class="mt-0">新增團購</h2>
-														rtggdfgdfgdfgdfg
+												<div class="row justify-content-center">
+													<div class="col-4 text-center mb-3">
+														<h2 class="mt-0 mb-3">新增團購</h2>
+														<a href="<%=request.getContextPath()%>/back-end/groupbuy/addGroupbuy.jsp">
+															<img alt="" class="select_icon" src="<%=request.getContextPath()%>/images/groupbuy/addGroupbuy.png">
+														</a>
 													</div>
-													<div class="col-4">
-														<h2 class="mt-0">123</h2>
-														2131231
+													<div class="col-4 text-center mb-3">
+														<h2 class="mt-0 mb-3">所有團購案</h2>
+														<a href="<%=request.getContextPath()%>/back-end/groupbuy/listAllGroupbuy.jsp">
+															<img alt="" class="select_icon" src="<%=request.getContextPath()%>/images/groupbuy/groupbuy.png" >
+														</a>
 													</div>
-													<div class="col-4">
-														<h2 class="mt-0">456</h2>
-														loiuil;pi;
+													<div class="col-4 text-center mb-3">
+														<h2 class="mt-0 mb-3">訂單管理</h2>
+<%-- 														<a href="<%=request.getContextPath()%>/back-end/gorder/listAllGorder.jsp"> --%>
+															<img alt="" class="select_icon" src="<%=request.getContextPath()%>/images/groupbuy/list.png">
+<!-- 														</a> -->
 													</div>
 												</div>
 											</div>

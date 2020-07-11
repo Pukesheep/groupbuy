@@ -45,6 +45,15 @@
 		<url-pattern>/groupbuy/groupbuy.do</url-pattern>
 	</servlet-mapping>
 
+	  <servlet>
+	  	<servlet-name>ShowPoductInfo</servlet-name>
+	  	<servlet-class>com.groupbuy.controller.ShowPoductInfo</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	  	<servlet-name>ShowPoductInfo</servlet-name>
+	  	<url-pattern>/groupbuy/showProductInfo.do</url-pattern>
+	  </servlet-mapping>
+	  
 <!-- 團購 -->
 
 <!-- 商城 -->
