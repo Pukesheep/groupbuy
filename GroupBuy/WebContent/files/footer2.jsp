@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/frontchat/css/chat.css">
+</head>
+<body>
 
         <!-- footer -->
         <footer id="footer" class="pt-5 ">
@@ -15,7 +23,7 @@
                                 <a class="footer-link" href="<%=request.getContextPath()%>/front-end/member/addMember.jsp">註冊會員</a>
                             </li>
                             <li>
-                                <a class="footer-link" href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">">商城</a>
+                                <a class="footer-link" href="">商城</a>
                             </li>
                             <li>
                                 <a class="footer-link" href="">團購</a>
@@ -75,9 +83,12 @@
             </div>
         </footer>
 
-        <div id="chatBtn" class="bg-primary" onclick="on()">
+        <button id="chatBtn" class="bg-primary"  onclick="on()" >
             <i class="fas fa-comments"></i>
-        </div>
-        <%@ include file="/front-end/frontchat/chat.jsp" %>
+        </button>
+         <%@ include file="/front-end/frontchat/chat.jsp" %>
+        	 
         
-<link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/frontchat/css/chat.css">
+        
+</body>
+</html>

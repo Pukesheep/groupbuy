@@ -18,40 +18,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>團購詳情</title>
-    <!-- TODO: 換title 的icon -->
-    <link rel="icon shortcut" href="<%=request.getContextPath()%>/front-end/img/ICON.ico">
-    <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
-    <!-- 連結Bootstrap.min.css -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <!-- 使用font awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
-        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-    <!-- 使用google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
-
-    <!-- 使用style.css -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
-
-    <!-- 連結Bootstrap所需要的js -->
-    <!-- jquery.min.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- popper.min.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <!-- bootstrap.min.js -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+	<%@ include file="../../files/HeaderCssLink" %>
         
     <!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
  
 	<!-- groupbuy.css -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/groupbuy.css"> 		
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/groupbuy.css"> 		
 	
 	
 	
@@ -134,25 +107,34 @@
 											<button type="button" class="btn btn-warning btn-sm" id="reveal" data-container="body" data-toggle="popover" data-placement="bottom" data-content="剩餘時間">
 												0 天 00 小時 00 分鐘 00 秒
 											</button>
-										</div>	
+										</div>
+										
+										<%
+											long endLong = groupbuyVO.getEnd_date().getTime();
+											long now = System.currentTimeMillis();
+											long remain = endLong - now;
+										%>
+										
 										<div class="col-3 text-center">
-											<button type="button" class="btn btn-success btn-sm" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-37,10">團購選項</button>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-												<form action="<%=request.getContextPath()%>/gromem/gromem.do" method="post">
-													<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
-													<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
-													<input type="hidden" name="action" value="join">
-													<input type="hidden" name="from" value="front-end">
-													<button type="submit" class="btn btn-warning dropdown-item text-center btn-sm">加入</button>
-												</form>
-												<form action="<%=request.getContextPath()%>/gromem/gromem.do" method="post">
-													<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
-													<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
-													<input type="hidden" name="action" value="quit">
-													<input type="hidden" name="from" value="front-end">
-													<button type="submit" class="btn btn-warning dropdown-item text-center btn-sm">退出</button>
-												</form>													
-											</div>
+											<c:if test="<%=(remain / 1000) >= 0%>">
+												<button type="button" class="btn btn-success btn-sm" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-37,10">團購選項</button>
+												<div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+													<form action="<%=request.getContextPath()%>/gromem/gromem.do" method="post">
+														<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+														<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
+														<input type="hidden" name="action" value="join">
+														<input type="hidden" name="from" value="front-end">
+														<button type="submit" class="btn btn-warning dropdown-item text-center btn-sm">加入</button>
+													</form>
+													<form action="<%=request.getContextPath()%>/gromem/gromem.do" method="post">
+														<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+														<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
+														<input type="hidden" name="action" value="quit">
+														<input type="hidden" name="from" value="front-end">
+														<button type="submit" class="btn btn-warning dropdown-item text-center btn-sm">退出</button>
+													</form>													
+												</div>
+											</c:if>
 										</div>
 									</div>	
 								</div>
@@ -231,9 +213,27 @@
 		var discount3 = ${rebateSvc.getOneRebate(groupbuyVO.reb3_no).discount};
 		
 		var currentGroup = ${groupbuyVO.people};
-		var first = 	(currentGroup / level1 * 100) >= 100 ? 90 : (currentGroup / level1 * 100) - 10;
-		var second = 	(currentGroup / level2 * 100) >= 100 ? 90 : (currentGroup / level2 * 100) - 10;
-		var third = 	(currentGroup / level3 * 100) >= 100 ? 90 : (currentGroup / level3 * 100) - 10;
+// 		var first = 	(currentGroup / level1 * 100) >= 100 ? 90 : (currentGroup / level1 * 100) -10 ;
+// 		var second = 	(currentGroup / level2 * 100) >= 100 ? 90 : (currentGroup / level2 * 100) -10 ;
+// 		var third = 	(currentGroup / level3 * 100) >= 100 ? 90 : (currentGroup / level3 * 100) -10 ;
+		
+// 		var first = 	(currentGroup / level1 * 100);
+// 		var second = 	(currentGroup / level2 * 100);
+// 		var third = 	(currentGroup / level3 * 100);
+		
+		function checkPercent(target){
+			if (target >= 100){
+				return 90;
+			} else if (target < 100 && target >= 90){
+				return target - 10;
+			} else {
+				return target;
+			}
+		}
+		
+		var first = 	checkPercent((currentGroup / level1 * 100));
+		var second = 	checkPercent((currentGroup / level2 * 100));
+		var third = 	checkPercent((currentGroup / level3 * 100));
 		
 		var currentValue = ${productSvc.getOnePro(groupbuyVO.p_id).p_price};
 		var showNow = '';

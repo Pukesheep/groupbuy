@@ -41,7 +41,7 @@
 	   		height: 300px;
 	   	}
 		pre#addInfo { 
-			height: 400px; 
+			height: 400px;
 		} 
 		img#addDisplay {
 			height: 300px;
@@ -90,6 +90,9 @@
 	   		width: 40px;
 	   		height: 40px;
 	   	}
+	   	pre.alert {
+	   		overflow: auto;
+	   	}
 		
 	/* 	listOneGroupbuy.jsp */
 	
@@ -101,7 +104,7 @@
 /* 		listAllGroupbuy.jsp */
 
 		img#front-end-Header {
-			height: 200px;
+			height: 100px;
 		}
 		img.card-display {
 			height: 350px;

@@ -1,6 +1,7 @@
 package com.gromem.model;
 
 import java.util.*;
+import com.groupbuy.model.*;
 
 public class GromemService {
 

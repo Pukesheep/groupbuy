@@ -51,7 +51,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>  
  
 	<!-- groupbuy.css -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/groupbuy.css"> 
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/groupbuy.css"> 
     
     
     <title>團購區</title>
@@ -92,6 +92,25 @@
 </c:if>
 <%-- 錯誤表列 --%>	
 
+<%-- 成功表列 --%>
+<c:if test="${not empty successMsgs }">
+<%
+	java.util.List<String> successMsgs = (java.util.List<String>) request.getAttribute("successMsgs");
+	String message = "";
+	for (String msg : successMsgs) {
+		message += msg;
+		message += "\\n";
+	}
+%>
+<script>
+	Swal.fire({
+		icon: 'success',
+		title: '<%=message%>'
+	});
+</script>
+</c:if>
+<%-- 成功表列 --%>
+
 <nav aria-label="breadcrumb">
 	<ol class="breadcrumb bg-transparent">
 		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/index.jsp">後台首頁</a></li>
@@ -111,7 +130,7 @@
 									<div class="row">
 										<div class="col">
 											<div class="media m-3">
-												<img src="<%=request.getContextPath()%>/images/groupbuy/groupbuy.png" class="mr-3" alt="">
+<%-- 												<img src="<%=request.getContextPath()%>/images/groupbuy/groupbuy.png" class="mr-3" alt=""> --%>
 												<div class="media-body">
 													<c:forEach var="groupbuyVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 														<div class="media mt-3 alert alert-danger">

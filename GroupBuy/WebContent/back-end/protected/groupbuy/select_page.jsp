@@ -42,7 +42,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>   
   
 	<!-- groupbuy.css -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/groupbuy.css">    
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/groupbuy.css">    
     
     
     

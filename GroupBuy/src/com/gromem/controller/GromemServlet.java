@@ -52,10 +52,11 @@ public class GromemServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			req.setAttribute("successMsgs", successMsgs);
 			
+			GromemService gromemSvc = new GromemService();
 			GroupbuyService groupbuySvc = new GroupbuyService();
 			GroupbuyVO groupbuyVO = null;
 			
-			try {
+//			try {
 				/***************************1.接收請求參數****************************************/
 				String mem_id = req.getParameter("mem_id");
 				String gro_id = req.getParameter("gro_id");
@@ -64,6 +65,16 @@ public class GromemServlet extends HttpServlet {
 				groupbuyVO = groupbuySvc.getOneGroupbuy(gro_id);
 				Integer people = groupbuyVO.getPeople();
 				Integer amount = groupbuyVO.getAmount();
+				
+				GromemVO gromemVO1 = gromemSvc.getOneGromem(mem_id, gro_id);
+				
+				if (gromemVO1 != null) {
+					req.setAttribute("groupbuyVO", groupbuyVO);
+					errorMsgs.add("已加入團購, 操作失敗");
+					RequestDispatcher failureView = req.getRequestDispatcher(listOneGroupbuy);
+					failureView.forward(req, res);
+					return;
+				}
 				
 				if (people == amount) {
 					req.setAttribute("groupbuyVO", groupbuyVO);
@@ -79,7 +90,6 @@ public class GromemServlet extends HttpServlet {
 					gromemVO.setMem_id(mem_id);
 					gromemVO.setGro_id(gro_id);
 					
-					GromemService gromemSvc = new GromemService();
 					gromemSvc.join(gromemVO, ++people);
 					groupbuyVO.setPeople(people);
 				}
@@ -92,11 +102,11 @@ public class GromemServlet extends HttpServlet {
 				
 				/***************************其他可能的錯誤處理**********************************/
 
-			} catch (Exception e) {
-				errorMsgs.add("新增資料失敗： " + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(listOneGroupbuy);
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add("新增資料失敗： " + e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher(listOneGroupbuy);
+//				failureView.forward(req, res);
+//			}
 		}
 		
 		if ("quit".equals(action)) {

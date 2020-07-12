@@ -36,7 +36,7 @@
         crossorigin="anonymous"></script>   
   
 	<!-- groupbuy.css -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/groupbuy.css">    
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/groupbuy.css">    
     
 
     <title>S.F.G 後台管理</title>

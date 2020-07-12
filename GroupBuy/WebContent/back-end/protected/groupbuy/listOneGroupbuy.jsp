@@ -45,7 +45,7 @@
         crossorigin="anonymous"></script>   
   
 	<!-- groupbuy.css -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/groupbuy.css">    
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/groupbuy.css">    
 
 
     <title>團購詳情</title>
@@ -118,11 +118,11 @@
 															0 天 00 小時 00 分鐘 00 秒
 														</button>
 													</div>	
-													<div class="col-3 text-center">
-														<button type="button" class="btn btn-success btn-sm">
-															立即參加
-														</button>
-													</div>
+<!-- 													<div class="col-3 text-center"> -->
+<!-- 														<button type="button" class="btn btn-success btn-sm"> -->
+<!-- 															立即參加 -->
+<!-- 														</button> -->
+<!-- 													</div> -->
 												</div>	
 											</div>
 										</div>

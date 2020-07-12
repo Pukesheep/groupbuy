@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-</head>
-<body>
+
 
     <!-- navbar -->
     <!-- 使用Boostrap Navbar -->
@@ -30,10 +23,10 @@
                     <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">商城 </a></div>
                     <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/groupbuy/listAllGroupbuy.jsp">團購 </a></div> 
                     <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/auct/Auct_index.jsp">競標區 </a></div> 
-                    <div class="item col-md-2"><a href="#">直購區 </a></div> 
+                    <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購區 </a></div> 
                     <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp">討論區 </a></div> 
-                    <div class="item col-md-2"><a href="#">紅利</a></div> 
-                	<div class="item col-md-2"><a href="#">Q&A</a></div>
+                    <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/BounsMall/listAllBouns.jsp">紅利</a></div> 
+                	<div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/Question/ListAll.jsp">Q&A</a></div>
             </div>
         </div>
 
@@ -70,6 +63,3 @@
     </nav>
     <!-- navbar end -->
 
-
-</body>
-</html>

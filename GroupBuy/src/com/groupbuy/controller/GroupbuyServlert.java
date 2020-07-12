@@ -353,7 +353,9 @@ public class GroupbuyServlert extends HttpServlet {
 		if ("deploy".equals(action)) {
 			
 			List<String> errorMsgs = new LinkedList<String>();
+			List<String> successMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("successMsgs", successMsgs);
 			
 			try {
 				/***************************1.接收請求參數***************************************/
@@ -367,8 +369,10 @@ public class GroupbuyServlert extends HttpServlet {
 				
 				if (status == 0) {
 					groupbuyVO.setStatus(1);
+					successMsgs.add("操作成功");
 				} else if (status == 1) {
 					groupbuyVO.setStatus(0);
+					successMsgs.add("操作成功");
 				} else {
 					errorMsgs.add("團購已截止, 無法進行上/下架操作");
 					RequestDispatcher failureView = req.getRequestDispatcher(listAllGroupbuy);

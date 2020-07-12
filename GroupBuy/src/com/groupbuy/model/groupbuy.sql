@@ -395,7 +395,7 @@ STATUS NUMBER(20),
 PEOPLE NUMBER(10),
 MONEY NUMBER(20, 2),
 AMOUNT NUMBER(20) NOT NULL,
-P_ID VARCHAR2(10) unique NOT NULL constraint product_p_id_fk references product(P_ID),
+P_ID VARCHAR2(10) NOT NULL constraint product_p_id_fk references product(P_ID),
 REB1_NO VARCHAR2(10)constraint rebate_reb1_no_fk references rebate(REB_NO),
 REB2_NO VARCHAR2(10)constraint rebate_reb2_no_fk references rebate(REB_NO),
 REB3_NO VARCHAR2(10)constraint rebate_reb3_no_fk references rebate(REB_NO)

@@ -49,7 +49,7 @@
 	<script src="<%=request.getContextPath()%>/files/datetimepicker/jquery.datetimepicker.full.js"></script>
  
 	<!-- groupbuy.css -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/groupbuy.css">    
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/groupbuy.css">    
     
     
 
