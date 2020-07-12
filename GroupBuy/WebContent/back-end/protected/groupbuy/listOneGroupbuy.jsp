@@ -43,30 +43,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>   
-    
+  
+	<!-- groupbuy.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/groupbuy.css">    
 
 
-    <title>團購案詳情</title>
+    <title>團購詳情</title>
     
-    <style>
-    	img.product_image {
-    		width: 40%;
-    		height: 40%;
-    		border: 3px dashed yellow;
-    		padding: 5px;
-    	}
-    	img#burning {
-    		width: 40px;
-    		height: 40px;
-    	}
-    	body{
-	 		background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); 
-	/* 		background-image: url('http://getwallpapers.com/wallpaper/full/6/e/8/90110.jpg'); */
-	/*  		background-image: url('http://getwallpapers.com/wallpaper/full/a/e/e/7532.jpg');  */
-			background-size: cover;
-			background-repeat: no-repeat;
-		}
-    </style>
 </head>
 
 <body>
@@ -100,6 +83,18 @@
 </script>
 </c:if>
 <%-- 錯誤表列 --%>
+
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb bg-transparent">
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/index.jsp">後台首頁</a></li>
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購查詢</a></li>
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購列表</a></li>
+		<li class="breadcrumb-item active text-warning" aria-current="page">團購詳情</li>
+	</ol>
+</nav>
+
+
+
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-11">

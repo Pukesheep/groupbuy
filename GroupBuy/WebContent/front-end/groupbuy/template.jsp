@@ -40,7 +40,9 @@
         
     <!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-	
+ 
+	<!-- groupbuy.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/groupbuy.css"> 		
 	
 </head>
 <body>
@@ -68,6 +70,14 @@
 </script>
 </c:if>
 <%-- 錯誤表列 --%>
+
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb bg-transparent">
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/front-end/index.jsp">前台首頁</a></li>
+		<li class="breadcrumb-item active text-warning" aria-current="page">團購列表</li>
+	</ol>
+</nav>
+
 
 
 

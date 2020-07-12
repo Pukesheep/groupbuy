@@ -21,7 +21,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>團購區</title>
+    <title>團購列表</title>
     <!-- TODO: 換title 的icon -->
     <link rel="icon shortcut" href="<%=request.getContextPath()%>/front-end/img/ICON.ico">
     <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
@@ -53,40 +53,10 @@
         
     <!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-	
-    <style>
-    	body{
-  	 		background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');   
-/* 		background-image: url('http://getwallpapers.com/wallpaper/full/6/e/8/90110.jpg'); */
-/*  			background-image: url('http://getwallpapers.com/wallpaper/full/a/e/e/7532.jpg');   */
-/*   			background-image: url('http://getwallpapers.com/wallpaper/full/a/e/e/7532.jpg');   */
-			background-size: cover;
-			background-repeat: no-repeat;
-		}
-		img#groupbuyHeader {
-			height: 250px;
-		}
-		img.card-display {
-			height: 350px;
-		}
-		img.card-display:hover {
-			cursor: pointer;
-		}
-		a.groupbuydetail {
-			color:white; text-decoration:none;
-		}
-		a.groupbuydetail:visited {
-			text-decoration:none;
-		}
-		a.groupbuydetail:hover {
-			color:#00334e;text-decoration:none;
-		}
-		a.groupbuydetail:active {
-			color:white;
-		}
-		
-    </style>
-	
+ 
+	<!-- groupbuy.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/groupbuy.css"> 	
+
 	
 	
 </head>
@@ -116,13 +86,22 @@
 </c:if>
 <%-- 錯誤表列 --%>
 
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb bg-transparent">
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/front-end/index.jsp">前台首頁</a></li>
+		<li class="breadcrumb-item active text-warning" aria-current="page">團購列表</li>
+	</ol>
+</nav>
+
+
+
 <div class="container-fluid">
 	<div class="row justify-content-center mt-5">
 		<div class="col-10">
 			<div class="card bg-info">
-				<img alt="" src="<%=request.getContextPath()%>/images/groupbuy/watermelon.jpg" id="groupbuyHeader">	
+				<img alt="" src="<%=request.getContextPath()%>/images/groupbuy/watermelon.jpg" id="front-end-Header">	
 					<div class="card-body">
-						<h1 class="card-text">團購案列表</h1>
+						<h1 class="card-text">團購列表</h1>
 						<div class="row">
 							<c:forEach var="groupbuyVO" items="${list}">
 								<c:if test="${groupbuyVO.status eq 1}">
@@ -140,7 +119,7 @@
 													</c:if>
 												</c:forEach>
 												<a href="<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=front-end&gro_id=${groupbuyVO.gro_id}">
-													<button type="button" class="btn btn-success btn-lg btn-block mt-3">查看團購案詳情</button>
+													<button type="button" class="btn btn-success btn-lg btn-block mt-3">查看團購詳情</button>
 												</a>
 											</div>
 										</div>

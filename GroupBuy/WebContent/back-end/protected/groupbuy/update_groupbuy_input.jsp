@@ -8,6 +8,10 @@
 <jsp:useBean id="productSvc" scope="page" class="com.product.model.ProService" />
 <jsp:useBean id="rebateSvc" scope="page" class="com.rebate.model.RebateService" />
 
+<%
+	GroupbuyVO groupbuyVO = (GroupbuyVO) request.getAttribute("groupbuyVO");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,35 +51,14 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/files/datetimepicker/jquery.datetimepicker.css" />
 	<script src="<%=request.getContextPath()%>/files/datetimepicker/jquery.js"></script>
 	<script src="<%=request.getContextPath()%>/files/datetimepicker/jquery.datetimepicker.full.js"></script>
-    
+	
+	<!-- groupbuy.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/groupbuy.css">
     
     
 
-    <title>修改團購案</title>
+    <title>修改團購</title>
     
-    <style>
-    	img.card-header {
-    		height: 300px;
-    	}
-    	body{
-	 		background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); 
-	/* 		background-image: url('http://getwallpapers.com/wallpaper/full/6/e/8/90110.jpg'); */
-	/*  		background-image: url('http://getwallpapers.com/wallpaper/full/a/e/e/7532.jpg');  */
-			background-size: cover;
-			background-repeat: no-repeat;
-		}
- 		pre#addInfo { 
- 			height: 400px; 
- 		} 
-		img#addDisplay {
-			height: 300px;
-			max-width: 100%;
-			padding: 0 1px;
-		}
-		div.card-display {
-			height: 100%;
-		}
-    </style>
 </head>
 
 <body>
@@ -110,7 +93,13 @@
 </c:if>
 <%-- 錯誤表列 --%> 		
 		
-			
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb bg-transparent">
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/index.jsp">後台首頁</a></li>
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購查詢</a></li>
+		<li class="breadcrumb-item active text-warning" aria-current="page">修改團購</li>
+	</ol>
+</nav>
 			<div class="container-fluid">
 				<div class="row justify-content-center">
 					<div class="col-10">
@@ -120,10 +109,10 @@
 							<div class="card-body bg-info">
 								<div class="media">
 									<div class="media-body">
-										<h1 class="mt-0">修改團購案</h1>
+										<h1 class="mt-0">修改團購</h1>
 										<div class="media mt-3">
 											<div class="media-body">
-												<h3 class="mt-0">請輸入團購案詳情</h3>
+												<h3 class="mt-0">請輸入團購詳情</h3>
 													<form action="<%=request.getContextPath()%>/groupbuy/groupbuy.do" method="post">
 														<div class="form-group">
 															<label for="exampleInputEmail1" class="text-white">團購開始時間</label>
@@ -136,7 +125,7 @@
 														</div>
 														
 														<div class="form-group">
-															<label for="grotime" class="text-white">團購案活動期間</label>
+															<label for="grotime" class="text-white">團購活動期間</label>
 															<div class="input-group mb-3">
 																<div class="input-group-prepend">
 																	<span class="input-group-text " id="basic-addon1"><i class="fas fa-calendar-minus"></i></span>
@@ -150,7 +139,7 @@
 														</div>
 														
 														<div class="form-group">
-															<label for="exampleInputEmail1" class="text-white">團購案截止時間</label>
+															<label for="exampleInputEmail1" class="text-white">團購截止時間</label>
 															<div class="input-group mb-3">
 																<div class="input-group-prepend">
 																	<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-times"></i></span>
@@ -159,7 +148,7 @@
 															</div>
 														</div>
 														
-														<label for="p_id" class="text-white">選擇團購案商品</label>
+														<label for="p_id" class="text-white">選擇團購商品</label>
 														<div class="input-group mb-3">
 															<div class="input-group-prepend">
 																<span class="input-group-text" id="basic-addon1"><i class="fas fa-gift"></i></span>
@@ -374,6 +363,7 @@
 		
 	}
 	
+	
 	function showDisplay(p_id){
 		
 		$.ajax({
@@ -480,6 +470,38 @@
 //	              }
 //	              return [true, ""];
 //	      }});
+
+
+	function init(){
+		
+		$('#start_date').datetimepicker({
+		    theme: '',              //theme: 'dark',
+		     timepicker:false,       //timepicker:true,
+		     step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+		     format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
+			   value: '${requestScope.groupbuyVO.start_date}', // value:   new Date(),
+		    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+		    //startDate:	            '2017/07/10',  // 起始日
+		    //minDate:               '-1970-01-01', // 去除今日(不含)之前
+		    //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+		 });
+		
+		$('#end_date').datetimepicker({
+		    theme: '',              //theme: 'dark',
+		     timepicker:false,       //timepicker:true,
+		     step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+		     format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
+			   value: '${requestScope.groupbuyVO.end_date}', // value:   new Date(),
+		    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+		    //startDate:	            '2017/07/10',  // 起始日
+		    //minDate:               '-1970-01-01', // 去除今日(不含)之前
+		    //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+		 });
+		
+	}
+
+	window.onload = init;
+	
 
 	
 </script>

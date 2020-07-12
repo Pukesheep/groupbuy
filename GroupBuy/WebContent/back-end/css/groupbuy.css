@@ -1,0 +1,142 @@
+
+/* 	Whole Groupbuy Page */
+
+   	body{
+	 	background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');   
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+/* 	Whole Groupbuy Page */	
+	
+/* 	back-end */
+	
+	/* 	listAllGroupbuy.jsp */
+	
+		img#groupbuyHeader {
+			height: 250px;
+		}
+		a.groupbuydetail {
+			color:white; text-decoration:none;
+		}
+		a.groupbuydetail:visited {
+			text-decoration:none;
+		}
+		a.groupbuydetail:hover {
+			color:#00334e;text-decoration:none;
+		}
+		a.groupbuydetail:active {
+			color:white;
+		}
+		img.img-listAll {
+				width: 200px; 
+				height: 200px; 
+		}
+		
+	/* 	listAllGroupbuy.jsp */
+	
+	/* 	update_groupbuy_input.jsp + addGroupbuy.jsp */
+	
+	   	img.card-header {
+	   		height: 300px;
+	   	}
+		pre#addInfo { 
+			height: 400px; 
+		} 
+		img#addDisplay {
+			height: 300px;
+			max-width: 100%;
+			padding: 0 1px;
+		}
+		div.card-display {
+			height: 100%;
+		}
+		a.bread {
+			color:white; text-decoration:none;
+		}
+		a.bread {
+			text-decoration:none;
+		}
+		a.bread {
+			color:#00334e;text-decoration:none;
+		}
+		a.bread {
+			color:white;
+		}
+	
+	/* 	update_groupbuy_input.jsp + addGroupbuy.jsp */
+	
+	/* 	select_page.jsp */
+	
+		img.select_icon {
+			width: 150px;
+			height: 150px;
+		}
+		img.select_icon:hover {
+			cursor: pointer;
+		}
+		
+	/* 	select_page.jsp */
+	
+	/* 	listOneGroupbuy.jsp */
+	
+	   	img.product_image {
+	   		width: 40%;
+	   		height: 40%;
+	   		border: 3px dashed yellow;
+	   		padding: 5px;
+	   	}
+	   	img#burning {
+	   		width: 40px;
+	   		height: 40px;
+	   	}
+		
+	/* 	listOneGroupbuy.jsp */
+	
+/* 	back-end */	
+
+
+/* 	front-end */
+
+/* 		listAllGroupbuy.jsp */
+
+		img#front-end-Header {
+			height: 200px;
+		}
+		img.card-display {
+			height: 350px;
+		}
+		img.card-display:hover {
+			cursor: pointer;
+		}
+		a.groupbuydetail {
+			color:white; text-decoration:none;
+		}
+		a.groupbuydetail:visited {
+			text-decoration:none;
+		}
+		a.groupbuydetail:hover {
+			color:#00334e;text-decoration:none;
+		}
+		a.groupbuydetail:active {
+			color:white;
+		}
+
+/* 		listAllGroupbuy.jsp */
+
+/* 		listOneGroupbuy.jsp */
+
+		img.product_image {
+    		width: 40%;
+    		height: 40%;
+    		border: 3px dashed yellow;
+    		padding: 5px;
+    	}
+    	img#burning {
+    		width: 40px;
+    		height: 40px;
+    	}
+
+/* 		listOneGroupbuy.jsp */
+
+/* 	front-end */

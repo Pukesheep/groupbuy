@@ -40,30 +40,16 @@
         
      <!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>   
-    
+  
+	<!-- groupbuy.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/groupbuy.css">    
     
     
     
 
     <title>團購查詢</title>
     
-    <style>
-    	body{
-	 		background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); 
-	/* 		background-image: url('http://getwallpapers.com/wallpaper/full/6/e/8/90110.jpg'); */
-	/*  		background-image: url('http://getwallpapers.com/wallpaper/full/a/e/e/7532.jpg');  */
-			background-size: cover;
-			background-repeat: no-repeat;
-		}
-		img.select_icon {
-			width: 150px;
-			height: 150px;
-		}
-		img.select_icon:hover {
-			cursor: pointer;
-		}
-		
-    </style>
+
 </head>
 
 <body>
@@ -97,7 +83,15 @@
 
 </script>
 </c:if>
-<%-- 錯誤表列 --%> 		
+<%-- 錯誤表列 --%> 	
+
+
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb bg-transparent">
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/index.jsp">後台首頁</a></li>
+		<li class="breadcrumb-item active text-warning" aria-current="page">團購查詢</li>
+	</ol>
+</nav>	
 		
 			
 			<div class="container">
@@ -177,7 +171,7 @@
 														</a>
 													</div>
 													<div class="col-4 text-center mb-3">
-														<h2 class="mt-0 mb-3">所有團購案</h2>
+														<h2 class="mt-0 mb-3">團購列表</h2>
 														<a href="<%=request.getContextPath()%>/back-end/protected/groupbuy/listAllGroupbuy.jsp">
 															<img alt="" class="select_icon" src="<%=request.getContextPath()%>/images/groupbuy/groupbuy.png" >
 														</a>

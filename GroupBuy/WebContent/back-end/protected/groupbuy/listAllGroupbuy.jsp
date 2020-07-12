@@ -46,40 +46,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>   
+ 
+	<!-- groupbuy.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/groupbuy.css"> 
     
     
     <title>團購區</title>
     
-    <style>
-    	body{
-  	 		background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');   
-/* 		background-image: url('http://getwallpapers.com/wallpaper/full/6/e/8/90110.jpg'); */
-/*  			background-image: url('http://getwallpapers.com/wallpaper/full/a/e/e/7532.jpg');   */
-/*   			background-image: url('http://getwallpapers.com/wallpaper/full/a/e/e/7532.jpg');   */
-			background-size: cover;
-			background-repeat: no-repeat;
-		}
-		img#groupbuyHeader {
-			height: 250px;
-		}
-		a.groupbuydetail {
-			color:white; text-decoration:none;
-		}
-		a.groupbuydetail:visited {
-			text-decoration:none;
-		}
-		a.groupbuydetail:hover {
-			color:#00334e;text-decoration:none;
-		}
-		a.groupbuydetail:active {
-			color:white;
-		}
-		img.img-listAll {
- 			width: 200px; 
- 			height: 200px; 
-		}
-		
-    </style>
+
     
 </head>
 
@@ -115,13 +89,21 @@
 </c:if>
 <%-- 錯誤表列 --%>	
 
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb bg-transparent">
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/index.jsp">後台首頁</a></li>
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購查詢</a></li>
+		<li class="breadcrumb-item active text-warning" aria-current="page">團購列表</li>
+	</ol>
+</nav>
+
             <div class="container-fluid">
                 <div class="row justify-content-center mt-5">
                 	<div class="col-10">
                 		<div class="card bg-info">
 							<img alt="" src="<%=request.getContextPath()%>/images/groupbuy/meme.png" id="groupbuyHeader">	
 								<div class="card-body">
-									<h1 class="card-text">團購案列表</h1>
+									<h1 class="card-text">團購列表</h1>
 									<%@ include file="../../../files/page1B.file" %>
 									<div class="row">
 										<div class="col">
@@ -164,7 +146,12 @@
 																	<div class="col-6">
 																		<div class="row mt-5">
 																			<div class="col-6 align-self-end">
-																				<button type="button" class="btn btn-danger btn-lg btn-block text-dark" style="height: 250px">修改</button>
+																				<form action="<%=request.getContextPath()%>/groupbuy/groupbuy.do" method="post">
+																					<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
+																					<input type="hidden" name="from" value="back-end">
+																					<input type="hidden" name="action" value="getOne_For_Update">
+																					<button type="submit" class="btn btn-danger btn-lg btn-block text-dark" style="height: 250px">修改</button>
+																				</form>
 																			</div>
 																			<div class="col-6 align-self-end">
 																				<button type="button" class="btn btn-danger btn-lg btn-block text-dark" style="height: 250px">上/下 架</button>

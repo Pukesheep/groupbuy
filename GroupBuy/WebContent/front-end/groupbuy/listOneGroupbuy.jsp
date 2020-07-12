@@ -17,7 +17,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>團購案詳情</title>
+    <title>團購詳情</title>
     <!-- TODO: 換title 的icon -->
     <link rel="icon shortcut" href="<%=request.getContextPath()%>/front-end/img/ICON.ico">
     <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
@@ -49,26 +49,9 @@
         
     <!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-	
-    <style>
-    	img.product_image {
-    		width: 40%;
-    		height: 40%;
-    		border: 3px dashed yellow;
-    		padding: 5px;
-    	}
-    	img#burning {
-    		width: 40px;
-    		height: 40px;
-    	}
-    	body{
-	 		background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); 
-	/* 		background-image: url('http://getwallpapers.com/wallpaper/full/6/e/8/90110.jpg'); */
-	/*  		background-image: url('http://getwallpapers.com/wallpaper/full/a/e/e/7532.jpg');  */
-			background-size: cover;
-			background-repeat: no-repeat;
-		}
-    </style>
+ 
+	<!-- groupbuy.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/groupbuy.css"> 		
 	
 	
 	
@@ -98,6 +81,17 @@
 </script>
 </c:if>
 <%-- 錯誤表列 --%>
+
+
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb bg-transparent">
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/front-end/index.jsp">前台首頁</a></li>
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/front-end/groupbuy/listAllGroupbuy.jsp">團購列表</a></li>
+		<li class="breadcrumb-item active text-warning" aria-current="page">團購詳情</li>
+	</ol>
+</nav>
+
+
 
 <div class="container">
 	<div class="row justify-content-center">

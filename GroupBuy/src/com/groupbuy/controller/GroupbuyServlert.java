@@ -228,7 +228,7 @@ public class GroupbuyServlert extends HttpServlet {
 				String reb1_no = req.getParameter("reb1_no");
 				String reb2_no = req.getParameter("reb2_no");
 				String reb3_no = req.getParameter("reb3_no");
-				Integer status = new Integer(0);
+				Integer status = new Integer(1);
 				Integer people = new Integer(0);
 				Double money = new Double(0.0d);
 				
