@@ -136,27 +136,22 @@
 											</button>
 										</div>	
 										<div class="col-3 text-center">
-											<div class="btn-group" role="group">
-												<button type="button" class="btn btn-success btn-sm" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-37,10">團購選項</button>
-												<div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-												
-													<form action="<%=request.getContextPath()%>/gromem/gromem.do" method="post">
-														<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
-														<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
-														<input type="hidden" name="action" value="join">
-														<input type="hidden" name="from" value="front-end">
-														<button type="submit" class="btn btn-warning dropdown-item text-center btn-sm">加入</button>
-													</form>
-													
-													<form action="<%=request.getContextPath()%>/gromem/gromem.do" method="post">
-														<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
-														<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
-														<input type="hidden" name="action" value="quit">
-														<input type="hidden" name="from" value="front-end">
-														<button type="submit" class="btn btn-warning dropdown-item text-center btn-sm">退出</button>
-													</form>													
-													
-												</div>
+											<button type="button" class="btn btn-success btn-sm" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-37,10">團購選項</button>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+												<form action="<%=request.getContextPath()%>/gromem/gromem.do" method="post">
+													<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+													<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
+													<input type="hidden" name="action" value="join">
+													<input type="hidden" name="from" value="front-end">
+													<button type="submit" class="btn btn-warning dropdown-item text-center btn-sm">加入</button>
+												</form>
+												<form action="<%=request.getContextPath()%>/gromem/gromem.do" method="post">
+													<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+													<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
+													<input type="hidden" name="action" value="quit">
+													<input type="hidden" name="from" value="front-end">
+													<button type="submit" class="btn btn-warning dropdown-item text-center btn-sm">退出</button>
+												</form>													
 											</div>
 										</div>
 									</div>	
@@ -276,6 +271,25 @@
 	$(function () {
 		$('[data-toggle="popover"]').popover()
 	})
+	
+	$('#dropdownMenuReference').mouseup(function(){
+		if (${sessionScope.memberVO eq null}){
+			<%
+				session.setAttribute("location", request.getContextPath() + "/groupbuy/groupbuy.do?action=getOne_For_Display&from=front-end&gro_id=" + groupbuyVO.getGro_id());
+			%>
+			Swal.fire({
+				icon: 'warning',
+				title: '此功能僅供會員使用',
+				timer: 1500,
+				showConfirmButton: false
+			});
+			var timer = setTimeout(function(){
+				document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';
+			}, 1500);
+			
+		}
+	});
+	
 </script>
 
 

@@ -28,7 +28,7 @@
         <div class="navbar2 navbar-dark">
             <div class="row">
                     <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">商城 </a></div>
-                    <div class="item col-md-2"><a href="#">團購 </a></div> 
+                    <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/groupbuy/listAllGroupbuy.jsp">團購 </a></div> 
                     <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/auct/Auct_index.jsp">競標區 </a></div> 
                     <div class="item col-md-2"><a href="#">直購區 </a></div> 
                     <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp">討論區 </a></div> 
