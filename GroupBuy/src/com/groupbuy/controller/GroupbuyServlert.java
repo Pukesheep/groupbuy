@@ -22,8 +22,8 @@ public class GroupbuyServlert extends HttpServlet {
 		String action = req.getParameter("action");
 		String from = req.getParameter("from");
 		
-		String front = 				"/front-end";
-		String back = 				"/back-end/protected";
+		String front = 					"/front-end";
+		String back = 					"/back-end/protected";
 		
 		String select_page = 			"/groupbuy/select_page.jsp";
 		String listOneGroupbuy = 		"/groupbuy/listOneGroupbuy.jsp";
@@ -98,27 +98,30 @@ public class GroupbuyServlert extends HttpServlet {
 				String reb1_no = req.getParameter("reb1_no");
 				String reb2_no = req.getParameter("reb2_no");
 				String reb3_no = req.getParameter("reb3_no");
+				Integer status = new Integer(1);
+				Integer people = new Integer(0);
+				Double money = new Double(0.0d);
 				
-				Integer status = null;
-				try {
-					status = new Integer(req.getParameter("status"));
-				} catch (NumberFormatException e) {
-					errorMsgs.add("團購案狀態： 請輸入正確的數字格式");
-				}
-				
-				Integer people = null;
-				try {
-					people = new Integer(req.getParameter("people"));
-				} catch (NumberFormatException e) {
-					errorMsgs.add("參加人數： 請輸入正確的格式");
-				}
-				
-				Double money = null;
-				try {
-					money = new Double(req.getParameter("money"));
-				} catch (NumberFormatException e) {
-					errorMsgs.add("商品金額： 請輸入正確的格式");
-				}
+//				Integer status = null;
+//				try {
+//					status = new Integer(req.getParameter("status"));
+//				} catch (NumberFormatException e) {
+//					errorMsgs.add("團購案狀態： 請輸入正確的數字格式");
+//				}
+//				
+//				Integer people = null;
+//				try {
+//					people = new Integer(req.getParameter("people"));
+//				} catch (NumberFormatException e) {
+//					errorMsgs.add("參加人數： 請輸入正確的格式");
+//				}
+//				
+//				Double money = null;
+//				try {
+//					money = new Double(req.getParameter("money"));
+//				} catch (NumberFormatException e) {
+//					errorMsgs.add("商品金額： 請輸入正確的格式");
+//				}
 				
 				Timestamp start_date = null;
 				try {
@@ -163,7 +166,7 @@ public class GroupbuyServlert extends HttpServlet {
 				
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("groupbuyVO", groupbuyVO);
-					RequestDispatcher failureView = req.getRequestDispatcher(listAllGroupbuy);
+					RequestDispatcher failureView = req.getRequestDispatcher(update_groupbuy_input);
 					failureView.forward(req, res);
 					return;
 				}
@@ -182,7 +185,7 @@ public class GroupbuyServlert extends HttpServlet {
 				
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗： " + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(listAllGroupbuy);
+				RequestDispatcher failureView = req.getRequestDispatcher(update_groupbuy_input);
 				failureView.forward(req, res);
 			}
 		}
@@ -346,6 +349,49 @@ public class GroupbuyServlert extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("deploy".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數***************************************/
+				String gro_id = req.getParameter("gro_id");
+				
+				/***************************2.開始修改狀態***************************************/
+				GroupbuyService groupbuySvc = new GroupbuyService();
+				GroupbuyVO groupbuyVO = groupbuySvc.getOneGroupbuy(gro_id);
+				
+				Integer status = groupbuyVO.getStatus();
+				
+				if (status == 0) {
+					groupbuyVO.setStatus(1);
+				} else if (status == 1) {
+					groupbuyVO.setStatus(0);
+				} else {
+					errorMsgs.add("團購已截止, 無法進行上/下架操作");
+					RequestDispatcher failureView = req.getRequestDispatcher(listAllGroupbuy);
+					failureView.forward(req, res);
+					return;
+				}
+				
+				groupbuySvc.updateGroupbuy(groupbuyVO.getGro_id(), groupbuyVO.getP_id(), groupbuyVO.getStart_date(), groupbuyVO.getEnd_date(), groupbuyVO.getGrotime(),
+						groupbuyVO.getStatus(), groupbuyVO.getReb1_no(), groupbuyVO.getReb2_no(), groupbuyVO.getReb3_no(), groupbuyVO.getPeople(), groupbuyVO.getMoney(), groupbuyVO.getAmount());
+				
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
+				RequestDispatcher successView = req.getRequestDispatcher(listAllGroupbuy);
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+				
+			} catch (Exception e) {
+				errorMsgs.add("上/下 架失敗： " + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher(listAllGroupbuy);
+				failureView.forward(req, res);
+			}
+		}
+		
 		
 		
 		

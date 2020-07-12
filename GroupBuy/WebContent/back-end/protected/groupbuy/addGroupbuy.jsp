@@ -112,136 +112,136 @@
 										<div class="media mt-3">
 											<div class="media-body">
 												<h3 class="mt-0">請輸入團購詳情</h3>
-													<form action="<%=request.getContextPath()%>/groupbuy/groupbuy.do" method="post">
-														<div class="form-group">
-															<label for="exampleInputEmail1" class="text-white">團購開始時間</label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-plus"></i></span>
-																</div>
-																<input type="text" class="form-control text-center" id="start_date" name="start_date" readonly>
-															</div>
-														</div>
-														
-														<div class="form-group">
-															<label for="grotime" class="text-white">團購活動期間</label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text " id="basic-addon1"><i class="fas fa-calendar-minus"></i></span>
-																</div>
-																<select class="custom-select" name="grotime" id="grotime">
-																	<c:forEach begin="1" end="7" varStatus="s">
-																		<option value="${s.count}">${s.count} 天</option>
-																	</c:forEach>
-																</select>
-															</div>
-														</div>
-														
-														<div class="form-group">
-															<label for="exampleInputEmail1" class="text-white">團購截止時間</label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-times"></i></span>
-																</div>
-																<input type="text" class="form-control text-center" id="end_date" name="end_date" readonly>
-															</div>
-														</div>
-														
-														<label for="p_id" class="text-white">選擇團購商品</label>
+												<form action="<%=request.getContextPath()%>/groupbuy/groupbuy.do" method="post">
+													<div class="form-group">
+														<label for="exampleInputEmail1" class="text-white">團購開始時間</label>
 														<div class="input-group mb-3">
 															<div class="input-group-prepend">
-																<span class="input-group-text" id="basic-addon1"><i class="fas fa-gift"></i></span>
-															</div>	
-															<select class="custom-select" name="p_id" id="p_id">
-																<c:forEach var="productVO" items="${productSvc.all}" varStatus="q">
-																	<option class="product_detail" value="${productVO.p_id}">品名 ： ${productVO.p_name} － 原價 $<fmt:formatNumber pattern="#" value="${productVO.p_price}" /> 元 － 庫存 ： ${productVO.p_stock}</option>
-																	<c:set var="p_id" value="${q.index}" />
-																</c:forEach>
-															</select>
+																<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-plus"></i></span>
+															</div>
+															<input type="text" class="form-control text-center" id="start_date" name="start_date" readonly>
 														</div>
-														
-														<div class="form-group">
-															<label for="amount" class="text-white">設定團購商品數量</label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="fas fa-sort-numeric-up-alt"></i></span>
-																</div>
-																<input type="text" class="form-control text-center" name="amount" id="amount" autocomplete="off">
-															</div>
-														</div>														
-														
-														<div class="row justify-content-around">
-															<div class="col-4 text-center">
-																<label for="reb1_no" class="text-white">級距1選項</label>
-															</div>
-															<div class="col-4 text-center">
-																<label for="reb2_no" class="text-white">級距2選項</label>
-															</div>	
-															<div class="col-4 text-center">
-																<label for="reb3_no" class="text-white">級距3選項</label>
-															</div>
-														</div>
+													</div>
+													
+													<div class="form-group">
+														<label for="grotime" class="text-white">團購活動期間</label>
 														<div class="input-group mb-3">
 															<div class="input-group-prepend">
-																<span class="input-group-text" id="basic-addon1"><i class="fas fa-percent"></i></span>
+																<span class="input-group-text " id="basic-addon1"><i class="fas fa-calendar-minus"></i></span>
 															</div>
-															
-															<select class="custom-select" name="reb1_no" id="reb1_no">
-																<c:forEach var="rebateVO" items="${rebateSvc.all}">
-																	<option class="reb1_detail" value="${rebateVO.reb_no}">${rebateVO.people} 人 / <fmt:formatNumber pattern="#" value="${rebateVO.discount * 100}" />%</option>
+															<select class="custom-select" name="grotime" id="grotime">
+																<c:forEach begin="1" end="7" varStatus="s">
+																	<option value="${s.count}">${s.count} 天</option>
 																</c:forEach>
 															</select>
-	
-															<select class="custom-select" name="reb2_no" id="reb2_no">
-																<c:forEach var="rebateVO" items="${rebateSvc.all}">
-																	<option class="reb2_detail" value="${rebateVO.reb_no}">${rebateVO.people} 人 / <fmt:formatNumber pattern="#" value="${rebateVO.discount * 100}" />%</option>
-																</c:forEach>
-															</select>
-															
-															<select class="custom-select" name="reb3_no" id="reb3_no">
-																<c:forEach var="rebateVO" items="${rebateSvc.all}">
-																	<option class="reb3_detail" value="${rebateVO.reb_no}">${rebateVO.people} 人 / <fmt:formatNumber pattern="#" value="${rebateVO.discount * 100}" />%</option>
-																</c:forEach>
-															</select>
-															
 														</div>
-														
-														<div class="row justify-content-around">
-															<div class="col-4 text-center">
-																<label for="exampleInputEmail1" class="text-white">級距1折扣預覽</label>
-															</div>
-															<div class="col-4 text-center">
-																<label for="exampleInputEmail1" class="text-white">級距2折扣預覽</label>
-															</div>	
-															<div class="col-4 text-center">
-																<label for="exampleInputEmail1" class="text-white">級距3折扣預覽</label>
-															</div>
-														</div>
+													</div>
+													
+													<div class="form-group">
+														<label for="exampleInputEmail1" class="text-white">團購截止時間</label>
 														<div class="input-group mb-3">
 															<div class="input-group-prepend">
-																<span class="input-group-text" id="basic-addon1"><i class="fas fa-percent"></i></span>
+																<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-times"></i></span>
 															</div>
-															
-															<input type="text" class="form-control text-center" readonly id="result1">
-															
-															<input type="text" class="form-control text-center" readonly id="result2">
-															
-															<input type="text" class="form-control text-center" readonly id="result3">
-															
+															<input type="text" class="form-control text-center" id="end_date" name="end_date" readonly>
 														</div>
-														<div class="row justify-content-center">
-															<div class="col-6 text-center">
-																<div class="btn-group">
-																	<button class="btn btn-warning dropdown-toggle btn-lg" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">確認</button>
-																	<div class="dropdown-menu">
-																		<input type="hidden" name="from" value="back-end">
-																		<input type="hidden" name="action" value="insert">
-																		<button type="submit" class="btn btn-warning dropdown-item">送出</button>
-																	</div>
+													</div>
+													
+													<label for="p_id" class="text-white">選擇團購商品</label>
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text" id="basic-addon1"><i class="fas fa-gift"></i></span>
+														</div>	
+														<select class="custom-select" name="p_id" id="p_id">
+															<c:forEach var="productVO" items="${productSvc.all}" varStatus="q">
+																<option class="product_detail" value="${productVO.p_id}">品名 ： ${productVO.p_name} － 原價 $<fmt:formatNumber pattern="#" value="${productVO.p_price}" /> 元 － 庫存 ： ${productVO.p_stock}</option>
+																<c:set var="p_id" value="${q.index}" />
+															</c:forEach>
+														</select>
+													</div>
+													
+													<div class="form-group">
+														<label for="amount" class="text-white">設定團購商品數量</label>
+														<div class="input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text" id="basic-addon1"><i class="fas fa-sort-numeric-up-alt"></i></span>
+															</div>
+															<input type="text" class="form-control text-center" name="amount" id="amount" autocomplete="off">
+														</div>
+													</div>														
+													
+													<div class="row justify-content-around">
+														<div class="col-4 text-center">
+															<label for="reb1_no" class="text-white">級距1選項</label>
+														</div>
+														<div class="col-4 text-center">
+															<label for="reb2_no" class="text-white">級距2選項</label>
+														</div>	
+														<div class="col-4 text-center">
+															<label for="reb3_no" class="text-white">級距3選項</label>
+														</div>
+													</div>
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text" id="basic-addon1"><i class="fas fa-percent"></i></span>
+														</div>
+														
+														<select class="custom-select" name="reb1_no" id="reb1_no">
+															<c:forEach var="rebateVO" items="${rebateSvc.all}">
+																<option class="reb1_detail" value="${rebateVO.reb_no}">${rebateVO.people} 人 / <fmt:formatNumber pattern="#" value="${rebateVO.discount * 100}" />%</option>
+															</c:forEach>
+														</select>
+
+														<select class="custom-select" name="reb2_no" id="reb2_no">
+															<c:forEach var="rebateVO" items="${rebateSvc.all}">
+																<option class="reb2_detail" value="${rebateVO.reb_no}">${rebateVO.people} 人 / <fmt:formatNumber pattern="#" value="${rebateVO.discount * 100}" />%</option>
+															</c:forEach>
+														</select>
+														
+														<select class="custom-select" name="reb3_no" id="reb3_no">
+															<c:forEach var="rebateVO" items="${rebateSvc.all}">
+																<option class="reb3_detail" value="${rebateVO.reb_no}">${rebateVO.people} 人 / <fmt:formatNumber pattern="#" value="${rebateVO.discount * 100}" />%</option>
+															</c:forEach>
+														</select>
+														
+													</div>
+													
+													<div class="row justify-content-around">
+														<div class="col-4 text-center">
+															<label for="exampleInputEmail1" class="text-white">級距1折扣預覽</label>
+														</div>
+														<div class="col-4 text-center">
+															<label for="exampleInputEmail1" class="text-white">級距2折扣預覽</label>
+														</div>	
+														<div class="col-4 text-center">
+															<label for="exampleInputEmail1" class="text-white">級距3折扣預覽</label>
+														</div>
+													</div>
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text" id="basic-addon1"><i class="fas fa-percent"></i></span>
+														</div>
+														
+														<input type="text" class="form-control text-center" readonly id="result1">
+														
+														<input type="text" class="form-control text-center" readonly id="result2">
+														
+														<input type="text" class="form-control text-center" readonly id="result3">
+														
+													</div>
+													<div class="row justify-content-center">
+														<div class="col-6 text-center">
+															<div class="btn-group">
+																<button class="btn btn-warning dropdown-toggle btn-lg" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">確認</button>
+																<div class="dropdown-menu">
+																	<input type="hidden" name="from" value="back-end">
+																	<input type="hidden" name="action" value="insert">
+																	<button type="submit" class="btn btn-warning dropdown-item">新增</button>
 																</div>
 															</div>
 														</div>
-													</form>
+													</div>
+												</form>
 											</div>
 										</div>
 									</div>

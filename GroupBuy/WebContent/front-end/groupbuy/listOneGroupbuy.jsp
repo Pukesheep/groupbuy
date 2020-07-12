@@ -107,19 +107,38 @@
 									<pre class="alert alert-primary">${productVO.p_info}</pre>
 									<div class="row justify-content-around alert alert alert-primary ml-0 mr-0">
 										<div class="col-3 text-center">
-											<button type="button" class="btn btn-danger btn-sm" data-container="body" data-toggle="popover" data-placement="top" data-content="目前團購案人數 ： ${groupbuyVO.people} 人">
+											<button type="button" class="btn btn-danger btn-sm" data-container="body" data-toggle="popover" data-placement="bottom" data-content="目前團購案人數 ： ${groupbuyVO.people} 人">
 												參與人數
 											</button>
 										</div>
 										<div class="col-6 text-center">
-											<button type="button" class="btn btn-warning btn-sm" id="reveal" data-container="body" data-toggle="popover" data-placement="top" data-content="剩餘時間">
+											<button type="button" class="btn btn-warning btn-sm" id="reveal" data-container="body" data-toggle="popover" data-placement="bottom" data-content="剩餘時間">
 												0 天 00 小時 00 分鐘 00 秒
 											</button>
 										</div>	
 										<div class="col-3 text-center">
-											<button type="button" class="btn btn-success btn-sm">
-												立即參加
-											</button>
+											<div class="btn-group" role="group">
+												<button type="button" class="btn btn-success btn-sm" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-37,10">團購選項</button>
+												<div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+												
+													<form action="<%=request.getContextPath()%>/gromem/gromem.do" method="post">
+														<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+														<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
+														<input type="hidden" name="action" value="insert">
+														<input type="hidden" name="from" value="front-end">
+														<button type="submit" class="btn btn-warning dropdown-item text-center btn-sm">加入</button>
+													</form>
+													
+													<form action="<%=request.getContextPath()%>/gromem/gromem.do" method="post">
+														<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+														<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
+														<input type="hidden" name="action" value="delete">
+														<input type="hidden" name="from" value="front-end">
+														<button type="submit" class="btn btn-warning dropdown-item text-center btn-sm">退出</button>
+													</form>													
+													
+												</div>
+											</div>
 										</div>
 									</div>	
 								</div>

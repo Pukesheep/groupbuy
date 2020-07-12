@@ -97,6 +97,7 @@
 	<ol class="breadcrumb bg-transparent">
 		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/index.jsp">後台首頁</a></li>
 		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購查詢</a></li>
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/listAllGroupbuy.jsp">團購列表</a></li>
 		<li class="breadcrumb-item active text-warning" aria-current="page">修改團購</li>
 	</ol>
 </nav>
@@ -113,136 +114,137 @@
 										<div class="media mt-3">
 											<div class="media-body">
 												<h3 class="mt-0">請輸入團購詳情</h3>
-													<form action="<%=request.getContextPath()%>/groupbuy/groupbuy.do" method="post">
-														<div class="form-group">
-															<label for="exampleInputEmail1" class="text-white">團購開始時間</label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-plus"></i></span>
-																</div>
-																<input type="text" class="form-control text-center" id="start_date" name="start_date" readonly>
-															</div>
-														</div>
-														
-														<div class="form-group">
-															<label for="grotime" class="text-white">團購活動期間</label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text " id="basic-addon1"><i class="fas fa-calendar-minus"></i></span>
-																</div>
-																<select class="custom-select" name="grotime" id="grotime">
-																	<c:forEach begin="1" end="7" varStatus="s">
-																		<option value="${s.count}">${s.count} 天</option>
-																	</c:forEach>
-																</select>
-															</div>
-														</div>
-														
-														<div class="form-group">
-															<label for="exampleInputEmail1" class="text-white">團購截止時間</label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-times"></i></span>
-																</div>
-																<input type="text" class="form-control text-center" id="end_date" name="end_date" readonly>
-															</div>
-														</div>
-														
-														<label for="p_id" class="text-white">選擇團購商品</label>
+												<form action="<%=request.getContextPath()%>/groupbuy/groupbuy.do" method="post">
+													<div class="form-group">
+														<label for="exampleInputEmail1" class="text-white">團購開始時間</label>
 														<div class="input-group mb-3">
 															<div class="input-group-prepend">
-																<span class="input-group-text" id="basic-addon1"><i class="fas fa-gift"></i></span>
-															</div>	
-															<select class="custom-select" name="p_id" id="p_id">
-																<c:forEach var="productVO" items="${productSvc.all}" varStatus="q">
-																	<option class="product_detail" value="${productVO.p_id}">品名 ： ${productVO.p_name} － 原價 $<fmt:formatNumber pattern="#" value="${productVO.p_price}" /> 元 － 庫存 ： ${productVO.p_stock}</option>
-																	<c:set var="p_id" value="${q.index}" />
-																</c:forEach>
-															</select>
+																<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-plus"></i></span>
+															</div>
+															<input type="text" class="form-control text-center" id="start_date" name="start_date" readonly>
 														</div>
-														
-														<div class="form-group">
-															<label for="amount" class="text-white">設定團購商品數量</label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="fas fa-sort-numeric-up-alt"></i></span>
-																</div>
-																<input type="text" class="form-control text-center" name="amount" id="amount" autocomplete="off">
-															</div>
-														</div>														
-														
-														<div class="row justify-content-around">
-															<div class="col-4 text-center">
-																<label for="reb1_no" class="text-white">級距1選項</label>
-															</div>
-															<div class="col-4 text-center">
-																<label for="reb2_no" class="text-white">級距2選項</label>
-															</div>	
-															<div class="col-4 text-center">
-																<label for="reb3_no" class="text-white">級距3選項</label>
-															</div>
-														</div>
+													</div>
+													
+													<div class="form-group">
+														<label for="grotime" class="text-white">團購活動期間</label>
 														<div class="input-group mb-3">
 															<div class="input-group-prepend">
-																<span class="input-group-text" id="basic-addon1"><i class="fas fa-percent"></i></span>
+																<span class="input-group-text " id="basic-addon1"><i class="fas fa-calendar-minus"></i></span>
 															</div>
-															
-															<select class="custom-select" name="reb1_no" id="reb1_no">
-																<c:forEach var="rebateVO" items="${rebateSvc.all}">
-																	<option class="reb1_detail" value="${rebateVO.reb_no}">${rebateVO.people} 人 / <fmt:formatNumber pattern="#" value="${rebateVO.discount * 100}" />%</option>
+															<select class="custom-select" name="grotime" id="grotime">
+																<c:forEach begin="1" end="7" varStatus="s">
+																	<option value="${s.count}" ${(s.count eq groupbuyVO.grotime) ? 'selected' : '' } >${s.count} 天</option>
 																</c:forEach>
 															</select>
-	
-															<select class="custom-select" name="reb2_no" id="reb2_no">
-																<c:forEach var="rebateVO" items="${rebateSvc.all}">
-																	<option class="reb2_detail" value="${rebateVO.reb_no}">${rebateVO.people} 人 / <fmt:formatNumber pattern="#" value="${rebateVO.discount * 100}" />%</option>
-																</c:forEach>
-															</select>
-															
-															<select class="custom-select" name="reb3_no" id="reb3_no">
-																<c:forEach var="rebateVO" items="${rebateSvc.all}">
-																	<option class="reb3_detail" value="${rebateVO.reb_no}">${rebateVO.people} 人 / <fmt:formatNumber pattern="#" value="${rebateVO.discount * 100}" />%</option>
-																</c:forEach>
-															</select>
-															
 														</div>
-														
-														<div class="row justify-content-around">
-															<div class="col-4 text-center">
-																<label for="exampleInputEmail1" class="text-white">級距1折扣預覽</label>
-															</div>
-															<div class="col-4 text-center">
-																<label for="exampleInputEmail1" class="text-white">級距2折扣預覽</label>
-															</div>	
-															<div class="col-4 text-center">
-																<label for="exampleInputEmail1" class="text-white">級距3折扣預覽</label>
-															</div>
-														</div>
+													</div>
+													
+													<div class="form-group">
+														<label for="exampleInputEmail1" class="text-white">團購截止時間</label>
 														<div class="input-group mb-3">
 															<div class="input-group-prepend">
-																<span class="input-group-text" id="basic-addon1"><i class="fas fa-percent"></i></span>
+																<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-times"></i></span>
 															</div>
-															
-															<input type="text" class="form-control text-center" readonly id="result1">
-															
-															<input type="text" class="form-control text-center" readonly id="result2">
-															
-															<input type="text" class="form-control text-center" readonly id="result3">
-															
+															<input type="text" class="form-control text-center" id="end_date" name="end_date" readonly>
 														</div>
-														<div class="row justify-content-center">
-															<div class="col-6 text-center">
-																<div class="btn-group">
-																	<button class="btn btn-warning dropdown-toggle btn-lg" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">確認</button>
-																	<div class="dropdown-menu">
-																		<input type="hidden" name="from" value="back-end">
-																		<input type="hidden" name="action" value="insert">
-																		<button type="submit" class="btn btn-warning dropdown-item">送出</button>
-																	</div>
+													</div>
+													
+													<label for="p_id" class="text-white">選擇團購商品</label>
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text" id="basic-addon1"><i class="fas fa-gift"></i></span>
+														</div>	
+														<select class="custom-select" name="p_id" id="p_id">
+															<c:forEach var="productVO" items="${productSvc.all}" varStatus="q">
+																<option class="product_detail" value="${productVO.p_id}" ${(productVO.p_id eq groupbuyVO.p_id ) ? 'selected' : ''  } >品名 ： ${productVO.p_name} － 原價 $<fmt:formatNumber pattern="#" value="${productVO.p_price}" /> 元 － 庫存 ： ${productVO.p_stock}</option>
+																<c:set var="p_id" value="${q.index}" />
+															</c:forEach>
+														</select>
+													</div>
+													
+													<div class="form-group">
+														<label for="amount" class="text-white">設定團購商品數量</label>
+														<div class="input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text" id="basic-addon1"><i class="fas fa-sort-numeric-up-alt"></i></span>
+															</div>
+															<input type="text" class="form-control text-center" name="amount" id="amount" value="${groupbuyVO.amount}" autocomplete="off">
+														</div>
+													</div>														
+													
+													<div class="row justify-content-around">
+														<div class="col-4 text-center">
+															<label for="reb1_no" class="text-white">級距1選項</label>
+														</div>
+														<div class="col-4 text-center">
+															<label for="reb2_no" class="text-white">級距2選項</label>
+														</div>	
+														<div class="col-4 text-center">
+															<label for="reb3_no" class="text-white">級距3選項</label>
+														</div>
+													</div>
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text" id="basic-addon1"><i class="fas fa-percent"></i></span>
+														</div>
+														
+														<select class="custom-select" name="reb1_no" id="reb1_no">
+															<c:forEach var="rebateVO" items="${rebateSvc.all}">
+																<option class="reb1_detail" value="${rebateVO.reb_no}" ${(rebateVO.reb_no eq groupbuyVO.reb1_no ) ? 'selected' : '' } >${rebateVO.people} 人 / <fmt:formatNumber pattern="#" value="${rebateVO.discount * 100}" />%</option>
+															</c:forEach>
+														</select>
+
+														<select class="custom-select" name="reb2_no" id="reb2_no">
+															<c:forEach var="rebateVO" items="${rebateSvc.all}">
+																<option class="reb2_detail" value="${rebateVO.reb_no}" ${(rebateVO.reb_no eq groupbuyVO.reb2_no ) ? 'selected' : '' } >${rebateVO.people} 人 / <fmt:formatNumber pattern="#" value="${rebateVO.discount * 100}" />%</option>
+															</c:forEach>
+														</select>
+														
+														<select class="custom-select" name="reb3_no" id="reb3_no">
+															<c:forEach var="rebateVO" items="${rebateSvc.all}">
+																<option class="reb3_detail" value="${rebateVO.reb_no}" ${(rebateVO.reb_no eq groupbuyVO.reb3_no ) ? 'selected' : '' } >${rebateVO.people} 人 / <fmt:formatNumber pattern="#" value="${rebateVO.discount * 100}" />%</option>
+															</c:forEach>
+														</select>
+														
+													</div>
+													
+													<div class="row justify-content-around">
+														<div class="col-4 text-center">
+															<label for="exampleInputEmail1" class="text-white">級距1折扣預覽</label>
+														</div>
+														<div class="col-4 text-center">
+															<label for="exampleInputEmail1" class="text-white">級距2折扣預覽</label>
+														</div>	
+														<div class="col-4 text-center">
+															<label for="exampleInputEmail1" class="text-white">級距3折扣預覽</label>
+														</div>
+													</div>
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text" id="basic-addon1"><i class="fas fa-percent"></i></span>
+														</div>
+														
+														<input type="text" class="form-control text-center" readonly id="result1" value="<fmt:formatNumber pattern="#" value="${productSvc.getOnePro(groupbuyVO.p_id).p_price * rebateSvc.getOneRebate(groupbuyVO.reb1_no).discount}" />" >
+														
+														<input type="text" class="form-control text-center" readonly id="result2" value="<fmt:formatNumber pattern="#" value="${productSvc.getOnePro(groupbuyVO.p_id).p_price * rebateSvc.getOneRebate(groupbuyVO.reb2_no).discount}" />" >
+														
+														<input type="text" class="form-control text-center" readonly id="result3" value="<fmt:formatNumber pattern="#" value="${productSvc.getOnePro(groupbuyVO.p_id).p_price * rebateSvc.getOneRebate(groupbuyVO.reb3_no).discount}" />" >
+														
+													</div>
+													<div class="row justify-content-center">
+														<div class="col-6 text-center">
+															<div class="btn-group">
+																<button class="btn btn-warning dropdown-toggle btn-lg" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">確認</button>
+																<div class="dropdown-menu">
+																	<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
+																	<input type="hidden" name="from" value="back-end">
+																	<input type="hidden" name="action" value="update">
+																	<button type="submit" class="btn btn-warning dropdown-item">修改</button>
 																</div>
 															</div>
 														</div>
-													</form>
+													</div>
+												</form>
 											</div>
 										</div>
 									</div>
@@ -256,7 +258,7 @@
 								<div class="card-body bg-info">
 									<h2 class="mt-0 text-center">商品圖片</h2>
 								<div class="card product-display">
-								<img id="addDisplay" src="<%=request.getContextPath()%>/images/groupbuy/addGroupbuy.png" class="" alt="">													</div>
+								<img id="addDisplay" src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}" class="" alt="">													</div>
 								<div class="card-body">
 								<h2 class="card-title text-center">商品描述</h2>
 								<pre id="addInfo" class="text-white h6">未有商品描述</pre>
@@ -378,29 +380,34 @@
 	}
 	
 	$("select[name='grotime']").change(function(){
+		
+		<%
+			Long startLong = groupbuyVO.getStart_date().getTime();
+		%>
+		
 		var grotime = $(this).val();
 		var nowLong = new Date().getTime();
-		var endLong = nowLong + grotime * 24 * 60 * 60 * 1000;
+		var endLong = <%=startLong%> + grotime * 24 * 60 * 60 * 1000;
 		var end_date = new Date(endLong);
 		
-		$('#start_date').datetimepicker({
-		    theme: '',              //theme: 'dark',
-		     timepicker:false,       //timepicker:true,
-		     step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
-		     format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
-			   value: new Date(), // value:   new Date(),
-		    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-		    //startDate:	            '2017/07/10',  // 起始日
-		    //minDate:               '-1970-01-01', // 去除今日(不含)之前
-		    //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-		 });
+// 		$('#start_date').datetimepicker({
+// 		    theme: '',              //theme: 'dark',
+// 		     timepicker:false,       //timepicker:true,
+// 		     step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+// 		     format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
+// 			   value: new Date(), // value:   new Date(),
+// 		    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+// 		    //startDate:	            '2017/07/10',  // 起始日
+// 		    //minDate:               '-1970-01-01', // 去除今日(不含)之前
+// 		    //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+// 		 });
 		
 		$('#end_date').datetimepicker({
 		    theme: '',              //theme: 'dark',
 		     timepicker:false,       //timepicker:true,
 		     step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 		     format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
-			   value: new Date(endLong), // value:   new Date(),
+			   value: end_date, // value:   new Date(),
 		    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 		    //startDate:	            '2017/07/10',  // 起始日
 		    //minDate:               '-1970-01-01', // 去除今日(不含)之前
@@ -479,7 +486,7 @@
 		     timepicker:false,       //timepicker:true,
 		     step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 		     format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
-			   value: '${requestScope.groupbuyVO.start_date}', // value:   new Date(),
+			   value: '${groupbuyVO.start_date}', // value:   new Date(),
 		    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 		    //startDate:	            '2017/07/10',  // 起始日
 		    //minDate:               '-1970-01-01', // 去除今日(不含)之前
@@ -491,12 +498,20 @@
 		     timepicker:false,       //timepicker:true,
 		     step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 		     format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
-			   value: '${requestScope.groupbuyVO.end_date}', // value:   new Date(),
+			   value: '${groupbuyVO.end_date}', // value:   new Date(),
 		    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 		    //startDate:	            '2017/07/10',  // 起始日
 		    //minDate:               '-1970-01-01', // 去除今日(不含)之前
 		    //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
 		 });
+		
+		$.ajax({
+			url: '<%=request.getContextPath()%>/groupbuy/showProductInfo.do?p_id=' + '${groupbuyVO.p_id}',
+			type: 'GET',
+			success: function(data){
+				$('#addInfo').text(data);
+			}
+		});
 		
 	}
 

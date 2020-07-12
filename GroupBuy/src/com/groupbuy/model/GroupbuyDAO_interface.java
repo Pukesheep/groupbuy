@@ -1,6 +1,7 @@
 package com.groupbuy.model;
 
 import java.util.*;
+import java.sql.*;
 
 public interface GroupbuyDAO_interface {
 
@@ -10,5 +11,6 @@ public interface GroupbuyDAO_interface {
 	public GroupbuyVO findByPrimaryKey(String gro_id);
 	public List<GroupbuyVO> getAll();
 //	public List<GroupbuyVO> getAll(Map<String, String[]> map);
+	public void joinOrQuit(Connection con, String gro_id, Integer people);
 	
 }

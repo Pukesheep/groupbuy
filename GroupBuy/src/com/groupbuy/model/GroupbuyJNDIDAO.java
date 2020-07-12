@@ -23,7 +23,8 @@ public class GroupbuyJNDIDAO implements GroupbuyDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money, amount FROM groupbuy WHERE gro_id = ?";
 	private static final String DELETE = "DELETE FROM groupbuy WHERE gro_id = ?";
 	private static final String UPDATE = "UPDATE groupbuy SET p_id = ?, start_date = ?, end_date = ?, grotime = ?, reb1_no = ?, reb2_no = ?, reb3_no = ?, status = ?, people = ?, money = ?, amount = ? WHERE gro_id = ?";
-	
+	private static final String JOINORQUIT = "UPDATE groupbuy SET people = ? WHERE gro_id = ?";
+
 	@Override
 	public String insert(GroupbuyVO groupbuyVO) {
 		
@@ -264,6 +265,43 @@ public class GroupbuyJNDIDAO implements GroupbuyDAO_interface {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void joinOrQuit(Connection con, String gro_id, Integer people) {
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			pstmt = con.prepareStatement(JOINORQUIT);
+			pstmt.setInt(1, people);
+			pstmt.setString(2, gro_id);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			
+			if (con != null) {
+				try {
+					System.err.println("rolled back by GroupbuyDAO");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
+			
+		} finally {
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		
 	}
 
 	

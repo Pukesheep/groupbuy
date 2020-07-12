@@ -14,7 +14,8 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money, amount FROM groupbuy ORDER BY gro_id";
 	private static final String GET_ONE_STMT = "SELECT gro_id, p_id, start_date, end_date, grotime, reb1_no, reb2_no, reb3_no, status, people, money, amount FROM groupbuy WHERE gro_id = ?";
 	private static final String DELETE = "DELETE FROM groupbuy WHERE gro_id = ?";
-	private static final String UPDATE = "UPDATE groupbuy SET p_id = ?, start_date = ?, end_date = ?, grotime = ?, reb1_no = ?, reb2_no = ?, reb3_no = ?, status = ?, people = ?, money = ?, amount = ? WHERE gro_id = ?";	
+	private static final String UPDATE = "UPDATE groupbuy SET p_id = ?, start_date = ?, end_date = ?, grotime = ?, reb1_no = ?, reb2_no = ?, reb3_no = ?, status = ?, people = ?, money = ?, amount = ? WHERE gro_id = ?";
+	private static final String JOINORQUIT = "UPDATE groupbuy SET people = ? WHERE gro_id = ?";
 	
 	@Override
 	public String insert(GroupbuyVO groupbuyVO) {
@@ -278,30 +279,64 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 		return list;
 	}
 	
+	@Override
+	public void joinOrQuit(Connection con, String gro_id, Integer people) {
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			pstmt = con.prepareStatement(JOINORQUIT);
+			pstmt.setInt(1, people);
+			pstmt.setString(2, gro_id);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			
+			if (con != null) {
+				try {
+					System.err.println("rolled back by GroupbuyDAO");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
+			
+		} finally {
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
 	public static void main(String[] args) {
 		
 		GroupbuyJDBCDAO dao = new GroupbuyJDBCDAO();
 		
 		// 新增
-		
-		GroupbuyVO groupbuyVO1 = new GroupbuyVO();
-		groupbuyVO1.setP_id("P008");
-		Timestamp now = new Timestamp(System.currentTimeMillis());
-		int days = 7;
-		Timestamp grotime = new Timestamp(days * 24 * 60 * 60 * 1000L);
-		Timestamp end = new Timestamp(now.getTime() + grotime.getTime());
-		groupbuyVO1.setStart_date(now);
-		groupbuyVO1.setGrotime(7);
-		groupbuyVO1.setEnd_date(end);
-		groupbuyVO1.setReb1_no("R000001");
-		groupbuyVO1.setReb2_no("R000002");
-		groupbuyVO1.setReb3_no("R000004");
-		groupbuyVO1.setStatus(0);
-		groupbuyVO1.setPeople(5);
-		groupbuyVO1.setMoney(588.584949d);
-		groupbuyVO1.setAmount(133);
-		String gro_id = dao.insert(groupbuyVO1);
-		System.out.println(gro_id);
+//		GroupbuyVO groupbuyVO1 = new GroupbuyVO();
+//		groupbuyVO1.setP_id("P008");
+//		Timestamp now = new Timestamp(System.currentTimeMillis());
+//		int days = 7;
+//		Timestamp grotime = new Timestamp(days * 24 * 60 * 60 * 1000L);
+//		Timestamp end = new Timestamp(now.getTime() + grotime.getTime());
+//		groupbuyVO1.setStart_date(now);
+//		groupbuyVO1.setGrotime(7);
+//		groupbuyVO1.setEnd_date(end);
+//		groupbuyVO1.setReb1_no("R000001");
+//		groupbuyVO1.setReb2_no("R000002");
+//		groupbuyVO1.setReb3_no("R000004");
+//		groupbuyVO1.setStatus(0);
+//		groupbuyVO1.setPeople(5);
+//		groupbuyVO1.setMoney(588.584949d);
+//		groupbuyVO1.setAmount(133);
+//		String gro_id = dao.insert(groupbuyVO1);
+//		System.out.println(gro_id);
 		
 		// 修改
 //		GroupbuyVO groupbuyVO2 = new GroupbuyVO();
@@ -342,6 +377,28 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 //		System.out.println("AMOUNT = " + groupbuyVO3.getAmount());
 //		System.out.println("============================");
 		
+		// joinOrQuit
+//		Connection con = null;
+//		try {
+//			Class.forName(dao.driver);
+//			con = DriverManager.getConnection(dao.url, dao.userid, dao.passwd);
+//			dao.joinOrQuit(con, "G000003", 1);
+//			
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. " + se.getMessage());
+//		} finally {
+//			
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//		}
+		
 		// 查詢全部
 		List<GroupbuyVO> list = dao.getAll();
 		for (GroupbuyVO aGroupbuy : list) {
@@ -360,6 +417,9 @@ public class GroupbuyJDBCDAO implements GroupbuyDAO_interface {
 			System.out.println("============================");
 		}
 		
+		
+		
 	}
+
 	
 }

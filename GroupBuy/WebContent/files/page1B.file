@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%  int rowsPerPage = 2;  //每頁的筆數    
+<%  int rowsPerPage = 5;  //每頁的筆數    
     int rowNumber=0;      //總筆數
     int pageNumber=0;     //總頁數      
     int whichPage=1;      //第幾頁
@@ -41,7 +41,7 @@
 					<%for (int i=1; i<=pageNumber; i++){%>
 						<a class="btn btn-outline-warning" href="<%=request.getRequestURI()%>?whichPage=<%=i%>" role="button"><%=i%></a>
 					<%}%>
-					<a class="btn btn-outline-warning" href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>" role="button">首頁</a>
+					<a class="btn btn-outline-warning" href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>" role="button">末頁</a>
 				</div>
 				<div class="col">
 					<button type="button" class="btn btn-outline-success d-inline-block float-right">

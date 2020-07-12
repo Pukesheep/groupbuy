@@ -54,6 +54,15 @@
 	  	<url-pattern>/groupbuy/showProductInfo.do</url-pattern>
 	  </servlet-mapping>
 	  
+	  <servlet>
+	  	<servlet-name>GromemServlet</servlet-name>
+	  	<servlet-class>com.gromem.controller.GromemServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	  	<servlet-name>GromemServlet</servlet-name>
+	  	<url-pattern>/gromem/gromem.do</url-pattern>
+	  </servlet-mapping>
+	  
 <!-- 團購 -->
 
 <!-- 商城 -->
@@ -117,5 +126,108 @@
 	  </servlet-mapping>
 
 <!-- 商城 -->	
+
+<!-- 會員 + 討論區 -->
+
+	<servlet>
+		<servlet-name>MemberServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberServlet</servlet-name>
+		<url-pattern>/member/member.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PostServlet</servlet-name>
+		<servlet-class>com.post.controller.PostServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PostServlet</servlet-name>
+		<url-pattern>/post/post.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CommServlet</servlet-name>
+		<servlet-class>com.comm.controller.CommServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CommServlet</servlet-name>
+		<url-pattern>/comm/comm.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>FavpostServlet</servlet-name>
+		<servlet-class>com.favpost.controller.FavpostServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FavpostServlet</servlet-name>
+		<url-pattern>/favpost/favpost.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PtypeServlet</servlet-name>
+		<servlet-class>com.ptype.controller.PtypeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PtypeServlet</servlet-name>
+		<url-pattern>/ptype/ptype.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShowMemberPic</servlet-name>
+		<servlet-class>com.member.controller.ShowMemberPic</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShowMemberPic</servlet-name>
+		<url-pattern>/member/ShowMemberPic.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShowPostPic</servlet-name>
+		<servlet-class>com.post.controller.ShowPostPic</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShowPostPic</servlet-name>
+		<url-pattern>/post/ShowPostPic.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CheckServlet</servlet-name>
+		<servlet-class>com.member.controller.CheckServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CheckServlet</servlet-name>
+		<url-pattern>/member/check.do</url-pattern>
+	</servlet-mapping>
+	
+<!-- 會員 + 討論區 -->
+
+<!-- 會員登入 + 會員登入濾器 -->
+
+	<servlet>
+		<servlet-name>LoginHandler</servlet-name>
+		<servlet-class>com.member.controller.LoginHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginHandler</servlet-name>
+		<url-pattern>/member/login.do</url-pattern>
+	</servlet-mapping>
+	
+	<filter>
+		<filter-name>MemberLoginFilter</filter-name>
+		<filter-class>com.member.filter.MemberLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MemberLoginFilter</filter-name>
+		<url-pattern>/front-end/protected/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+<!-- 會員登入 + 會員登入濾器 -->
   
 </web-app>

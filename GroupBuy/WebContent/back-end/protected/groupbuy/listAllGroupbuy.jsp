@@ -45,7 +45,10 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-        crossorigin="anonymous"></script>   
+        crossorigin="anonymous"></script>  
+        
+    <!-- SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>  
  
 	<!-- groupbuy.css -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/groupbuy.css"> 
@@ -154,7 +157,12 @@
 																				</form>
 																			</div>
 																			<div class="col-6 align-self-end">
-																				<button type="button" class="btn btn-danger btn-lg btn-block text-dark" style="height: 250px">上/下 架</button>
+																				<form action="<%=request.getContextPath()%>/groupbuy/groupbuy.do" method="post">
+																					<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
+																					<input type="hidden" name="from" value="back-end">
+																					<input type="hidden" name="action" value="deploy">																			
+																					<button type="submit" class="btn btn-danger btn-lg btn-block text-dark" style="height: 250px">上/下 架</button>
+																				</form>
 																			</div>
 																		</div>
 																	</div>
