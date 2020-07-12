@@ -12,5 +12,6 @@ public interface GromemDAO_interface {
 	public List<GromemVO> getAll();
 	public void join(GromemVO gromemVO, Integer people);
 	public void quit(GromemVO gromemVO, Integer people);
+	public GromemVO findByCompositeKey(String mem_id, String gro_id);
 	
 }

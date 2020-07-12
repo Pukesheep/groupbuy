@@ -6,7 +6,7 @@ import javax.sql.*;
 import javax.naming.*;
 import com.groupbuy.model.*;
 
-public class GromemJNDIDAO implements GromemDAO_interface {
+public class GromemDAO implements GromemDAO_interface {
 	
 	private static DataSource ds = null;
 	

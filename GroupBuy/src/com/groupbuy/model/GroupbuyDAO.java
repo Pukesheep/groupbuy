@@ -268,7 +268,7 @@ public class GroupbuyDAO implements GroupbuyDAO_interface {
 	}
 
 	@Override
-	public void joinOrQuit(Connection con, String gro_id, Integer people) {
+	synchronized public void joinOrQuit(Connection con, String gro_id, Integer people) {
 		
 		PreparedStatement pstmt = null;
 		

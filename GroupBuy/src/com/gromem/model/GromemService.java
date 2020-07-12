@@ -30,4 +30,16 @@ public class GromemService {
 		return dao.getAll();
 	}
 	
+	public void join(GromemVO gromemVO, Integer people) {
+		dao.join(gromemVO, people);
+	}
+	
+	public void quit(GromemVO gromemVO, Integer people) {
+		dao.quit(gromemVO, people);
+	}
+	
+	public GromemVO getOneGromem(String mem_id, String gro_id) {
+		return dao.findByCompositeKey(mem_id, gro_id);
+	}
+	
 }

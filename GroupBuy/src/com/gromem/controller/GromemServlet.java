@@ -45,10 +45,12 @@ public class GromemServlet extends HttpServlet {
 			addGroupbuy = 			back + addGroupbuy;
 		}
 		
-		if ("insert".equals(action)) {
+		if ("join".equals(action)) {
 			
 			List<String> errorMsgs = new LinkedList<String>();
+			List<String> successMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("successMsgs", successMsgs);
 			
 			GroupbuyService groupbuySvc = new GroupbuyService();
 			GroupbuyVO groupbuyVO = null;
@@ -58,30 +60,51 @@ public class GromemServlet extends HttpServlet {
 				String mem_id = req.getParameter("mem_id");
 				String gro_id = req.getParameter("gro_id");
 				
-				/***************************2.開始新增資料***************************************/
-				GromemService gromemSvc = new GromemService();
-				gromemSvc.addGromem(mem_id, gro_id);
-				
-				/***************************3.新增完成,準備轉交(Send the Success view)*************/
+				/***************************2.開始驗證資料***************************************/
 				groupbuyVO = groupbuySvc.getOneGroupbuy(gro_id);
+				Integer people = groupbuyVO.getPeople();
+				Integer amount = groupbuyVO.getAmount();
+				
+				if (people == amount) {
+					req.setAttribute("groupbuyVO", groupbuyVO);
+					errorMsgs.add("團購人數已滿, 加入失敗");
+					RequestDispatcher failureView = req.getRequestDispatcher(listOneGroupbuy);
+					failureView.forward(req, res);
+					return;
+				} else {
+					// 驗證成功
+					/***************************3.開始新增資料***************************************/
+
+					GromemVO gromemVO = new GromemVO();
+					gromemVO.setMem_id(mem_id);
+					gromemVO.setGro_id(gro_id);
+					
+					GromemService gromemSvc = new GromemService();
+					gromemSvc.join(gromemVO, ++people);
+					groupbuyVO.setPeople(people);
+				}
+				
+				/***************************4.新增完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("groupbuyVO", groupbuyVO);
+				successMsgs.add("加入成功");
 				RequestDispatcher successView = req.getRequestDispatcher(listOneGroupbuy);
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理**********************************/
 
 			} catch (Exception e) {
-				req.setAttribute("groupbuyVO", groupbuyVO);
 				errorMsgs.add("新增資料失敗： " + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher(listOneGroupbuy);
 				failureView.forward(req, res);
 			}
 		}
 		
-		if ("delete".equals(action)) {
+		if ("quit".equals(action)) {
 			
 			List<String> errorMsgs = new LinkedList<String>();
+			List<String> successMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("successMsgs", successMsgs);
 			
 			GroupbuyService groupbuySvc = new GroupbuyService();
 			GroupbuyVO groupbuyVO = null;
@@ -91,13 +114,29 @@ public class GromemServlet extends HttpServlet {
 				String mem_id = req.getParameter("mem_id");
 				String gro_id = req.getParameter("gro_id");
 				
-				/***************************2.開始刪除資料***************************************/
+				/***************************2.開始驗證資料***************************************/
 				GromemService gromemSvc = new GromemService();
-				gromemSvc.deleteGromem(mem_id, gro_id);
-				
-				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
+				GromemVO gromemVO = gromemSvc.getOneGromem(mem_id, gro_id);
 				groupbuyVO = groupbuySvc.getOneGroupbuy(gro_id);
+				
+				if (gromemVO  == null) {
+					errorMsgs.add("查無資料, 操作失敗");
+					req.setAttribute("groupbuyVO", groupbuyVO);
+					RequestDispatcher failureView = req.getRequestDispatcher(listOneGroupbuy);
+					failureView.forward(req, res);
+					return;
+				} else {
+					// 驗證成功
+					/***************************3.開始刪除資料***************************************/
+					
+					Integer people = groupbuyVO.getPeople();
+					gromemSvc.quit(gromemVO, --people);
+					groupbuyVO.setPeople(people);
+				}
+				
+				/***************************4.刪除完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("groupbuyVO", groupbuyVO);
+				successMsgs.add("退出成功");
 				RequestDispatcher successView = req.getRequestDispatcher(listOneGroupbuy);
 				successView.forward(req, res);
 				
@@ -109,7 +148,6 @@ public class GromemServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher(listOneGroupbuy);
 				failureView.forward(req, res);
 			}
-			
 		}
 		
 		

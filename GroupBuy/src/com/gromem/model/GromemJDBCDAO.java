@@ -16,6 +16,7 @@ public class GromemJDBCDAO implements GromemDAO_interface {
 	private static final String GET_ALL_BY_M = "SELECT * FROM gro_mem WHERE mem_id = ? ORDER BY gro_id";
 	private static final String GET_ALL_BY_G = "SELECT * FROM gro_mem WHERE gro_id = ? ORDER BY mem_id";
 	private static final String GET_ALL_STMT = "SELECT * FROM gro_mem ORDER BY gro_id";
+	private static final String GET_ONE_STMT = "SELECT * FROM gro_mem WHERE mem_id = ? and gro_id = ?";
 	
 	@Override
 	public void insert(GromemVO gromemVO) {
@@ -244,7 +245,7 @@ public class GromemJDBCDAO implements GromemDAO_interface {
 	}
 	
 	@Override
-	public void join(GromemVO gromemVO, Integer people) {
+	synchronized public void join(GromemVO gromemVO, Integer people) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -264,6 +265,7 @@ public class GromemJDBCDAO implements GromemDAO_interface {
 			
 			con.commit();
 			con.setAutoCommit(true);
+			
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
@@ -298,7 +300,7 @@ public class GromemJDBCDAO implements GromemDAO_interface {
 	
 
 	@Override
-	public void quit(GromemVO gromemVO, Integer people) {
+	synchronized public void quit(GromemVO gromemVO, Integer people) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -313,6 +315,8 @@ public class GromemJDBCDAO implements GromemDAO_interface {
 			pstmt.setString(2, gromemVO.getGro_id());
 			pstmt.executeUpdate();
 			
+			GroupbuyDAO dao = new GroupbuyDAO();
+			dao.joinOrQuit(con, gromemVO.getGro_id(), people);
 			
 			con.commit();
 			con.setAutoCommit(true);
@@ -347,9 +351,58 @@ public class GromemJDBCDAO implements GromemDAO_interface {
 				}
 			}
 		}
+	}
+	
+
+	@Override
+	public GromemVO findByCompositeKey(String mem_id, String gro_id) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		GromemVO gromemVO = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+			
+			pstmt.setString(1, mem_id);
+			pstmt.setString(2, gro_id);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				gromemVO = new GromemVO();
+				gromemVO.setMem_id(rs.getString("mem_id"));
+				gromemVO.setGro_id(rs.getString("gro_id"));
+			}
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 		
 		
-		
+		return gromemVO;
 	}
 	
 
@@ -401,5 +454,6 @@ public class GromemJDBCDAO implements GromemDAO_interface {
 		
 		
 	}
+
 	
 }

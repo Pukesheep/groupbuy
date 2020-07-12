@@ -82,6 +82,25 @@
 </c:if>
 <%-- 錯誤表列 --%>
 
+<%-- 成功表列 --%>
+<c:if test="${not empty successMsgs }">
+<%
+	java.util.List<String> successMsgs = (java.util.List<String>) request.getAttribute("successMsgs");
+	String message = "";
+	for (String msg : successMsgs) {
+		message += msg;
+		message += "\\n";
+	}
+%>
+<script>
+	Swal.fire({
+		icon: 'success',
+		title: '<%=message%>'
+	});
+</script>
+</c:if>
+<%-- 成功表列 --%>
+
 
 <nav aria-label="breadcrumb">
 	<ol class="breadcrumb bg-transparent">
@@ -124,7 +143,7 @@
 													<form action="<%=request.getContextPath()%>/gromem/gromem.do" method="post">
 														<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
 														<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
-														<input type="hidden" name="action" value="insert">
+														<input type="hidden" name="action" value="join">
 														<input type="hidden" name="from" value="front-end">
 														<button type="submit" class="btn btn-warning dropdown-item text-center btn-sm">加入</button>
 													</form>
@@ -132,7 +151,7 @@
 													<form action="<%=request.getContextPath()%>/gromem/gromem.do" method="post">
 														<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
 														<input type="hidden" name="gro_id" value="${groupbuyVO.gro_id}">
-														<input type="hidden" name="action" value="delete">
+														<input type="hidden" name="action" value="quit">
 														<input type="hidden" name="from" value="front-end">
 														<button type="submit" class="btn btn-warning dropdown-item text-center btn-sm">退出</button>
 													</form>													
