@@ -56,7 +56,7 @@ public class GromemServlet extends HttpServlet {
 			GroupbuyService groupbuySvc = new GroupbuyService();
 			GroupbuyVO groupbuyVO = null;
 			
-//			try {
+			try {
 				/***************************1.接收請求參數****************************************/
 				String mem_id = req.getParameter("mem_id");
 				String gro_id = req.getParameter("gro_id");
@@ -102,11 +102,11 @@ public class GromemServlet extends HttpServlet {
 				
 				/***************************其他可能的錯誤處理**********************************/
 
-//			} catch (Exception e) {
-//				errorMsgs.add("新增資料失敗： " + e.getMessage());
-//				RequestDispatcher failureView = req.getRequestDispatcher(listOneGroupbuy);
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add("新增資料失敗： " + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher(listOneGroupbuy);
+				failureView.forward(req, res);
+			}
 		}
 		
 		if ("quit".equals(action)) {
