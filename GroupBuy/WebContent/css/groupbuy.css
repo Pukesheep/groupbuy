@@ -142,4 +142,18 @@
 
 /* 		listOneGroupbuy.jsp */
 
+/* 		listOneGro_order.jsp */
+		
+		img.listOneGro_order {
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+		}
+		div.listOneGro_order {
+			height: 300px !important;
+		}
+		
+/* 		listOneGro_order.jsp */
+
+
 /* 	front-end */

@@ -10,13 +10,13 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 	String userid = "TEST1";
 	String passwd = "TEST1";
 	
-	private static final String INSERT_STMT = "INSERT INTO gro_order (ord_id, gro_id, mem_id, ordstat_id) VALUES ('GO'||LPAD(GRO_ORDER_seq.NEXTVAL,6,'0'), ?, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO gro_order (ord_id, gro_id, mem_id, ordstat_id, ord_price, receive_name, address, phone) VALUES ('GO'||LPAD(GRO_ORDER_seq.NEXTVAL,6,'0'), ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT ="SELECT * FROM gro_order ORDER BY ord_id";
 	private static final String DELETE = "DELETE FROM gro_order WHERE ord_id = ?";
 	private static final String GET_ONE_STMT = "SELECT * FROM gro_order WHERE ord_id = ?";
 	private static final String GET_ALL_BY_M = "SELECT * FROM gro_order WHERE mem_id = ?";
 	private static final String GET_ALL_BY_G = "SELECT * FROM gro_order WHERE gro_id = ?";
-	private static final String UPDATE = "UPDATE gro_order SET gro_id = ?, mem_id = ?, ordstat_id = ?, ord_date = ? WHERE ord_id = ?";
+	private static final String UPDATE = "UPDATE gro_order SET gro_id = ?, mem_id = ?, ordstat_id = ?, ord_price = ?, ord_date = ?, receive_name = ?, address = ?, phone = ? WHERE ord_id = ?";
 	
 
 	@Override
@@ -36,6 +36,10 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 			pstmt.setString(1, gro_orderVO.getGro_id());
 			pstmt.setString(2, gro_orderVO.getMem_id());
 			pstmt.setString(3, gro_orderVO.getOrdstat_id());
+			pstmt.setInt(4, gro_orderVO.getOrd_price());
+			pstmt.setString(5, gro_orderVO.getReceive_name());
+			pstmt.setString(6, gro_orderVO.getAddress());
+			pstmt.setString(7, gro_orderVO.getPhone());
 			
 			pstmt.executeUpdate();
 			rs = pstmt.getGeneratedKeys();
@@ -82,8 +86,12 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 			pstmt.setString(1, gro_orderVO.getGro_id());
 			pstmt.setString(2, gro_orderVO.getMem_id());
 			pstmt.setString(3, gro_orderVO.getOrdstat_id());
-			pstmt.setTimestamp(4, gro_orderVO.getOrd_date());
-			pstmt.setString(5, gro_orderVO.getOrd_id());
+			pstmt.setInt(4, gro_orderVO.getOrd_price());
+			pstmt.setTimestamp(5, gro_orderVO.getOrd_date());
+			pstmt.setString(6, gro_orderVO.getReceive_name());
+			pstmt.setString(7, gro_orderVO.getAddress());
+			pstmt.setString(8, gro_orderVO.getPhone());
+			pstmt.setString(9, gro_orderVO.getOrd_id());
 			
 			pstmt.executeUpdate();
 			
@@ -169,8 +177,12 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 				gro_orderVO.setOrd_id(rs.getString("ord_id"));
 				gro_orderVO.setGro_id(rs.getString("gro_id"));
 				gro_orderVO.setMem_id(rs.getString("mem_id"));
+				gro_orderVO.setOrd_price(rs.getInt("ord_price"));
 				gro_orderVO.setOrdstat_id(rs.getString("ordstat_id"));
 				gro_orderVO.setOrd_date(rs.getTimestamp("ord_date"));
+				gro_orderVO.setReceive_name(rs.getString("receive_name"));
+				gro_orderVO.setAddress(rs.getString("address"));
+				gro_orderVO.setPhone(rs.getString("phone"));
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -219,8 +231,12 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 				gro_orderVO.setOrd_id(rs.getString("ord_id"));
 				gro_orderVO.setGro_id(rs.getString("gro_id"));
 				gro_orderVO.setMem_id(rs.getString("mem_id"));
+				gro_orderVO.setOrd_price(rs.getInt("ord_price"));
 				gro_orderVO.setOrdstat_id(rs.getString("ordstat_id"));
 				gro_orderVO.setOrd_date(rs.getTimestamp("ord_date"));
+				gro_orderVO.setReceive_name(rs.getString("receive_name"));
+				gro_orderVO.setAddress(rs.getString("address"));
+				gro_orderVO.setPhone(rs.getString("phone"));
 				list.add(gro_orderVO);
 			}
 			
@@ -271,8 +287,12 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 				gro_orderVO.setOrd_id(rs.getString("ord_id"));
 				gro_orderVO.setGro_id(rs.getString("gro_id"));
 				gro_orderVO.setMem_id(rs.getString("mem_id"));
+				gro_orderVO.setOrd_price(rs.getInt("ord_price"));
 				gro_orderVO.setOrdstat_id(rs.getString("ordstat_id"));
 				gro_orderVO.setOrd_date(rs.getTimestamp("ord_date"));
+				gro_orderVO.setReceive_name(rs.getString("receive_name"));
+				gro_orderVO.setAddress(rs.getString("address"));
+				gro_orderVO.setPhone(rs.getString("phone"));
 				list.add(gro_orderVO);
 			}
 			
@@ -323,8 +343,12 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 				gro_orderVO.setOrd_id(rs.getString("ord_id"));
 				gro_orderVO.setGro_id(rs.getString("gro_id"));
 				gro_orderVO.setMem_id(rs.getString("mem_id"));
+				gro_orderVO.setOrd_price(rs.getInt("ord_price"));
 				gro_orderVO.setOrdstat_id(rs.getString("ordstat_id"));
 				gro_orderVO.setOrd_date(rs.getTimestamp("ord_date"));
+				gro_orderVO.setReceive_name(rs.getString("receive_name"));
+				gro_orderVO.setAddress(rs.getString("address"));
+				gro_orderVO.setPhone(rs.getString("phone"));
 				list.add(gro_orderVO);
 			}
 			
@@ -361,7 +385,11 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 //		Gro_orderVO gro_orderVO1 = new Gro_orderVO();
 //		gro_orderVO1.setGro_id("G000003");
 //		gro_orderVO1.setMem_id("M000006");
+//		gro_orderVO1.setOrd_price(500);
 //		gro_orderVO1.setOrdstat_id("003");
+//		gro_orderVO1.setReceive_name("okokfine");
+//		gro_orderVO1.setAddress("五樓");
+//		gro_orderVO1.setPhone("0912345678");
 //		String generatedKey = dao.insert(gro_orderVO1);
 //		System.out.println("自增主鍵值 = " + generatedKey);
 		
@@ -370,7 +398,11 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 //		gro_orderVO2.setOrd_id("GO000004");
 //		gro_orderVO2.setGro_id("G000002");
 //		gro_orderVO2.setMem_id("M000012");
+//		gro_orderVO2.setOrd_price(100);
 //		gro_orderVO2.setOrdstat_id("006");
+//		gro_orderVO2.setReceive_name("kdkdk");
+//		gro_orderVO2.setAddress("六樓");
+//		gro_orderVO2.setPhone("0987654321");
 //		Timestamp now = new Timestamp(System.currentTimeMillis());
 //		gro_orderVO2.setOrd_date(now);
 //		dao.update(gro_orderVO2);
@@ -380,8 +412,12 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 //		System.out.println("ORD_ID = " + gro_orderVO3.getOrd_id());
 //		System.out.println("GRO_ID = " + gro_orderVO3.getGro_id());
 //		System.out.println("MEM_ID = " + gro_orderVO3.getMem_id());
+//		System.out.println("ORD_PRICE = " + gro_orderVO3.getOrd_price());
 //		System.out.println("ORDSTAT_ID = " + gro_orderVO3.getOrdstat_id());
 //		System.out.println("ORD_DATE = " + gro_orderVO3.getOrd_date());
+//		System.out.println("RECEIVE_NAME = " + gro_orderVO3.getReceive_name());
+//		System.out.println("ADDRESS = " + gro_orderVO3.getAddress());
+//		System.out.println("PHONE = " + gro_orderVO3.getPhone());
 //		System.out.println("======================================");
 		
 		// 查全部
@@ -390,8 +426,12 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 //			System.out.println("ORD_ID = " + aGro_order.getOrd_id());
 //			System.out.println("GRO_ID = " + aGro_order.getGro_id());
 //			System.out.println("MEM_ID = " + aGro_order.getMem_id());
+//			System.out.println("ORD_PRICE = " + aGro_order.getOrd_price());
 //			System.out.println("ORDSTAT_ID = " + aGro_order.getOrdstat_id());
 //			System.out.println("ORD_DATE = " + aGro_order.getOrd_date());
+//			System.out.println("RECEIVE_NAME = " + aGro_order.getReceive_name());
+//			System.out.println("ADDRESS = " + aGro_order.getAddress());
+//			System.out.println("PHONE = " + aGro_order.getPhone());
 //			System.out.println("======================================");
 //		}
 		
@@ -401,8 +441,12 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 //			System.out.println("ORD_ID = " + aGro_order.getOrd_id());
 //			System.out.println("GRO_ID = " + aGro_order.getGro_id());
 //			System.out.println("MEM_ID = " + aGro_order.getMem_id());
+//			System.out.println("ORD_PRICE = " + aGro_order.getOrd_price());
 //			System.out.println("ORDSTAT_ID = " + aGro_order.getOrdstat_id());
 //			System.out.println("ORD_DATE = " + aGro_order.getOrd_date());
+//			System.out.println("RECEIVE_NAME = " + aGro_order.getReceive_name());
+//			System.out.println("ADDRESS = " + aGro_order.getAddress());
+//			System.out.println("PHONE = " + aGro_order.getPhone());
 //			System.out.println("======================================");
 //		}
 		
@@ -412,8 +456,12 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 //			System.out.println("ORD_ID = " + aGro_order.getOrd_id());
 //			System.out.println("GRO_ID = " + aGro_order.getGro_id());
 //			System.out.println("MEM_ID = " + aGro_order.getMem_id());
+//			System.out.println("ORD_PRICE = " + aGro_order.getOrd_price());
 //			System.out.println("ORDSTAT_ID = " + aGro_order.getOrdstat_id());
 //			System.out.println("ORD_DATE = " + aGro_order.getOrd_date());
+//			System.out.println("RECEIVE_NAME = " + aGro_order.getReceive_name());
+//			System.out.println("ADDRESS = " + aGro_order.getAddress());
+//			System.out.println("PHONE = " + aGro_order.getPhone());
 //			System.out.println("======================================");
 //		}
 		

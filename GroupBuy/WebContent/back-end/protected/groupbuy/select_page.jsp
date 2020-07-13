@@ -97,7 +97,7 @@
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-10">
-						<div class="card mt-5">
+						<div class="card">
 							<div class="card-body bg-info">
 								<div class="media">
 									<img src="<%=request.getContextPath()%>/images/groupbuy/search.png" class="mr-3" alt="">
@@ -186,7 +186,63 @@
 											</div>
 										</div>
 									</div>
-								</div>								
+								</div>
+								<div class="media">
+									<img src="<%=request.getContextPath()%>/images/groupbuy/search.png" class="mr-3" alt="">
+									<div class="media-body">
+										<h2 class="mt-0">訂單查詢</h2>
+										<div class="media mt-3">
+											<div class="media-body">
+												<h5 class="mt-0">請輸入查詢條件</h5>
+												<form action="">
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+														</div>
+														<input type="text" class="form-control" name="gro_id" placeholder="請輸入訂單編號 ex: GO000001" autocomplete="off">
+														<div class="input-group-append">
+															<input type="hidden" name="" value="">
+															<input type="hidden" name="" value="">
+															<button class="btn btn-danger" type="submit">查詢</button>
+														</div>
+													</div>
+												</form>
+												
+												<form action="">
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+														</div>
+														<select class="custom-select" name="gro_id">
+															
+														</select>
+														<div class="input-group-append">
+															<input type="hidden" name="" value="">
+															<input type="hidden" name="" value="">
+															<button class="btn btn-danger" type="submit">查詢</button>
+														</div>
+													</div>
+												</form>
+												
+												<form action="">
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+														</div>
+														<select class="custom-select" name="gro_id">
+															
+														</select>
+														<div class="input-group-append">
+															<input type="hidden" name="" value="">
+															<input type="hidden" name="" value="">
+															<button class="btn btn-danger" type="submit">查詢</button>
+														</div>
+													</div>
+												</form>												
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

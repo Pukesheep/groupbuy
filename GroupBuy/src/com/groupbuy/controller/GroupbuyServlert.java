@@ -88,7 +88,9 @@ public class GroupbuyServlert extends HttpServlet {
 		
 		if ("update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
+			List<String> successMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("successMsgs", successMsgs);
 			
 			try {
 				/***************************1.接收請求參數****************************************/
@@ -177,6 +179,7 @@ public class GroupbuyServlert extends HttpServlet {
 						status, reb1_no, reb2_no, reb3_no, people, money, amount);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				successMsgs.add("修改成功");
 				req.setAttribute("groupbuyVO", groupbuyVO);
 				RequestDispatcher successView = req.getRequestDispatcher(listAllGroupbuy);
 				successView.forward(req, res);
@@ -193,7 +196,9 @@ public class GroupbuyServlert extends HttpServlet {
 		if ("getOne_For_Update".equals(action)) {
 			
 			List<String> errorMsgs = new LinkedList<String>();
+			List<String> successMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("successMsgs", successMsgs);
 			
 			try {
 				/***************************1.接收請求參數****************************************/
@@ -202,6 +207,15 @@ public class GroupbuyServlert extends HttpServlet {
 				/***************************2.開始查詢資料****************************************/
 				GroupbuyService groupbuySvc = new GroupbuyService();
 				GroupbuyVO groupbuyVO = groupbuySvc.getOneGroupbuy(gro_id);
+				
+				Integer status = groupbuyVO.getStatus();
+				
+				if (status >= 2) {
+					errorMsgs.add("團購已截止, 無法進行修改");
+					RequestDispatcher failureView = req.getRequestDispatcher(listAllGroupbuy);
+					failureView.forward(req, res);
+					return;
+				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				

@@ -73,7 +73,26 @@
 
 </script>
 </c:if>
-<%-- 錯誤表列 --%> 		
+<%-- 錯誤表列 --%>
+
+<%-- 成功表列 --%>
+<c:if test="${not empty successMsgs }">
+<%
+	java.util.List<String> successMsgs = (java.util.List<String>) request.getAttribute("successMsgs");
+	String message = "";
+	for (String msg : successMsgs) {
+		message += msg;
+		message += "\\n";
+	}
+%>
+<script>
+	Swal.fire({
+		icon: 'success',
+		title: '<%=message%>'
+	});
+</script>
+</c:if>
+<%-- 成功表列 --%> 		
 
 <nav aria-label="breadcrumb">
 	<ol class="breadcrumb bg-transparent">

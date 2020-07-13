@@ -63,6 +63,15 @@
 	  	<url-pattern>/gromem/gromem.do</url-pattern>
 	  </servlet-mapping>
 	  
+	  <servlet>
+	  	<servlet-name>Gro_orderServlet</servlet-name>
+	  	<servlet-class>com.gro_order.controller.Gro_orderServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	  	<servlet-name>Gro_orderServlet</servlet-name>
+	  	<url-pattern>/gro_order/gro_order.do</url-pattern>
+	  </servlet-mapping>
+	  
 <!-- 團購 -->
 
 <!-- 商城 -->
