@@ -28,15 +28,18 @@ public class Gro_orderServlet extends HttpServlet {
 		String select_page = 		"/groupbuy/select_page.jsp";
 		String listOneGro_order = 	"/groupbuy/listOneGro_order.jsp";
 		String listAllGro_order = 	"/groupbuy/listAllGro_order.jsp";
+		String payment = 			"/groupbuy/payment.jsp";
 		
 		if (from.contains("front")) {
 			select_page = 		front + select_page;
 			listOneGro_order = 	front + listOneGro_order;
 			listAllGro_order = 	front + listAllGro_order;
+			payment = 			front + payment;
 		} else {
 			select_page = 		back + select_page;
 			listOneGro_order = 	back + listOneGro_order;
 			listAllGro_order = 	back + listAllGro_order;
+			payment = 			back + payment;
 		}
 		
 		// 前台會員修改訂單資料
@@ -57,6 +60,15 @@ public class Gro_orderServlet extends HttpServlet {
 				/***************************2.開始修改資料***************************************/
 				Gro_orderService gro_orderSvc = new Gro_orderService();
 				gro_orderVO = gro_orderSvc.getOneGro_order(ord_id);
+				
+				if ("014".equals(gro_orderVO.getOrdstat_id())) {
+					errorMsgs.add("訂單已為完成狀態, 操作失敗");
+					req.setAttribute("gro_orderVO", gro_orderVO);
+					RequestDispatcher failureView = req.getRequestDispatcher(listOneGro_order);
+					failureView.forward(req, res);
+					return;
+				}
+				
 				Timestamp ord_date = gro_orderVO.getOrd_date();
 				String mem_id = gro_orderVO.getMem_id();
 				String gro_id = gro_orderVO.getGro_id();
@@ -169,28 +181,62 @@ public class Gro_orderServlet extends HttpServlet {
 			
 			Gro_orderVO gro_orderVO = null;
 			
-			
-			try {
+//			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String ord_id = req.getParameter("ord_id");
 				String receive_name = req.getParameter("receive_name");
-				
-				
-				
-				
+				String receive_nameReg = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9)]{2,30}$";
+				if (receive_name == null || receive_name.trim().length() == 0) {
+					errorMsgs.add("收件者名稱： 請勿空白");
+				} else if (!receive_name.trim().matches(receive_nameReg)) {
+					errorMsgs.add("收件人名稱： 只能是中、英文字母(含大小寫)、數字和_, 且長度在2到30之間");
+				}
 				
 				String address = req.getParameter("address");
-				String phone = req.getParameter("phone");
+				String addressReg = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9)]{2,80}$";
+				if (address == null || address.trim().length() == 0) {
+					errorMsgs.add("收件者地址： 請勿空白");
+				} else if (!address.trim().matches(addressReg)) {
+					errorMsgs.add("收件者地址： 只能是中、英文字母(含大小寫)、數字和_ , 且長度在2到80之間");
+				}
 				
+				String phone = req.getParameter("phone").trim();
+				Integer phoneInt = null;
+				try {
+					phoneInt = new Integer(phone);
+				} catch (NumberFormatException e) {
+					errorMsgs.add("收件者手機： 請輸入有效格式");
+				}
 				
+				Gro_orderService gro_orderSvc = new Gro_orderService();
+				gro_orderVO = gro_orderSvc.getOneGro_order(ord_id);
+				gro_orderVO.setReceive_name(receive_name);
+				gro_orderVO.setAddress(address);
+				gro_orderVO.setPhone(phone);
 				
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("gro_orderVO", gro_orderVO);
+					RequestDispatcher failureView = req.getRequestDispatcher(payment);
+					failureView.forward(req, res);
+					return;
+				}
 				
+				/***************************2.開始修改資料***************************************/
+				gro_orderVO = gro_orderSvc.updateGro_order(ord_id, gro_orderVO.getGro_id(), gro_orderVO.getMem_id(), "003", gro_orderVO.getOrd_price(), gro_orderVO.getOrd_date(), receive_name, address, phone);
 				
-			} catch (Exception e) {
-				errorMsgs.add("修改資料失敗： " + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(listOneGro_order);
-				failureView.forward(req, res);
-			}
+				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("gro_orderVO", gro_orderVO);
+				successMsgs.add("付款成功");
+				RequestDispatcher successView = req.getRequestDispatcher(payment);
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+				
+//			} catch (Exception e) {
+//				errorMsgs.add("修改資料失敗： " + e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher(payment);
+//				failureView.forward(req, res);
+//			}
 			
 		}
 		

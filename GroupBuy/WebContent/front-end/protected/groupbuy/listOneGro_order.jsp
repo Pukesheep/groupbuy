@@ -109,9 +109,8 @@
 											<c:forEach var="memberVO" items="${memberSvc.all}">
 												<c:if test="${memberVO.mem_id eq gro_orderVO.mem_id}">
 													<h6>收件者名稱： ${memberVO.mem_name}</h6>
-													<h6>收件者地址： ${memberVO.mem_addr}</h6>
 													<h6>收件者手機： ${memberVO.mem_phone}</h6>
-													<h6>收件者郵件： ${memberVO.mem_email}</h6>
+													<h6>收件者地址： ${memberVO.mem_addr}</h6>
 												</c:if>
 											</c:forEach>
 										</div>
