@@ -116,7 +116,7 @@ public class Gro_orderServlet extends HttpServlet {
 				gro_orderSvc.updateGro_order(ord_id, gro_orderVO.getGro_id(), gro_orderVO.getMem_id(), ordstat_id, gro_orderVO.getOrd_price(), gro_orderVO.getOrd_date(),
 						gro_orderVO.getReceive_name(), gro_orderVO.getAddress(), gro_orderVO.getPhone());
 				/***************************4.新增完成,準備轉交(Send the Success view)*************/
-				successMsgs.add("修改成功");
+				successMsgs.add("操作成功");
 				RequestDispatcher successView = req.getRequestDispatcher(listAllGro_order);
 				successView.forward(req, res);
 				

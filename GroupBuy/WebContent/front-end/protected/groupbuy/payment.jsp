@@ -133,15 +133,19 @@
 									<div class="card-body">
 										<div class="media">
 											<c:forEach var="groupbuyVO" items="${groupbuySvc.all}">
-												<c:if test="${productVO.p_id eq groupbuyVO.p_id}">
-													<img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${productVO.p_id}" class="mr-3 listOneGro_order" alt="">
-													<div class="media-body">
-														<h6>商品編號： ${productVO.p_id}</h6>
-														<h6>商品名稱： ${productVO.p_name}</h6>
-														<h6>商品原價： <fmt:formatNumber pattern="#" value="${productVO.p_price}" /></h6>
-														<h6>商品描述： ${productVO.p_info}</h6>
-													</div>
-												</c:if>
+												<c:if test="${groupbuyVO.gro_id eq gro_orderVO.gro_id}">
+													<c:forEach var="productVO" items="${productSvc.all}">
+														<c:if test="${productVO.p_id eq groupbuyVO.p_id}">
+															<img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${productVO.p_id}" class="mr-3 listOneGro_order" alt="">
+															<div class="media-body">
+																<h6>商品編號： ${productVO.p_id}</h6>
+																<h6>商品名稱： ${productVO.p_name}</h6>
+																<h6>商品原價： <fmt:formatNumber pattern="#" value="${productVO.p_price}" /></h6>
+																<h6>商品描述： ${productVO.p_info}</h6>
+															</div>
+														</c:if>
+													</c:forEach>
+												</c:if>		
 											</c:forEach>
 										</div>
 									</div>

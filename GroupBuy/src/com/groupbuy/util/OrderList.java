@@ -62,15 +62,6 @@ public class OrderList extends TimerTask {
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 
 }

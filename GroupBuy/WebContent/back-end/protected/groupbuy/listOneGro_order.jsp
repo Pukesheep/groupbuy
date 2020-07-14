@@ -19,28 +19,58 @@
 <jsp:useBean id="ordstatSvc" scope="page" class="com.ordstat.model.OrdstatService" />
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>訂單詳情</title>
-    <%@ include file="../../../files/HeaderCssLink" %>
-        
-    <!-- SweetAlert2 -->
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
- 
-	<!-- groupbuy.css -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/groupbuy.css"> 		
-	
-</head>
-<body>
-    <!-- navbar -->
-		<%@ include file="../../../files/header.jsp" %>
-    <!-- navbar end -->
-    <section class="blank0"></section>
-    <!-- 內容 -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/bootstrap.min.css">
+    <!-- Include Favicon ico-->
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/back-end/img/ICON.ico">
+    <!-- Font-awesome CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
+    <!--GoogleFont-->
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Include style.css-->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/style.css">
     
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>   
+  
+	<!-- groupbuy.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/groupbuy.css">    
+    
+
+    <title>團購訂單詳情</title>
+</head>
+
+<body>
+<!-- header -->
+	
+	<%@ include file="../../css/header.jsp" %>
+<!-- header -->
+
+    <div class="content d-md-flex">
+
+<!-- aside -->
+	<%@ include file="../../css/aside.jsp" %>
+<!-- aside -->
+
+        <main>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs }">
 <%
@@ -53,9 +83,10 @@
 %>
 <script>
 	Swal.fire({
-		icon: 'error',
-		title: '<%=message%>'
-	});
+		  icon: 'error',
+		  title: '<%=message%>'
+		});
+
 </script>
 </c:if>
 <%-- 錯誤表列 --%>
@@ -77,14 +108,14 @@
 	});
 </script>
 </c:if>
-<%-- 成功表列 --%>
+<%-- 成功表列 --%> 		
 
 <nav aria-label="breadcrumb">
 	<ol class="breadcrumb bg-transparent">
-		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/front-end/index.jsp">前台首頁</a></li>
-		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/front-end/groupbuy/listAllGroupbuy.jsp">團購列表</a></li>
-		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/front-end/protected/groupbuy/listAllGro_order.jsp">團購訂單</a></li>
-		<li class="breadcrumb-item active text-warning" aria-current="page">訂單詳情</li>
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/index.jsp">後台首頁</a></li>
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購查詢</a></li>
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/listAllGro_order.jsp">團購訂單查詢</a></li>
+		<li class="breadcrumb-item active text-warning" aria-current="page">團購訂單詳情</li>
 	</ol>
 </nav>
 
@@ -93,7 +124,7 @@
 		<div class="col-11">
 			<div class="card alert alert-success">
 				<div class="card-header">
-					<h1 class="card-title text-dark">訂單詳情</h1>
+					<h1 class="card-title text-dark">團購訂單詳情</h1>
 				</div>
 				<div class="card-body">
 					<div class="row mt-1">
@@ -175,14 +206,22 @@
 									<h4 class="card-title text-dark">訂單操作</h4>
 								</div>
 								<div class="card-body">
-									<div class="row mt-5 mb-4">
+									<div class="row mt-2 mb-4">
 									<form action="<%=request.getContextPath()%>/gro_order/gro_order.do" method="post" style="width: 100%">
 										<div class="col-12 text-center">
-											<input type="hidden" name="ordstat_id" value="014">
-											<input type="hidden" name="ord_id" value="${gro_orderVO.ord_id}">
-											<input type="hidden" name="from" value="front-end">
-											<input type="hidden" name="action" value="update">
-											<button type="submit" class="btn btn-outline-dark btn-block">完成訂單</button>
+											<div class="form-group">
+												<select name="ordstat_id" class="form-control">
+													<c:forEach var="ordstatVO" items="${ordstatSvc.all}">
+														<option value="${ordstatVO.ordstat_id}" ${(ordstatVO.ordstat_id eq gro_orderVO.ordstat_id) ? 'selected' : ''} >${ordstatVO.ordstat}</option>
+													</c:forEach>
+												</select>
+											</div>
+											<div class="form-group mt-5">
+												<input type="hidden" name="ord_id" value="${gro_orderVO.ord_id}">
+												<input type="hidden" name="from" value="back-end">
+												<input type="hidden" name="action" value="manage">
+												<button type="submit" class="btn btn-outline-dark btn-block">修改訂單狀態</button>
+											</div>
 										</div>
 										</form>
 									</div>
@@ -201,14 +240,14 @@
 
 
 
-    <!-- 內容 ---end  -->
 
 
-        <!-- footer -->
-			<%@ include file="../../../files/footer.jsp" %>
-        <!-- footer -->
+
+            
+        </main>
+    </div>
+
+
 </body>
-
-
 
 </html>
