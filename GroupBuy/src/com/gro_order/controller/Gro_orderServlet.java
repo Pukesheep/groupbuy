@@ -181,7 +181,7 @@ public class Gro_orderServlet extends HttpServlet {
 			
 			Gro_orderVO gro_orderVO = null;
 			
-//			try {
+			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String ord_id = req.getParameter("ord_id");
 				String receive_name = req.getParameter("receive_name");
@@ -201,11 +201,84 @@ public class Gro_orderServlet extends HttpServlet {
 				}
 				
 				String phone = req.getParameter("phone").trim();
+				String phoneReg = "[(0-9)]{10}";
 				Integer phoneInt = null;
+				
 				try {
 					phoneInt = new Integer(phone);
 				} catch (NumberFormatException e) {
 					errorMsgs.add("收件者手機： 請輸入有效格式");
+				}
+				
+				if (phone == null || phone.trim().length() == 0) {
+					errorMsgs.add("收件者手機： 請勿空白");
+				} else if (!phone.trim().matches(phoneReg)) {
+					errorMsgs.add("收件者手機： 只能是數字, 且長度必須為10");
+				}
+				
+				String card_no = req.getParameter("card_no").trim();
+				String card_noReg = "[(0-9)]{16}";
+				Double card_noDou = null;
+				try {
+					card_noDou = new Double(card_no);
+				} catch (NumberFormatException e) {
+					errorMsgs.add("信用卡號： 請輸入有效格式");
+				}
+				
+				if (card_no == null || card_no.trim().length() == 0) {
+					errorMsgs.add("信用卡號： 請勿空白");
+				} else if (!card_no.trim().matches(card_noReg)) {
+					errorMsgs.add("信用卡號： 只能是數字, 且長度必須為16");
+				}
+				
+				String card_yy = req.getParameter("card_yy").trim();
+				String card_yyReg = "[(0-9)]{4}";
+				Integer card_yyInt = null;
+				
+				try {
+					card_yyInt = new Integer(card_yy);
+				} catch (NumberFormatException e) {
+					errorMsgs.add("到期年份： 請輸入有效格式");
+				}
+				
+				if (card_yy == null || card_yy.trim().isEmpty()) {
+					errorMsgs.add("到期年份： 請勿空白");
+				} else if (!card_yy.trim().matches(card_yyReg)) {
+					errorMsgs.add("到期年份： 只能是數字 , 且長度必須為4");
+				}
+				
+				String card_mm = req.getParameter("card_mm").trim();
+				String card_mmReg = "[(0-9)]{2}";
+				Integer card_mmInt = null;
+				
+				try {
+					card_mmInt = new Integer(card_mm);
+				} catch (NumberFormatException e) {
+					errorMsgs.add("到期月份： 請輸入有效格式");
+				}
+				
+				if (card_mm == null || card_mm.trim().isEmpty()) {
+					errorMsgs.add("到期月份： 請勿空白");
+				} else if (!card_mm.trim().matches(card_mmReg)) {
+					errorMsgs.add("到期月份： 只能是數字 , 且長度必須為2");
+				} else if (card_mmInt >= 13 || card_mmInt <= 0) {
+					errorMsgs.add("到期月份： 請輸入有效月份");
+				}
+				
+				java.lang.String card_sec = req.getParameter("card_sec").trim();
+				String card_secReg = "[(0-9)]{3}";
+				Integer card_secInt = null;
+				
+				try {
+					card_secInt = new Integer(card_sec);
+				} catch (NumberFormatException e) {
+					errorMsgs.add("卡片安全碼： 請輸入有效格式");
+				}
+				
+				if (card_sec == null || card_sec.trim().isEmpty()) {
+					errorMsgs.add("卡片安全碼： 請勿空白");
+				} else if (!card_sec.trim().matches(card_secReg)) {
+					errorMsgs.add("卡片安全碼： 只能是數字 , 且長度必須為3");
 				}
 				
 				Gro_orderService gro_orderSvc = new Gro_orderService();
@@ -213,6 +286,12 @@ public class Gro_orderServlet extends HttpServlet {
 				gro_orderVO.setReceive_name(receive_name);
 				gro_orderVO.setAddress(address);
 				gro_orderVO.setPhone(phone);
+				
+				req.setAttribute("card_no", card_no);
+				req.setAttribute("card_yy", card_yy);
+				req.setAttribute("card_mm", card_mm);
+				req.setAttribute("card_sec", card_sec);
+				
 				
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("gro_orderVO", gro_orderVO);
@@ -227,16 +306,49 @@ public class Gro_orderServlet extends HttpServlet {
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("gro_orderVO", gro_orderVO);
 				successMsgs.add("付款成功");
+				RequestDispatcher successView = req.getRequestDispatcher(listAllGro_order);
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+				
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗： " + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher(payment);
+				failureView.forward(req, res);
+			}
+			
+		}
+		
+		if ("getOne_For_Payment".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			List<String> successMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("successMsgs", successMsgs);
+			
+			Gro_orderVO gro_orderVO = null;
+			
+			try {
+				/***************************1.接收請求參數**********************/
+				String ord_id = req.getParameter("ord_id");
+				
+				/***************************2.開始查詢資料*****************************************/
+				Gro_orderService gro_orderSvc = new Gro_orderService();
+				gro_orderVO = gro_orderSvc.getOneGro_order(ord_id);
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("gro_orderVO", gro_orderVO);
 				RequestDispatcher successView = req.getRequestDispatcher(payment);
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理**********************************/
 				
-//			} catch (Exception e) {
-//				errorMsgs.add("修改資料失敗： " + e.getMessage());
-//				RequestDispatcher failureView = req.getRequestDispatcher(payment);
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料： " + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher(listAllGro_order);
+				failureView.forward(req, res);
+			}
+			
 			
 		}
 		

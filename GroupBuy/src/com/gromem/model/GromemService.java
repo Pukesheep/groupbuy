@@ -12,7 +12,6 @@ public class GromemService {
 	}
 	
 	public void addGromem(String mem_id, String gro_id) {
-		
 		GromemVO gromemVO = new GromemVO();
 		gromemVO.setMem_id(mem_id);
 		gromemVO.setGro_id(gro_id);
@@ -25,6 +24,10 @@ public class GromemService {
 	
 	public List<GromemVO> getAllByM(String mem_id){
 		return dao.findByMem_id(mem_id);
+	}
+	
+	public List<GromemVO> getAllByG(String gro_id){
+		return dao.findByGro_id(gro_id);
 	}
 	
 	public List<GromemVO> getAll(){

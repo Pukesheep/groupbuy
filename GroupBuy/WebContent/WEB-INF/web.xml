@@ -10,21 +10,6 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
- <!-- jstl -->
-  <jsp-config>
-  	<taglib>
-  		<taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
-  		<taglib-location>/WEB-INF/c.tld</taglib-location>
-  	</taglib>
-  	
-  	<taglib>
-  		<taglib-uri>http://java.sun.com/jstl/fmt</taglib-uri>
-  		<taglib-location>/WEB-INF/fmt.tld</taglib-location>
-  	</taglib>
-  </jsp-config>
-<!-- jstl --> 
-  
-  
 <!-- 連線池 -->
      <resource-ref>
 		<description>DB Connection</description>
@@ -71,6 +56,16 @@
 	  	<servlet-name>Gro_orderServlet</servlet-name>
 	  	<url-pattern>/gro_order/gro_order.do</url-pattern>
 	  </servlet-mapping>
+	  
+	  <!-- 團購排程器(load-on-startup) -->
+
+		  <servlet>
+		  	<servlet-name>GroupbuyTimer</servlet-name>
+		  	<servlet-class>com.groupbuy.util.GroupbuyTimer</servlet-class>
+		  	<load-on-startup>10</load-on-startup>
+		  </servlet>
+			  
+		<!-- 團購排程器(load-on-startup) -->
 	  
 <!-- 團購 -->
 
@@ -238,5 +233,5 @@
 	</filter-mapping>
 	
 <!-- 會員登入 + 會員登入濾器 -->
-  
+
 </web-app>

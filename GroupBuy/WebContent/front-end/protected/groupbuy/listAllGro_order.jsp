@@ -109,7 +109,7 @@
 																	<img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}" class="align-self-center mr-3 img-listAll" alt="">
 																	<div class="media-body bg-secondary p-4">
 																		<div class="row">
-																			<div class="col-10">
+																			<div class="col-8">
 																				<h3 class="mt-0 text-white mb-3">${productSvc.getOnePro(groupbuyVO.p_id).p_name}</h3>
 																				<h4 class="mt-3 mb-1">訂單編號： ${gro_orderVO.ord_id}</h4>
 																				<c:choose>
@@ -139,14 +139,28 @@
 																				<h4>原價： $<fmt:formatNumber pattern="#" value="${productSvc.getOnePro(groupbuyVO.p_id).p_price}" /></h4>
 																				<h4>折扣價： $<fmt:formatNumber pattern="#" value="${groupbuyVO.money}" /> 元</h4>
 																				<h5>訂單成立時間： <fmt:formatDate value="${gro_orderVO.ord_date}" pattern="yyyy-MM-dd hh:mm:ss" /></h5>
-<%-- 																				<a href="<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=front-end&gro_id=${groupbuyVO.gro_id}"> --%>
-<!-- 																					<button type="button" class="btn btn-success btn-lg btn-block mt-3">查看訂單詳情</button> -->
-<!-- 																				</a> -->
 																			</div>
-																			<div class="col-2">
-																				<a href="<%=request.getContextPath()%>/gro_order/gro_order.do?action=getOne_For_Display&from=front-end&ord_id=${gro_orderVO.ord_id}">
-																					<button type="button" class="btn btn-success btn-lg btn-block mt-3" style="height: 250px">查看訂單詳情</button>
-																				</a>
+																			<div class="col-4">
+																				<div class="row">
+																					<div class="col-6">
+																						<c:if test="${gro_orderVO.ordstat_id eq '002'}">
+																							<form action="<%=request.getContextPath()%>/gro_order/gro_order.do" method="post">
+																								<input type="hidden" name="ord_id" value="${gro_orderVO.ord_id}">
+																								<input type="hidden" name="from" value="front-end">
+																								<input type="hidden" name="action" value="getOne_For_Payment">
+																								<button type="submit" class="btn btn-success btn-lg btn-block mt-3" style="height: 250px">付款</button>
+																							</form>
+																						</c:if>
+																					</div>
+																					<div class="col-6">
+																						<form action="<%=request.getContextPath()%>/gro_order/gro_order.do" method="post">
+																							<input type="hidden" name="ord_id" value="${gro_orderVO.ord_id}">
+																							<input type="hidden" name="from" value="front-end">
+																							<input type="hidden" name="action" value="getOne_For_Display">
+																							<button type="submit" class="btn btn-success btn-lg btn-block mt-3" style="height: 250px">查看訂單詳情</button>
+																						</form>
+																					</div>
+																				</div>
 																			</div>
 																		</div>
 																	</div>

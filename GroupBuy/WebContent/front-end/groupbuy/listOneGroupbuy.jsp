@@ -213,13 +213,6 @@
 		var discount3 = ${rebateSvc.getOneRebate(groupbuyVO.reb3_no).discount};
 		
 		var currentGroup = ${groupbuyVO.people};
-// 		var first = 	(currentGroup / level1 * 100) >= 100 ? 90 : (currentGroup / level1 * 100) -10 ;
-// 		var second = 	(currentGroup / level2 * 100) >= 100 ? 90 : (currentGroup / level2 * 100) -10 ;
-// 		var third = 	(currentGroup / level3 * 100) >= 100 ? 90 : (currentGroup / level3 * 100) -10 ;
-		
-// 		var first = 	(currentGroup / level1 * 100);
-// 		var second = 	(currentGroup / level2 * 100);
-// 		var third = 	(currentGroup / level3 * 100);
 		
 		function checkPercent(target){
 			if (target >= 100){
@@ -237,14 +230,14 @@
 		
 		var currentValue = ${productSvc.getOnePro(groupbuyVO.p_id).p_price};
 		var showNow = '';
-		if (currentGroup >= level1) {
-			currentValue = (currentValue * discount1).toFixed(0);
+		if (currentGroup >= level3) {
+			currentValue = (currentValue * discount3).toFixed(0);
 			showNow = '目前達標金額： $ ';
 		} else if (currentGroup >= level2) {
 			currentValue = (currentValue * discount2).toFixed(0);
 			showNow = '目前達標金額： $ ';
-		} else if (currentGroup >= level3) {
-			currentValue = (currentValue * discount13).toFixed(0);
+		} else if (currentGroup >= level1) {
+			currentValue = (currentValue * discount1).toFixed(0);
 			showNow = '目前達標金額： $ ';
 		} else {
 			currentValue = ${productSvc.getOnePro(groupbuyVO.p_id).p_price}.toFixed(0);

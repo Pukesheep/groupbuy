@@ -161,11 +161,11 @@
 													<div class="col-4">
 														<div class="form-group">
 															<label for="receive_name">收件者名稱</label>
-															<input type="text" class="form-control" id="receive_name" name="receive_name" value="" autocomplete="off">
+															<input type="text" class="form-control" id="receive_name" name="receive_name" value="${param.receive_name}" autocomplete="off">
 														</div>
 														<div class="form-group">
 															<label for="phone">收件者手機</label>
-															<input type="text" class="form-control" id="phone" name="phone" value="" autocomplete="off">
+															<input type="text" class="form-control" id="phone" name="phone" value="${param.phone}" autocomplete="off" maxlength="10">
 														</div>
 														<button type="button" id="fillForm" class="btn btn-outline-info btn-lg btn-block mt-4">導入會員資料</button>
 														<button type="button" id="clearForm" class="btn btn-outline-danger btn-lg btn-block mt-5">清除</button>
@@ -173,19 +173,19 @@
 													<div class="col-4">
 														<div class="form-group">
 															<label for="card_no">信用卡號</label>
-															<input type="text" class="form-control" id="card_no" name="card_no" value="" autocomplete="off" maxlength="16">
+															<input type="text" class="form-control" id="card_no" name="card_no" value="${param.card_no}" autocomplete="off" maxlength="16">
 														</div>
 														<div class="form-group">
 															<label for="card_yy">到期年份</label>
-															<input type="text" class="form-control" id="card_yy" name="card_yy" value="" autocomplete="off" maxlength="4">
+															<input type="text" class="form-control" id="card_yy" name="card_yy" value="${param.card_yy}" autocomplete="off" maxlength="4">
 														</div>
 														<div class="form-group">
 															<label for="card_mm">到期月份</label>
-															<input type="text" class="form-control" id="card_mm" name="card_mm" value="" autocomplete="off" maxlength="2">
+															<input type="text" class="form-control" id="card_mm" name="card_mm" value="${param.card_mm}" autocomplete="off" maxlength="2">
 														</div>
 														<div class="form-group">
 															<label for="card_sec">卡片安全碼</label>
-															<input type="text" class="form-control" id="card_sec" name="card_sec" value="" autocomplete="off" maxlength="3">
+															<input type="text" class="form-control" id="card_sec" name="card_sec" value="${param.card_sec}" autocomplete="off" maxlength="3">
 														</div>
 													</div>
 													<div class="col-4  my-selector-c">
@@ -203,7 +203,7 @@
 														</div>
 														<div class="form-group">
 															<label for="address">地址</label>
-															<input type="text" class="form-control" id="address" name="address" value="" readonly autocomplete="off">
+															<input type="text" class="form-control" id="address" name="address" value="${param.address}" readonly autocomplete="off">
 														</div>
 													</div>
 												</div>
