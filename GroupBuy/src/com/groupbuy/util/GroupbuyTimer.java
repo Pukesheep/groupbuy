@@ -32,7 +32,8 @@ public class GroupbuyTimer extends HttpServlet {
 		// 檢查上架團購的時間, 計算並且判斷人數對應折扣後修改團購狀態, 30秒執行一次
 		timer.schedule(undeploy, 0, 30 * 1000);
 		// 查詢進入達標狀態的團購, 產生訂單, 5分鐘執行一次
-		timer.schedule(orderlist, 0, 5 * 60 * 1000);
+//		timer.schedule(orderlist, 0, 5 * 60 * 1000);
+		timer.schedule(orderlist, 0, 30 * 1000);
 		
 	}
 	

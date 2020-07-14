@@ -12,8 +12,6 @@ public class OrderList extends TimerTask {
 	@Override
 	public void run() {
 		
-		Timestamp now = new Timestamp(System.currentTimeMillis());
-		
 		GroupbuyService groupbuySvc = new GroupbuyService();
 		GromemService gromemSvc = new GromemService();
 		Gro_orderService gro_orderSvc = new Gro_orderService();
@@ -39,15 +37,17 @@ public class OrderList extends TimerTask {
 			Double ord_price = aGroupbuy.getMoney(); // 訂單價格
 			String ordstat_id = "002"; // 待付款
 			String gro_id = aGroupbuy.getGro_id(); // 團購編號
-			Gro_orderVO gro_orderVO = new Gro_orderVO();
-			gro_orderVO.setGro_id(gro_id);
-			gro_orderVO.setOrdstat_id(ordstat_id);
-			gro_orderVO.setOrd_price(ord_price);
+			
 			for (GromemVO gromemVO : gromemList) {
+				Gro_orderVO gro_orderVO = new Gro_orderVO();
 				String mem_id = gromemVO.getMem_id(); // 會員編號
+				gro_orderVO.setGro_id(gro_id);
+				gro_orderVO.setOrdstat_id(ordstat_id);
+				gro_orderVO.setOrd_price(ord_price);
 				gro_orderVO.setMem_id(mem_id);
 				gro_orderList.add(gro_orderVO);
 			}
+			
 			// 存好gro_orderVO的list拿去呼叫ording方法
 			// 再用前面宣告的list來接自增主鍵的字串
 			primaryKeyList = gro_orderSvc.ording(gro_orderList);
@@ -59,7 +59,6 @@ public class OrderList extends TimerTask {
 					aGroupbuy.getPeople(), aGroupbuy.getMoney(), aGroupbuy.getAmount());
 			
 			// 存入自增主鍵的 list 目前還沒有要用到
-			
 		}
 		
 		
@@ -70,22 +69,6 @@ public class OrderList extends TimerTask {
 		
 		
 		
-		
-		
-//		for (GroupbuyVO aGroupbuy : list) {
-//			
-//			System.out.println("========================");
-//			System.out.println("GRO_ID = " + aGroupbuy.getGro_id());
-//			System.out.println("STATUS = " + aGroupbuy.getStatus());
-//			System.out.println("MONEY = " + aGroupbuy.getMoney());
-//			System.out.println("There are  = " + aGroupbuy.getPeople() + " people");
-//			List<GromemVO> list1 = gromemSvc.getAllByG(aGroupbuy.getGro_id());
-//			for (GromemVO aGromem : list1) {
-//				System.out.println(aGromem.getMem_id());
-//			}
-//			System.out.println("========================");
-//			
-//		}
 		
 		
 	}
