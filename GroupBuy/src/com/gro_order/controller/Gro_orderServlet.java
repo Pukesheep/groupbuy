@@ -72,7 +72,7 @@ public class Gro_orderServlet extends HttpServlet {
 				Timestamp ord_date = gro_orderVO.getOrd_date();
 				String mem_id = gro_orderVO.getMem_id();
 				String gro_id = gro_orderVO.getGro_id();
-				Integer ord_price = gro_orderVO.getOrd_price();
+				Double ord_price = gro_orderVO.getOrd_price();
 				String receive_name = gro_orderVO.getReceive_name();
 				String address = gro_orderVO.getAddress();
 				String phone = gro_orderVO.getPhone();

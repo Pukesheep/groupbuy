@@ -11,7 +11,7 @@ public class Gro_orderVO implements Serializable {
 	private String gro_id;
 	private String mem_id;
 	private String ordstat_id;
-	private Integer ord_price;
+	private Double ord_price;
 	private Timestamp ord_date;
 	private String receive_name;
 	private String address;
@@ -41,10 +41,10 @@ public class Gro_orderVO implements Serializable {
 	public void setOrdstat_id(String ordstat_id) {
 		this.ordstat_id = ordstat_id;
 	}
-	public Integer getOrd_price() {
+	public Double getOrd_price() {
 		return ord_price;
 	}
-	public void setOrd_price(Integer ord_price) {
+	public void setOrd_price(Double ord_price) {
 		this.ord_price = ord_price;
 	}
 	public Timestamp getOrd_date() {

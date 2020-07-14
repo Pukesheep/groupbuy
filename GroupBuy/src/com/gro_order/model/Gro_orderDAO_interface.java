@@ -11,5 +11,6 @@ public interface Gro_orderDAO_interface {
 	public List<Gro_orderVO> getAll();
 	public List<Gro_orderVO> findByMem_id(String mem_id);
 	public List<Gro_orderVO> findByGro_id(String gro_id);
+	public String ording(Gro_orderVO gro_orderVO);
 
 }

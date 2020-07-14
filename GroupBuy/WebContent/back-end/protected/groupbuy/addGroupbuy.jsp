@@ -406,6 +406,37 @@
 		 });
 	});
 	
+	function init(){
+		
+		var now = new Date();
+		var tommorrow = new Date(now);
+		tommorrow.setDate(now.getDate() + 1)
+		
+		$('#start_date').datetimepicker({
+		    theme: '',              //theme: 'dark',
+		     timepicker:false,       //timepicker:true,
+		     step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+		     format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
+			   value: new Date(), // value:   new Date(),
+		    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+		    //startDate:	            '2017/07/10',  // 起始日
+		    //minDate:               '-1970-01-01', // 去除今日(不含)之前
+		    //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+		 });
+		
+		$('#end_date').datetimepicker({
+		    theme: '',              //theme: 'dark',
+		     timepicker:false,       //timepicker:true,
+		     step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+		     format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
+			   value: tommorrow, // value:   new Date(),
+		    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+		    //startDate:	            '2017/07/10',  // 起始日
+		    //minDate:               '-1970-01-01', // 去除今日(不含)之前
+		    //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+		 });
+	}
+	window.onload = init;
 	
 	$.datetimepicker.setLocale('zh');
 

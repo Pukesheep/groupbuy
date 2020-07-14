@@ -12,7 +12,7 @@ public class Gro_orderService {
 		dao = new Gro_orderDAO();
 	}
 	
-	public Gro_orderVO addGro_order(String gro_id, String mem_id, String ordstat_id, Integer ord_price,
+	public Gro_orderVO addGro_order(String gro_id, String mem_id, String ordstat_id, Double ord_price,
 			Timestamp ord_date, String receive_name, String address, String phone) {
 		
 		Gro_orderVO gro_orderVO = new Gro_orderVO();
@@ -32,7 +32,7 @@ public class Gro_orderService {
 	}
 	
 	public Gro_orderVO updateGro_order(String ord_id,String gro_id, String mem_id, String ordstat_id,
-			Integer ord_price, Timestamp ord_date, String receive_name, String address, String phone) {
+			Double ord_price, Timestamp ord_date, String receive_name, String address, String phone) {
 		
 		Gro_orderVO gro_orderVO = new Gro_orderVO();
 		
@@ -68,6 +68,17 @@ public class Gro_orderService {
 	
 	public List<Gro_orderVO> getAllByGro_id(String gro_id){
 		return dao.findByGro_id(gro_id);
+	}
+	
+	synchronized public List<String> ording(List<Gro_orderVO> list){
+		
+		List<String> primaryKeyList = new ArrayList<String>();
+		String primaryKey = ""; 
+		for (Gro_orderVO aGro_order : list) {
+			primaryKey = dao.ording(aGro_order);
+			primaryKeyList.add(primaryKey);
+		}
+		return primaryKeyList;
 	}
 	
 }
